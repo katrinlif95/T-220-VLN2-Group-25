@@ -5,6 +5,14 @@ from seller.models import Seller
 
 
 class Artwork(models.Model):
+
+    # Artwork status choices
+    STATUS_CHOICES = [
+        ("available", "Available"),
+        ("sold", "Sold"),
+    ]
+
+
     # Each artwork belongs to one seller
     seller = models.ForeignKey(
         Seller,
@@ -29,7 +37,11 @@ class Artwork(models.Model):
     starting_price = models.DecimalField(max_digits=10, decimal_places=2)
 
     # Status (e.g. available / sold)
-    status = models.CharField(max_length=50)
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="available"
+    )
 
     # When listed
     listed_at = models.DateTimeField(auto_now_add=True)
