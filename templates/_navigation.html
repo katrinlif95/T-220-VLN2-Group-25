@@ -1,6 +1,6 @@
 <header class="site-header">
     <nav class="main-navigation">
-        <a href="#">Artworks</a>
+        <a href="{% url 'artwork-index' %}">Artworks</a>
         <a href="#">Artists</a>
         <a href="#">Galleries</a>
     </nav>
@@ -8,11 +8,12 @@
     <a href="{% url 'home' %}" class="site-logo">ArtVault</a>
 
     <div class="header-actions">
-        <form class="search-form">
-            <input type="search" placeholder="Search">
-            <button type="submit" aria-label="Search">🔍</button>
+        <form>
+            <div class="search">
+                <span class="search-icon material-symbols-outlined">search</span>
+                <input class="search-input" type="search" placeholder="Search">
+            </div>
         </form>
-
         {% if user.is_authenticated %}
             <div class="user-menu">
                 <span class="user-icon" aria-hidden="true">●</span>
@@ -20,7 +21,7 @@
             </div>
         {% else %}
             <div class="auth-links">
-                <a href="#">Sign in</a>
+                <a href="#" class="btn btn-primary">Sign in</a>
             </div>
         {% endif %}
     </div>
