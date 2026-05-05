@@ -1,0 +1,70 @@
+:root {
+    --background-color: #FDFDFD;
+    --text-color: #363636;
+    --font-main: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+}
+
+.main-navigation {
+    display: flex;
+    gap: 24px;
+    font-weight: 600;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.site-logo {
+    font-size: 40px;
+    font-weight: 750;
+}
+
+.main-content {
+    padding: 32px;
+}
+
+.hero {
+    display: flex;
+    gap: 32px;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.site-footer {
+    padding: 32px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.h2 {
+    font-size: 12px;
+    font-weight: 600;
+}

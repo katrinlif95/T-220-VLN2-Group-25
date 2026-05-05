@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Homepage | ArtVault</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
 
-</body>
-</html>
+{%  block title %}Homepage | ArtVault{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-gallery">
+
+    </div>
+
+    <div class="hero-content">
+        <h1>Highlights this week</h1>
+        <a href="#" class="button">Explore</a>
+    </div>
+</section>
+
+{% endblock %}
