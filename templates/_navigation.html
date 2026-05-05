@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<header class="site-header">
+    <nav class="main-navigation">
+        <a href="#">Artworks</a>
+        <a href="#">Artists</a>
+        <a href="#">Galleries</a>
+    </nav>
 
-</body>
-</html>
+    <a href="{% url 'home' %}" class="site-logo">ArtVault</a>
+
+    <div class="header-actions">
+        <form class="search-form">
+            <input type="search" placeholder="Search">
+            <button type="submit" aria-label="Search">🔍</button>
+        </form>
+
+        {% if user.is_authenticated %}
+            <div class="user-menu">
+                <span class="user-icon" aria-hidden="true">●</span>
+                <span>{{ user.first_name }}</span>
+            </div>
+        {% else %}
+            <div class="auth-links">
+                <a href="#">Sign in</a>
+            </div>
+        {% endif %}
+    </div>
+</header>
