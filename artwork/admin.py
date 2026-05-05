@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
- .models import Artwork
+from .models import Artwork
 from django.utils.html import format_html
 
 
