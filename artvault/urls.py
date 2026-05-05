@@ -19,11 +19,9 @@ from django.urls import path, include
 
 # to get homepage, might move to another folder later!
 from django.http import HttpResponse
-def home(request):
-    return HttpResponse("ArtVault homepage")
 urlpatterns = [
     # to get homepage, might move to another folder later!
-    path('', home, name='home'),
+    path('', include('pages.urls')),
     path('admin/', admin.site.urls),
 
     path('artwork/', include('artwork.urls')),
