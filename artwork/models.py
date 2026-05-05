@@ -33,6 +33,8 @@ class Artwork(models.Model):
     edition = models.CharField(max_length=100)
     provenance = models.TextField()
 
+    image_url = models.URLField(blank=True)
+
     # Pricing
     starting_price = models.DecimalField(max_digits=10, decimal_places=2)
 
