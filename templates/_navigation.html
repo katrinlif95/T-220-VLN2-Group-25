@@ -1,26 +1,32 @@
+<!-- Website header -->
 <header class="site-header">
+    <!-- Main navigation links -->
     <nav class="main-navigation">
         <a href="{% url 'artwork-index' %}">Artworks</a>
         <a href="#">Artists</a>
         <a href="#">Galleries</a>
     </nav>
-
+    <!-- Website logo which links to homepage -->
     <a href="{% url 'home' %}" class="site-logo">ArtVault</a>
-
+    <!-- Header actions -->
     <div class="header-actions">
-        <form class="search-form">
-            <input type="search" placeholder="Search">
-            <button type="submit" aria-label="Search">🔍</button>
+        <!-- Search bar -->
+        <form>
+            <div class="search">
+                <input class="search-input" type="search" placeholder="Search">
+                <span class="search-icon material-symbols-outlined">search</span>
+            </div>
         </form>
-
+        <!-- Shows user menu if user is signed in -->
         {% if user.is_authenticated %}
             <div class="user-menu">
                 <span class="user-icon" aria-hidden="true">●</span>
                 <span>{{ user.first_name }}</span>
             </div>
+        <!-- Otherwise shows sign in button -->
         {% else %}
             <div class="auth-links">
-                <a href="#">Sign in</a>
+                <a href="#" class="site-btn btn-main sign-in-btn">Sign in</a>
             </div>
         {% endif %}
     </div>
