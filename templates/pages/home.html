@@ -1,17 +1,22 @@
+<!-- Homepage -->
 {% extends "base.html" %}
 {% load static %}
 
+<!-- Page title in browser tab -->
 {%  block title %}Homepage | ArtVault{% endblock %}
 
 {% block content %}
+<!-- Main content of page -->
 <section class="hero">
+    <!-- Featured artwork image -->
     <div class="hero-gallery">
-
+        <img src="{%  static 'images/art_collection_1.png'%}">
     </div>
 
+    <!-- Hero text and explore button to content -->
     <div class="hero-content">
         <h1>Highlights this week</h1>
-        <a href="#" class="button">Explore</a>
+        <a href="#" class="site-btn btn-outline-custom hero-btn">Explore</a>
     </div>
 </section>
 
