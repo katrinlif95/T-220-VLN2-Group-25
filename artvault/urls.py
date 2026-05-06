@@ -24,9 +24,9 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('admin/', admin.site.urls),
 
-    path('artwork/', include('artwork.urls')),
+    path('artworks/', include('artwork.urls')),
 
-    path('artist/', include('seller.artist_urls')),
+    path('artists/', include('seller.artist_urls')),
 
-    path('gallery/', include('seller.gallery_urls')),
+    path('galleries/', include('seller.gallery_urls')),
 ]
