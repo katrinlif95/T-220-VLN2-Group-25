@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Artworks | ArtVault{% endblock %}
+
+{% block content %}
+
+<section class="artwork-grid">
+
+    {% for art in artworks %}
+    <article class="artwork-card">
+        <h2>{{ art.title }}</h2>
+        <p>{{ art.artist }}</p>
+        <p>{{ art.medium }}</p>
+        <p>{{ art.dimensions }}</p>
+        <p>{{ art.price }} kr.</p>
+
+        {% if art.sold %}
+            <p>Sold</p>
+        {% else %}
+            <p>Available</p>
+        {% endif %}
+    </article>
+    {% endfor %}
+
+</section>
+
+{% endblock %}
