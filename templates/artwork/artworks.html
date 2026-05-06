@@ -10,20 +10,24 @@
     <section class="artwork-grid">
 
     {% for art in artworks %}
-        <article class="artwork-card">
-            <h2>{{ art.title }}</h2>
-            <p>{{ art.medium }}</p>
-            <p>{{ art.dimensions }}</p>
-            <p>{{ art.price }} kr.</p>
+    <article class="artwork-card">
 
-            {% if art.sold %}
-                <p>Sold</p>
-            {% else %}
-                <p>Available</p>
-            {% endif %}
-            <a href="{% url 'artwork-detail' art.id %}">View artwork</a>
-        </article>
-    {% endfor %}
+        <img src="{% static art.image %}" alt="{{ art.title }}">
+
+        <h2>{{ art.title }}</h2>
+
+        <p>{{ art.medium }}</p>
+        <p>{{ art.dimensions }}</p>
+        <p>{{ art.price }} kr.</p>
+
+        {% if art.sold %}
+            <p>Sold</p>
+        {% else %}
+            <p>Available</p>
+        {% endif %}
+
+    </article>
+{% endfor %}
 
     </section>
 
