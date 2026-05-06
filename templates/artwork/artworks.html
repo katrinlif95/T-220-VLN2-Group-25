@@ -1,51 +1,31 @@
 {% extends "base.html" %}
-<!-- {% load static %} -->
+{% load static %}
 
-<!-- skipta þessu út fyrir hitt fyrir neðan þegar gagnagrunnurinn er klár...
 {% block title %}Artworks | ArtVault{% endblock %}
 
 {% block content %}
 
 <section class="artworks-page">
-    <h1>Artworks</h1>
-    <p>Browse available artworks and place bids on your favourites.</p>
 
     <section class="artwork-grid">
-        <article class="artwork-card">
-            <div class="artwork-image-placeholder"></div>
-            <h2>Artwork title</h2>
-            <p>Artist name</p>
-            <p>Current bid: 25.000 kr.</p>
-            <a href="#" class="button">View artwork</a>
-        </article>
-    </section>
-</section>
-{% endblock %} -->
-
-
-
-<!-- Henda þessu fyrir neðan út þegar gagnagrunnur er klár -->
-
-
-
-
-
-<section class="artwork-grid">
 
     {% for art in artworks %}
-    <article class="artwork-card">
-        <h2>{{ art.title }}</h2>
-        <p>{{ art.medium }}</p>
-        <p>{{ art.dimensions }}</p>
-        <p>{{ art.price }} kr.</p>
+        <article class="artwork-card">
+            <h2>{{ art.title }}</h2>
+            <p>{{ art.medium }}</p>
+            <p>{{ art.dimensions }}</p>
+            <p>{{ art.price }} kr.</p>
 
-        {% if art.sold %}
-            <p>Sold</p>
-        {% else %}
-            <p>Available</p>
-        {% endif %}
-    </article>
+            {% if art.sold %}
+                <p>Sold</p>
+            {% else %}
+                <p>Available</p>
+            {% endif %}
+            <a href="{% url 'artwork-detail' art.id %}">View artwork</a>
+        </article>
     {% endfor %}
 
-</section>
+    </section>
 
+</section>
+{% endblock %}
