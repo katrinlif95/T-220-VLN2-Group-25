@@ -33,8 +33,6 @@ class Artwork(models.Model):
     edition = models.CharField(max_length=100)
     provenance = models.TextField()
 
-    image_url = models.URLField(blank=True)
-
     # Pricing
     starting_price = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -51,3 +49,24 @@ class Artwork(models.Model):
 
     def __str__(self):
         return self.title
+
+class ArtworkImage(models.Model):
+    # Each image belongs to one artwork
+    # One artwork can have many images
+    artwork = models.ForeignKey(
+        Artwork,
+        on_delete=models.CASCADE,
+        related_name="images"
+    )
+
+    # URL of this specific image
+    image_url = models.URLField()
+
+    # Required alt text for accessibility
+    alt_text = models.CharField(max_length=255)
+
+    # Controls the order of images in a gallery/carousel
+    order = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.artwork.title} image {self.order}"
