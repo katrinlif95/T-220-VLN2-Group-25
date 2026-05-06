@@ -4,8 +4,9 @@
     --main-color: #363636;
     --secondary-color: #2596BE;
 
-    --text-secondary-color: #838383;
-    --text-tertiary-color: #B3B3B3;
+    --text-secondary-color: #515151;
+    --text-tertiary-color: #838383;
+    --text-quaternary-color: #B3B3B3;
 
     --neutral-color: #E9E8E8;
 
@@ -122,7 +123,7 @@ h1 {
 
 .search-input::placeholder,
 .search-icon {
-    color: var(--text-tertiary-color);
+    color: var(--text-quaternary-color);
     margin-left: 12px;
 }
 
@@ -237,7 +238,7 @@ h1 {
     color: black;
 }
 
-/* HERO */
+/* HERO - FRONTPAGE */
 .hero {
     background-color: #F9F9F9;
     border: 1px solid var(--neutral-color);
@@ -284,4 +285,52 @@ h1 {
     font-size: 48px;
     line-height: 1.2;
     margin-bottom: 24px;
+}
+
+/* ARTWORKS */
+
+.artworks-page {
+    padding: 24px 32px;
+}
+
+.breadcrumb {
+    font-size: 13px;
+    margin-bottom: 24px;
+}
+
+.artwork-filters {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 24px;
+}
+
+.artwork-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px 64px;
+}
+
+.artwork-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+.artwork-card h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 8px 0 2px;
+}
+
+.artwork-card p {
+    font-size: 12px;
+    margin: 0;
+    color: var(--text-secondary-color);
+}
+
+.artwork-card strong {
+    display: block;
+    margin-top: 2px
 }
