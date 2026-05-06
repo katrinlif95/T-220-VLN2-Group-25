@@ -290,42 +290,65 @@ h1 {
 /* ARTWORKS */
 
 .artworks-page {
-    padding: 24px 32px;
+    padding: 16px 72px 60px;
 }
 
-.breadcrumb {
-    font-size: 13px;
-    margin-bottom: 24px;
+.breadcrumbs {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    margin-bottom: 18px;
 }
+
+.breadcrumbs a {
+    color: var(--text-tertiary-color);
+    text-decoration: underline;
+}
+
+.current-page {
+    text-decoration: underline;
+}
+
 
 .artwork-filters {
     display: flex;
     justify-content: center;
-    gap: 28px;
-    margin-bottom: 24px;
+    gap: 24px;
+    margin-bottom: 20px;
 }
+
+.artwork-filters select {
+    min-width: 110px;
+    padding: 7px 18px;
+    border: 1px solid var(--neutral-color);
+    border-radius: 999px;
+    background: white;
+    color: var(--main-color);
+}
+
 
 .artwork-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 32px 64px;
+    column-gap: 56px;
+    row-gap: 28px;
 }
 
 .artwork-card img {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    display: block;
+    margin-bottom: 4px;
 }
 
 .artwork-card h2 {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 8px 0 2px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
 }
 
 .artwork-card p {
-    font-size: 12px;
+    font-size: 13px;
     margin: 0;
     color: var(--text-secondary-color);
 }
@@ -333,4 +356,25 @@ h1 {
 .artwork-card strong {
     display: block;
     margin-top: 2px
+}
+
+.status-badge {
+    display: inline-block;
+    color: white;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    margin: 0 0 6px;
+}
+
+.status-badge.sold {
+    background-color: #c9c9c9;
+}
+
+.status-badge.available {
+    background-color: #6aa6c8;
+}
+
+.artwork-price {
+    font-weight: 700;
 }
