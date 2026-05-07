@@ -22,6 +22,7 @@ from django.http import HttpResponse
 urlpatterns = [
     # to get homepage, might move to another folder later!
     path('', include('pages.urls')),
+
     path('admin/', admin.site.urls),
 
     path('artworks/', include('artwork.urls')),
@@ -29,4 +30,6 @@ urlpatterns = [
     path('artists/', include('seller.artist_urls')),
 
     path('galleries/', include('seller.gallery_urls')),
+
+    path('account/', include('user.urls')),
 ]
