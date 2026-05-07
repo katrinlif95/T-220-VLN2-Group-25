@@ -1,26 +1,88 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Artworks | ArtVault{% endblock %}
+{% block title %}{{ artwork.title }} | ArtVault{% endblock %}
 
 {% block content %}
 
-<section class="artwork-grid">
+<section class="artwork-detail-page">
 
-    {% for art in artworks %}
-    <article class="artwork-card">
-        <h2>{{ art.title }}</h2>
-        <p>{{ art.artist }}</p>
-        <p>{{ art.medium }}</p>
-        <p>{{ art.dimensions }}</p>
-        <p>{{ art.price }} kr.</p>
+    <div class="breadcrumbs">
+        <a href="{% url 'home' %}">Homepage</a>
+        <span>></span>
+        <a href="{% url 'artwork-index' %}">Artworks</a>
+        <span>></span>
+        <span>{{ artwork.title }}</span>
+    </div>
 
-        {% if art.sold %}
-            <p>Sold</p>
-        {% else %}
-            <p>Available</p>
-        {% endif %}
-    </article>
-    {% endfor %}
+    <section class="artwork-detail-layout">
+
+        <div class="artwork-detail-image">
+            <img src="{% static artwork.image %}" alt="{{ artwork.title }}">
+        </div>
+
+        <div class="artwork-detail-info">
+
+            {% if artwork.sold %}
+                <p class="status-badge sold">Sold</p>
+            {% else %}
+                <p class="status-badge available">Available</p>
+            {% endif %}
+
+            <h1>{{ artwork.title }}</h1>
+            <p class="artist-name">{{ artwork.artist }}</p>
+
+            <p>{{ artwork.style }}</p>
+            <p>{{ artwork.medium }}</p>
+
+            <div class="bid-info">
+                <p>Current highest bid:</p>
+                <strong>{{ artwork.price }} ISK</strong>
+            </div>
+
+            <div class="detail-meta">
+                <div>
+                    <p>Starting price:</p>
+                    <strong>{{ artwork.price }} ISK</strong>
+                </div>
+                <div>
+                    <p>Listed:</p>
+                    <strong>{{ artwork.listing_date }}</strong>
+                </div>
+            </div>
+
+            {% if not artwork.sold %}
+                <a href="#" class="site-btn btn-main submit-bid-btn">Submit a bid</a>
+            {% endif %}
+
+        </div>
+
+    </section>
+
+    <section class="artwork-extra-info">
+
+        <div class="about-work">
+            <h2>About the work</h2>
+            <p><strong>Size</strong> {{ artwork.dimensions }}</p>
+            <p><strong>Year</strong> {{ artwork.year }}</p>
+            <p><strong>Edition</strong> {{ artwork.edition }}</p>
+        </div>
+
+        <div class="provenance">
+            <h2>Provenance</h2>
+            <p>{{ artwork.provenance }}</p>
+        </div>
+
+        <div class="seller-card">
+            <div class="seller-logo">AV</div>
+            <div>
+                <h2>{{ artwork.seller }}</h2>
+                <p>Contemporary art seller.</p>
+                <a href="#">Visit gallery →</a>
+            </div>
+        </div>
+
+    </section>
 
 </section>
 

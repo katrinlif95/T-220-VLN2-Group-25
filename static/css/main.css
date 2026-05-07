@@ -305,10 +305,11 @@ h1 {
     text-decoration: underline;
 }
 
+/* Spurning hvort við höfum current undirstrikað?
 .current-page {
     text-decoration: underline;
 }
-
+*/
 
 .artwork-filters {
     display: flex;
@@ -318,7 +319,7 @@ h1 {
 }
 
 .artwork-filters select {
-    min-width: 110px;
+    width: 110px;
     padding: 7px 18px;
     border: 1px solid var(--neutral-color);
     border-radius: 999px;
@@ -350,12 +351,22 @@ h1 {
 .artwork-card p {
     font-size: 13px;
     margin: 0;
-    color: var(--text-secondary-color);
+    /*color: var(--text-secondary-color); muna að eyða þessu út ef ég sé að það hefur engin áhrif (yfirskrifar status-bagde lit) */
+
 }
 
 .artwork-card strong {
     display: block;
     margin-top: 2px
+}
+
+.artwork-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.artwork-title a:hover {
+    text-decoration: underline;
 }
 
 .status-badge {
@@ -368,11 +379,11 @@ h1 {
 }
 
 .status-badge.sold {
-    background-color: #c9c9c9;
+    background-color: #CFCECC;
 }
 
 .status-badge.available {
-    background-color: #6aa6c8;
+    background-color: #2596BE;
 }
 
 .artwork-price {
