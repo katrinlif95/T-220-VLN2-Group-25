@@ -17,14 +17,14 @@ def artist_index(request):
     })
 
 
-def get_artist_by_id(request, id):
+def get_artist_by_id(request, seller_id):
 
     # Get artist by id
     # Return 404 if seller does not exist
     # or if seller is not an artist
     artist = get_object_or_404(
         Seller,
-        id=id,
+        id=seller_id,
         seller_type="artist"
     )
 
@@ -53,14 +53,14 @@ def gallery_index(request):
     })
 
 
-def get_gallery_by_id(request, id):
+def get_gallery_by_id(request, seller_id):
 
     # Get gallery by id
     # Return 404 if seller does not exist
     # or if seller is not a gallery
     gallery = get_object_or_404(
         Seller,
-        id=id,
+        id=seller_id,
         seller_type="gallery"
     )
 
