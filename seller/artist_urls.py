@@ -7,5 +7,5 @@ urlpatterns = [
     path('', views.artist_index, name='artist-index'),
 
     # http://127.0.0.1:8000/artists/{id}/
-    path('<int:id>/', views.get_artist_by_id, name='artist-detail'),
+    path('<int:seller_id>/', views.get_artist_by_id, name='artist-detail'),
 ]
