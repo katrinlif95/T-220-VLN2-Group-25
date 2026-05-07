@@ -9,3 +9,7 @@ urlpatterns = [
 # ath...
     path('<int:artwork_id>/', views.artwork_detail, name='artwork-detail'),
 ]
+
+# hér þarf að samræma nafnavenjur, bæði fyrir id hvort það sé bara id eða artwork_id (seller_id osfrv)
+# og hvort name sé artwork-detail eða artwork-by-id en artwork-detail og artwork_id er betra segir chat, meira lýsandi
+# erum að nota artwork_detail og artist_detail og gallery_detail t.d. annarsstaðar

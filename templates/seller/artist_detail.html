@@ -6,5 +6,36 @@
 </head>
 <body>
 
+<h1>{{ seller.display_name }}</h1>
+
+{# Seller cover image #}
+<img src="{{ seller.cover_image_url }}" alt="{{ seller.display_name }} cover image" width="600">
+
+{# Seller logo #}
+<img src="{{ seller.logo_url }}" alt="{{ seller.display_name }} logo" width="150">
+
+<p>{{ seller.bio }}</p>
+
+<section>
+    <h2>Artworks</h2>
+
+    {% for artwork in artworks %}
+        <a href="{% url 'artwork-detail' artwork.id %}">
+            <div>
+                {% with image=artwork.images.first %}
+                    {% if image %}
+                        <img src="{{ image.image_url }}" alt="{{ image.alt_text }}" width="200">
+                    {% endif %}
+                {% endwith %}
+
+                <h3>{{ artwork.title }}</h3>
+            </div>
+        </a>
+    {% empty %}
+        <p>No artworks listed yet.</p>
+    {% endfor %}
+</section>
+
+
 </body>
 </html>
