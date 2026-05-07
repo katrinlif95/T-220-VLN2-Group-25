@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finalize Bid</title>
+</head>
+<body>
+
+<!-- Page heading -->
+<h1>Payment details</h1>
+
+
+<!--
+Form for selecting payment method.
+
+Currently this is a simplified/mock implementation.
+The selected payment method is not yet saved to the database.
+Additional payment validation and frontend behavior
+still need to be implemented.
+-->
+<form method="post">
+
+    <!-- Django security token required for POST forms -->
+    {% csrf_token %}
+
+
+    <!-- Payment method dropdown label -->
+    <label for="payment_method">
+        Payment method
+    </label>
+
+
+    <!--
+    Dropdown for selecting payment method.
+
+    TODO:
+    - Save selected payment method in backend
+    - Dynamically show/hide additional fields
+      depending on selected payment method
+    - Add validation for payment details
+    -->
+    <select id="payment_method" name="payment_method">
+
+        <!-- Default empty option -->
+        <option value="">
+            Choose a payment method
+        </option>
+
+        <!-- Credit card option -->
+        <option value="credit_card">
+            Credit card
+        </option>
+
+        <!-- Bank transfer option -->
+        <option value="bank_transfer">
+            Bank transfer
+        </option>
+
+        <!-- Wire transfer option -->
+        <option value="wire_transfer">
+            Wire transfer
+        </option>
+
+    </select>
+
+
+    <!-- Continue button redirects user to review step -->
+    <button type="submit">
+        Continue
+    </button>
+
+</form>
+
+</body>
+</html>

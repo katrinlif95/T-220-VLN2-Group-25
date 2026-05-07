@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finalize Bid</title>
+</head>
+<body>
+
+{# Review page heading #}
+<h1>Review</h1>
+
+
+{# Show artwork title connected to the bid #}
+<p>Artwork: {{ artwork.title }}</p>
+
+
+{# Show bid amount/price #}
+<p>Bid amount: {{ bid.price }}</p>
+
+
+{# Form for final payment confirmation #}
+{# Sends POST request to finalize-confirm endpoint #}
+<form method="post" action="{% url 'finalize-confirm' bid.id %}">
+
+    {# Django security token required for POST forms #}
+    {% csrf_token %}
+
+    {# Button that confirms/finalizes payment #}
+    <button type="submit">
+        Confirm payment
+    </button>
+
+</form>
+
+
+{#
+Only show success message/modal
+if show_success_modal = True is sent from the view
+#}
+{% if show_success_modal %}
+
+    {# Success message heading #}
+    <h2>Payment successful!</h2>
+
+    {# Success message text #}
+    <p>
+        Your bid was finalized successfully.
+    </p>
+
+    {# Link that sends user back to homepage #}
+    <a href="/">
+        Return to homepage
+    </a>
+
+{% endif %}
+
+
+
+</form>
+</body>
+</html>
