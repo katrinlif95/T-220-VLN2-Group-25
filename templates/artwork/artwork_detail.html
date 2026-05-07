@@ -12,7 +12,7 @@
         <span>></span>
         <a href="{% url 'artwork-index' %}">Artworks</a>
         <span>></span>
-        <span>{{ artwork.title }}</span>
+        <span class="current-page">{{ artwork.title }}</span>
     </div>
 
     <section class="artwork-detail-layout">
@@ -32,22 +32,23 @@
             <h1>{{ artwork.title }}</h1>
             <p class="artist-name">{{ artwork.artist }}</p>
 
-            <p>{{ artwork.style }}</p>
-            <p>{{ artwork.medium }}</p>
+            <p class="artwork-style">{{ artwork.style }}</p>
+            <p class="artwork-medium">{{ artwork.medium }}</p>
 
             <div class="bid-info">
                 <p>Current highest bid:</p>
                 <strong>{{ artwork.price }} ISK</strong>
             </div>
 
-            <div class="detail-meta">
+            <div class="date-detail">
                 <div>
                     <p>Starting price:</p>
-                    <strong>{{ artwork.price }} ISK</strong>
+                    <strong>{{ artwork.starting_price }} ISK</strong>
                 </div>
+
                 <div>
                     <p>Listed:</p>
-                    <strong>{{ artwork.listing_date }}</strong>
+                    <strong>{{ artwork.listed_date }}</strong>
                 </div>
             </div>
 
@@ -60,24 +61,29 @@
     </section>
 
     <section class="artwork-extra-info">
+        <div class="artwork-left-info">
 
-        <div class="about-work">
-            <h2>About the work</h2>
-            <p><strong>Size</strong> {{ artwork.dimensions }}</p>
-            <p><strong>Year</strong> {{ artwork.year }}</p>
-            <p><strong>Edition</strong> {{ artwork.edition }}</p>
-        </div>
+            <div class="about-work">
+                <h2>About the work</h2>
+                <p><strong>Size</strong><span>{{ artwork.dimensions }}</span></p>
+                <p><strong>Year</strong><span>{{ artwork.year }}</span></p>
+                <p><strong>Edition</strong><span>{{ artwork.edition }}</span> </p>
+            </div>
 
-        <div class="provenance">
-            <h2>Provenance</h2>
-            <p>{{ artwork.provenance }}</p>
+            <div class="provenance">
+                <h2>Provenance</h2>
+                <p>{{ artwork.provenance }}</p>
+            </div>
         </div>
 
         <div class="seller-card">
-            <div class="seller-logo">AV</div>
+            <div class="seller-logo">
+                {{ artwork.seller|slice:":1" }} <!--breytum þessu þegar kemur logo í data:-->
+            </div>
+
             <div>
                 <h2>{{ artwork.seller }}</h2>
-                <p>Contemporary art seller.</p>
+                <p>{{ artwork.seller_description }}</p>
                 <a href="#">Visit gallery →</a>
             </div>
         </div>

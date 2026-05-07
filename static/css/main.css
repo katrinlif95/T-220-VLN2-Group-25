@@ -369,14 +369,26 @@ h1 {
     text-decoration: underline;
 }
 
+
 .status-badge {
-    display: inline-block;
+
+    width: fit-content;
+    margin-left: auto;
+}
+
+
+.status-badge {
+    display: block;
+    margin-left: auto;
+    width: fit-content;
     color: white;
     font-size: 11px;
-    padding: 3px 8px;
+    padding: 5px 10px;
     border-radius: 999px;
-    margin: 0 0 6px;
+
 }
+
+
 
 .status-badge.sold {
     background-color: #CFCECC;
@@ -388,4 +400,145 @@ h1 {
 
 .artwork-price {
     font-weight: 700;
+}
+
+
+/* ARTWORK DETAIL */
+.artwork-detail-page {
+    padding: 16px 72px 60px;
+}
+
+.artwork-detail-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 100px;
+    margin-top: 24px;
+    align-items: start;
+}
+
+.artwork-detail-image img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+
+
+.artwork-detail-info h1 {
+    font-size: 36px;
+    margin: 10px 0 8px;
+}
+
+.artist-name {
+    margin-bottom: 24px;
+    color: var(--text-secondary-color);
+}
+
+.artwork-style,
+.artwork-medium {
+    color: var(--text-secondary-color);
+    margin-bottom: 4px;
+}
+
+.bid-info {
+    margin-top: 28px;
+}
+
+.bid-info p {
+    margin-bottom: 4px;
+    color: var(--text-secondary-color);
+}
+
+.bid-info strong {
+    font-size: 20px;
+}
+
+.date-detail {
+    display: flex;
+    gap: 56px;
+    margin-top: 28px;
+}
+
+.date-detail p {
+    margin-bottom: 4px;
+    color: var(--text-secondary-color);
+}
+
+.submit-bid-btn {
+    display: block;
+    width: 260px;
+    margin-top: 36px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+.artwork-extra-info {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    margin-top: 72px;
+}
+
+.artwork-extra-info h2 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--neutral-color);
+}
+
+.artwork-left-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.about-work p{
+    display: flex;
+    gap: 40px;
+}
+
+.about-work p strong {
+    display: inline-block;
+    min-width: 80px;
+}
+
+.about-work p,
+.provenance p,
+.seller-card p {
+    color: var(--text-secondary-color);
+
+
+}
+
+.seller-card {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+}
+
+.seller-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--neutral-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+}
+
+.seller-card a {
+    display: block;
+    text-align: right;
+    font-weight: 600;
+
+}
+
+.seller-card a:hover {
+    text-decoration: underline;
 }
