@@ -6,5 +6,21 @@
 </head>
 <body>
 
+{# Loop through all galleries sent from the view #}
+{% for gallery in galleries %}
+
+    {# Link to this gallery's detail/profile page #}
+    <a href="{% url 'gallery-detail' gallery.id %}">
+
+        {# Show the gallery's public display name #}
+        <h2>{{ gallery.display_name }}</h2>
+
+    </a>
+
+{% empty %}
+    <p>No galleries found.</p>
+{% endfor %}
+
+
 </body>
 </html>
