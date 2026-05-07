@@ -33,9 +33,9 @@
 
     <select name="price">
         <option value="">Price</option>
-        <option value="0-25000">0 - 25.000 kr.</option>
-        <option value="25000-50000">25.000 - 50.000 kr.</option>
-        <option value="50000-plus">50.000+ kr.</option>
+        <option value="0-25000">0 - 50.000 kr.</option>
+        <option value="25000-50000">50.000 - 100.000 kr.</option>
+        <option value="50000-plus">100.000+ kr.</option>
     </select>
 
     <select name="order_by">
@@ -52,9 +52,14 @@
     {% for art in artworks %}
     <article class="artwork-card">
 
-        <img src="{% static art.image %}" alt="{{ art.title }}">
+        <a href="{% url 'artwork-detail' art.id %}">
+            <img src="{% static art.image %}" alt="{{ art.title }}">
+        </a>
 
-        <h2>{{ art.title }}</h2>
+        <h2 class="artwork-title">
+            <a href="{% url 'artwork-detail' art.id %}">{{ art.title }}
+            </a>
+        </h2>
 
         <p>{{ art.medium }}</p>
         <p>{{ art.dimensions }}</p>
@@ -73,3 +78,10 @@
 
 </section>
 {% endblock %}
+
+
+
+
+
+
+
