@@ -32,4 +32,9 @@ urlpatterns = [
     path('galleries/', include('seller.gallery_urls')),
 
     path('account/', include('user.urls')),
+
+    # Payment flow for bids
+    path('account/bids/', include('payment.urls')),
+
+
 ]
