@@ -40,7 +40,7 @@
         {# TODO: replace href="#" with payment-form url later #}
         {% if bid.status == "accepted" or bid.status == "contingent" %}
 
-            <a href="#">
+            <a href="{% url 'finalize-contact' bid.id %}">
                 Finalize bid
             </a>
 

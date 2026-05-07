@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finalize Bid</title>
+</head>
+<body>
+<h1>Contact Information</h1>
+
+<p>Artwork: {{ artwork.title }}</p>
+
+<p>Bid amount: {{ bid.price }}</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    <button type="submit">
+        Continue
+    </button>
+
+</form>
+</body>
+</html>
