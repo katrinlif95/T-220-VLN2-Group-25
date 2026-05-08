@@ -13,38 +13,55 @@
         <span class="current-page">Artworks</span>
     </div>
     <div class="artwork-filters">
-    <select name="medium">
-        <option value="">Medium</option>
-        <option value="oil">Oil</option>
-        <option value="acrylic">Acrylic</option>
-        <option value="watercolour">Watercolour</option>
-        <option value="sculpture">Sculpture</option>
-        <option value="photography">Photography</option>
-        <option value="mixed-media">Mixed media</option>
-    </select>
-
-    <select name="style">
-        <option value="">Style</option>
-        <option value="abstract">Abstract</option>
-        <option value="realism">Realism</option>
-        <option value="impressionism">Impressionism</option>
-        <option value="modern">Modern</option>
-    </select>
-
-    <select name="price">
-        <option value="">Price</option>
-        <option value="0-25000">0 - 50.000 kr.</option>
-        <option value="25000-50000">50.000 - 100.000 kr.</option>
-        <option value="50000-plus">100.000+ kr.</option>
-    </select>
-
-    <select name="order_by">
-        <option value="">Order by</option>
-        <option value="title-asc">Title A-Z</option>
-        <option value="title-desc">Title Z-A</option>
-        <option value="price-asc">Price low to high</option>
-        <option value="price-desc">Price high to low</option>
-    </select>
+        <div class="filter-select">
+            <select name="medium">
+                <option value="">Medium</option>
+                <option value="oil">Oil</option>
+                <option value="acrylic">Acrylic</option>
+                <option value="watercolour">Watercolour</option>
+                <option value="sculpture">Sculpture</option>
+                <option value="photography">Photography</option>
+                <option value="mixed-media">Mixed media</option>
+            </select>
+            <span class="material-symbols-outlined filter-arrow">
+                keyboard_arrow_down
+            </span>
+        </div>
+        <div class="filter-select">
+            <select name="style">
+                <option value="">Style</option>
+                <option value="abstract">Abstract</option>
+                <option value="realism">Realism</option>
+                <option value="impressionism">Impressionism</option>
+                <option value="modern">Modern</option>
+            </select>
+            <span class="material-symbols-outlined filter-arrow">
+                keyboard_arrow_down
+            </span>
+        </div>
+        <div class="filter-select">
+            <select name="price">
+                <option value="">Price</option>
+                <option value="0-25000">0 - 50.000 kr.</option>
+                <option value="25000-50000">50.000 - 100.000 kr.</option>
+                <option value="50000-plus">100.000+ kr.</option>
+            </select>
+            <span class="material-symbols-outlined filter-arrow">
+                keyboard_arrow_down
+            </span>
+        </div>
+        <div class="filter-select">
+            <select name="order_by">
+                <option value="">Order by</option>
+                <option value="title-asc">Title A-Z</option>
+                <option value="title-desc">Title Z-A</option>
+                <option value="price-asc">Price low to high</option>
+                <option value="price-desc">Price high to low</option>
+            </select>
+            <span class="material-symbols-outlined filter-arrow">
+                keyboard_arrow_down
+            </span>
+        </div>
 </div>
 
     <section class="artwork-grid">
