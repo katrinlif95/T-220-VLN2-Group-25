@@ -10,7 +10,7 @@ def profile_detail(request):
 
     return render(
         request,
-        "user/profile_detail.html"
+        "user/profile.html"
     )
 
 
@@ -35,7 +35,7 @@ def account_bids(request):
 
     return render(
         request,
-        "user/account_bids.html",
+        "user/bids.html",
         {
             "bids": bids
         }

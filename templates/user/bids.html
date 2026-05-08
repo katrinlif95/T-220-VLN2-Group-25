@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Bids | ArtVault{% endblock %}
+
+{% block content %}
+<section class="account-page">
+
+    {% include 'user/_account_navigation.html' with active_page="Bids" active_tab="bids" %}
+
+    <!-- Bids content -->
+    <section class="bids-section">
+
+        {% for bid in bids %}
+            <article class="bid-card">
+                {% with first_image=bid.artwork.images.first %}
+                    {% if first_image %}
+                        <img
+                            class="bid-artwork-image"
+                            src="{{ first_image.image_url }}"
+                            alt="{{ first_image.alt_text }}"
+                        >
+                    {% endif %}
+                {% endwith %}
+
+                <div class="bid-info">
+                    <h3>{{ bid.artwork.title }}</h3>
+
+                    <p>Seller: {{ bid.artwork.seller.display_name }}</p>
+                    <p>Current highest bid: </p>
+                    <p>Your bid: {{ bid.amount }} ISK</p>
+                    <p>Date: </p>
+                    <p>Expiration: </p>
+                    <p>Status: {{ bid.status|title }}</p>
+
+                    <div class="bid-actions">
+                        <a href="{% url 'artwork-detail' bid.artwork.id %}">
+                            View artwork
+                        </a>
+
+                        {% if bid.status == "accepted" or bid.status == "contingent" %}
+                            <a href="{% url 'finalize-contact' bid.id %}">
+                                Finalize bid
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+        {% empty %}
+            <p>No bids found.</p>
+        {% endfor %}
+    </section>
+
+</section>
+{% endblock %}
+
