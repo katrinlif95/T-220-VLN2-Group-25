@@ -9,13 +9,74 @@
 {# Review page heading #}
 <h1>Review</h1>
 
+<!-- Step indicator for the finalize bid process -->
+<nav class="checkout-steps">
 
-{# Show artwork title connected to the bid #}
-<p>Artwork: {{ artwork.title }}</p>
+    <!-- Completed step -->
+    <a href="{% url 'finalize-contact' bid.id %}">
+        Contact information
+    </a>
 
+    <!-- Completed step -->
+    <a href="{% url 'finalize-payment' bid.id %}">
+        Payment details
+    </a>
 
-{# Show bid amount/price #}
-<p>Bid amount: {{ bid.price }}</p>
+    <!-- Current step -->
+    <span class="active">
+        Review
+    </span>
+
+</nav>
+
+<section>
+
+    <h2>Payment details</h2>
+
+    <p>
+        <strong>Payment method:</strong>
+        {{ payment_info.payment_method }}
+    </p>
+
+    {% if payment_info.payment_method == "credit_card" %}
+        <p><strong>Name on card:</strong> {{ payment_info.card_name }}</p>
+        <p><strong>Card number:</strong> {{ payment_info.card_number }}</p>
+        <p><strong>Expiry date:</strong> {{ payment_info.expiry_date }}</p>
+        <p><strong>CVC:</strong> {{ payment_info.cvc }}</p>
+    {% endif %}
+
+    {% if payment_info.payment_method == "bank_transfer" %}
+        <p><strong>Bank account:</strong> {{ payment_info.bank_account }}</p>
+    {% endif %}
+
+    {% if payment_info.payment_method == "wire_transfer" %}
+        <p><strong>Name of sending bank:</strong> {{ payment_info.sending_bank }}</p>
+        <p><strong>Routing number:</strong> {{ payment_info.routing_number }}</p>
+        <p><strong>Account number:</strong> {{ payment_info.account_number }}</p>
+    {% endif %}
+
+</section>
+
+    <section>
+
+        <h2>Purchase summary</h2>
+
+        <p>
+            <strong>Artwork:</strong>
+            {{ bid.artwork.title }}
+        </p>
+
+        <p>
+            <strong>Seller:</strong>
+            {{ bid.artwork.seller.display_name }}
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            {{ bid.amount }}
+        </p>
+
+    </section>
 
 
 {# Form for final payment confirmation #}
@@ -32,19 +93,18 @@
 
 </form>
 
-
-{#
+<!--- TODO útfæra success message modal -->
+<!--
 Only show success message/modal
 if show_success_modal = True is sent from the view
-#}
-{% if show_success_modal %}
+{% if show_success_modal %} -->
 
     {# Success message heading #}
     <h2>Payment successful!</h2>
 
     {# Success message text #}
     <p>
-        Your bid was finalized successfully.
+         Your payment was completed successfully and your bid has been finalized.
     </p>
 
     {# Link that sends user back to homepage #}

@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class Seller(models.Model):
     # Define allowed seller types (prevents typos and enforces valid values)
     SELLER_TYPE_CHOICES = [
-        ("artist", "Artist"),    #(?)chat lagði til þetta væri individual út frá verkefnalýsingunni
+        ("artist", "Artist"),
         ("gallery", "Gallery"),
     ]
 

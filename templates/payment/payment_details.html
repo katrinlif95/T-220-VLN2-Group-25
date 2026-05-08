@@ -2,74 +2,288 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Page title shown in the browser tab -->
     <title>Finalize Bid</title>
 </head>
 <body>
 
-<!-- Page heading -->
-<h1>Payment details</h1>
+<!-- Main page heading for the whole checkout/finalize flow -->
+<h1>Finalize bid</h1>
 
 
 <!--
-Form for selecting payment method.
+    Step indicator for the finalize bid process.
 
-Currently this is a simplified/mock implementation.
-The selected payment method is not yet saved to the database.
-Additional payment validation and frontend behavior
-still need to be implemented.
+    This does not need to be clickable.
+    It only shows the user where they are in the process.
 -->
-<form method="post">
+<nav class="checkout-steps">
 
-    <!-- Django security token required for POST forms -->
-    {% csrf_token %}
+    <!-- Completed step -->
+    <a href="{% url 'finalize-contact' bid.id %}">
+        Contact information
+    </a>
+
+    <!-- Current step -->
+    <span class="active">
+        Payment details
+    </span>
+
+    <!-- Future step, disabled for now -->
+    <span class="disabled">
+        Review
+    </span>
+
+</nav>
 
 
-    <!-- Payment method dropdown label -->
-    <label for="payment_method">
-        Payment method
-    </label>
+<!--
+    Main content area.
+
+    Later this can be styled with CSS so the form is on the left
+    and the purchase summary is on the right.
+-->
+<main>
+
+    <!-- Payment details section -->
+    <section>
+
+        <!-- Page heading -->
+        <h2>Payment details</h2>
+
+
+        <!--
+            Form for selecting payment method.
+
+            Currently this is a simplified/mock implementation.
+            The selected payment method is not yet saved to the database.
+            Additional payment validation still needs to be implemented.
+        -->
+        <form method="post">
+
+            <!-- Django security token required for POST forms -->
+            {% csrf_token %}
+
+
+            <!-- Payment method dropdown label -->
+            <label for="payment_method">
+                Payment method
+            </label>
+
+
+            <!--
+                Dropdown for selecting payment method.
+
+                TODO:
+                - Save selected payment method in backend
+                - Add validation for payment details
+            -->
+            <select id="payment_method" name="payment_method">
+
+                <!-- Default empty option -->
+                <option value=""
+                    {% if not payment_info.payment_method %}selected{% endif %}>
+                    Choose a payment method
+                </option>
+
+                <!-- Credit card option -->
+                <option value="credit_card"
+                    {% if payment_info.payment_method == "credit_card" %}selected{% endif %}>
+                    Credit card
+                </option>
+
+                <!-- Bank transfer option -->
+                <option value="bank_transfer"
+                    {% if payment_info.payment_method == "bank_transfer" %}selected{% endif %}>
+                    Bank transfer
+                </option>
+
+                <!-- Wire transfer option -->
+                <option value="wire_transfer"
+                    {% if payment_info.payment_method == "wire_transfer" %}selected{% endif %}>
+                    Wire transfer
+                </option>
+
+            </select>
+
+
+            <div id="credit-card-fields">
+
+                <label>
+                    Name on card
+                </label>
+
+                <input type="text" name="card_name"  value="{{ payment_info.card_name|default:'' }}">
+
+
+                <label>
+                    Card number
+                </label>
+
+                <input type="text" name="card_number"  value="{{ payment_info.card_number|default:'' }}">
+
+
+                <label>
+                    Expiry date
+                </label>
+
+                <input type="text" name="expiry_date"  value="{{ payment_info.expiry_date|default:'' }}">
+
+
+                <label>
+                    CVC
+                </label>
+
+                <input type="text" name="cvc">
+
+            </div>
+
+
+            <div id="bank-transfer-fields" style="display: none;">
+
+                <label for="bank_account">
+                    Bank account
+                </label>
+
+                <input
+                    type="text"
+                    id="bank_account"
+                    name="bank_account"
+                    value="{{ payment_info.bank_account|default:'' }}"
+                >
+
+            </div>
+
+
+            <div id="wire-transfer-fields" style="display: none;">
+
+                <label for="sending_bank">
+                    Name of sending bank
+                </label>
+
+                <input
+                    type="text"
+                    id="sending_bank"
+                    name="sending_bank"
+                    value="{{ payment_info.sending_bank|default:'' }}"
+                >
+
+
+                <label for="routing_number">
+                    Routing number
+                </label>
+
+                <input
+                    type="text"
+                    id="routing_number"
+                    name="routing_number"
+                    value="{{ payment_info.routing_number|default:'' }}"
+                >
+
+
+                <label for="account_number">
+                    Account number
+                </label>
+
+                <input
+                    type="text"
+                    id="account_number"
+                    name="account_number"
+                    value="{{ payment_info.account_number|default:'' }}"
+                >
+
+            </div>
+
+
+            <!-- Continue button redirects user to review step -->
+            <button type="submit">
+                Continue
+            </button>
+
+        </form>
+
+    </section>
 
 
     <!--
-    Dropdown for selecting payment method.
+        Purchase summary section.
 
-    TODO:
-    - Save selected payment method in backend
-    - Dynamically show/hide additional fields
-      depending on selected payment method
-    - Add validation for payment details
+        This gives the user a quick overview of what they are about to buy.
+        Later this can be styled as a sidebar/card.
     -->
-    <select id="payment_method" name="payment_method">
+    <aside>
 
-        <!-- Default empty option -->
-        <option value="">
-            Choose a payment method
-        </option>
+        <h2>Purchase summary</h2>
 
-        <!-- Credit card option -->
-        <option value="credit_card">
-            Credit card
-        </option>
+        <p>
+            <strong>Artwork:</strong>
+            {{ bid.artwork.title }}
+        </p>
 
-        <!-- Bank transfer option -->
-        <option value="bank_transfer">
-            Bank transfer
-        </option>
+        <p>
+            <strong>Seller:</strong>
+            {{ bid.artwork.seller.display_name }}
+        </p>
 
-        <!-- Wire transfer option -->
-        <option value="wire_transfer">
-            Wire transfer
-        </option>
+        <p>
+            <strong>Price:</strong>
+            {{ bid.amount }}
+        </p>
 
-    </select>
+    </aside>
+
+</main>
 
 
-    <!-- Continue button redirects user to review step -->
-    <button type="submit">
-        Continue
-    </button>
+<!-- JavaScript kóði sem ætti að færa annað, veit bara ekki alveg hvert -->
+<script>
 
-</form>
+    // Get payment method dropdown element
+    const paymentMethod = document.getElementById("payment_method");
+
+    // Get containers for each payment method section
+    const creditCardFields = document.getElementById("credit-card-fields");
+    const bankTransferFields = document.getElementById("bank-transfer-fields");
+    const wireTransferFields = document.getElementById("wire-transfer-fields");
+
+
+    // Show correct input fields depending
+    // on selected payment method
+    function updatePaymentFields() {
+
+        // Hide all payment sections by default
+        creditCardFields.style.display = "none";
+        bankTransferFields.style.display = "none";
+        wireTransferFields.style.display = "none";
+
+        // Show credit card fields
+        if (paymentMethod.value === "credit_card") {
+            creditCardFields.style.display = "block";
+        }
+
+        // Show bank transfer fields
+        if (paymentMethod.value === "bank_transfer") {
+            bankTransferFields.style.display = "block";
+        }
+
+        // Show wire transfer fields
+        if (paymentMethod.value === "wire_transfer") {
+            wireTransferFields.style.display = "block";
+        }
+    }
+
+
+    // Update visible fields whenever
+    // selected payment method changes
+    paymentMethod.addEventListener("change", updatePaymentFields);
+
+
+    // Run once when page loads
+    // so correct fields are shown immediately
+    updatePaymentFields();
+
+</script>
 
 </body>
 </html>

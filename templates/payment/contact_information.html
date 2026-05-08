@@ -2,22 +2,221 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Page title shown in the browser tab -->
     <title>Finalize Bid</title>
 </head>
 <body>
-<h1>Contact Information</h1>
 
-<p>Artwork: {{ artwork.title }}</p>
+<!-- Main page heading for the whole checkout/finalize flow -->
+<h1>Finalize bid</h1>
 
-<p>Bid amount: {{ bid.price }}</p>
 
-<form method="post">
-    {% csrf_token %}
+<!--
+    Step indicator for the finalize bid process.
 
-    <button type="submit">
-        Continue
-    </button>
+    This does not need to be clickable.
+    It only shows the user where they are in the process.
+-->
+<nav class="checkout-steps">
 
-</form>
+    <!-- Current step -->
+    <span class="active">
+        Contact information
+    </span>
+
+    <!-- Future step, disabled for now -->
+    <span class="disabled">
+        Payment details
+    </span>
+
+    <!-- Future step, disabled for now -->
+    <span class="disabled">
+        Review
+    </span>
+
+</nav>
+
+
+<!--
+    Main content area.
+
+    Later this can be styled with CSS so the form is on the left
+    and the purchase summary is on the right.
+-->
+<main>
+
+    <!-- Contact information section -->
+    <section>
+
+        <!-- Heading for the first step -->
+        <h2>Contact information</h2>
+
+
+        <!--
+            Form for entering contact information.
+
+            method="post" means the form data is sent to the backend
+            when the user clicks Continue.
+        -->
+        <form method="post">
+
+            <!-- Django CSRF token required for POST forms -->
+            {% csrf_token %}
+
+
+            <!-- Street address input -->
+            <div>
+                <label for="street_address">
+                    Street address
+                </label>
+
+                <input
+                    type="text"
+                    id="street_address"
+                    name="street_address"
+                    value="{{ contact.street_address|default:'' }}"
+                >
+            </div>
+
+
+            <!-- City input -->
+            <div>
+                <label for="city">
+                    City
+                </label>
+
+                <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    value="{{ contact.city|default:'' }}"
+                >
+            </div>
+
+
+            <!-- Postal code input -->
+            <div>
+                <label for="postal_code">
+                    Postal code
+                </label>
+
+                <input
+                    type="text"
+                    id="postal_code"
+                    name="postal_code"
+                    value="{{ contact.postal_code|default:'' }}"
+                >
+            </div>
+
+
+            <!--
+                Country dropdown.
+
+                The selected option can later be saved in the backend.
+            -->
+            <div>
+                <label for="country">
+                    Country
+                </label>
+
+                <select id="country" name="country">
+
+                    <!-- Default empty option -->
+                    <option value="">
+                        Choose country
+                    </option>
+
+                    <option value="Iceland">
+                        Iceland
+                    </option>
+
+                    <option value="Denmark">
+                        Denmark
+                    </option>
+
+                    <option value="Norway">
+                        Norway
+                    </option>
+
+                    <option value="Sweden">
+                        Sweden
+                    </option>
+
+                    <option value="Finland">
+                        Finland
+                    </option>
+
+                    <option value="United Kingdom">
+                        United Kingdom
+                    </option>
+
+                    <option value="United States">
+                        United States
+                    </option>
+
+                </select>
+            </div>
+
+
+            <!-- National id input -->
+            <div>
+                <label for="national_id">
+                    National ID
+                </label>
+
+                <input
+                    type="text"
+                    id="national_id"
+                    name="national_id"
+                    value="{{ contact.national_id|default:'' }}"
+                >
+            </div>
+
+
+            <!--
+                Continue button.
+
+                When clicked, the form is submitted to the current view.
+                The backend can then validate/save the contact info
+                and redirect to the payment details step.
+            -->
+            <button type="submit">
+                Continue
+            </button>
+
+        </form>
+    </section>
+
+
+    <!--
+        Purchase summary section.
+
+        This gives the user a quick overview of what they are about to buy.
+        Later this can be styled as a sidebar/card.
+    -->
+    <aside>
+
+        <h2>Purchase summary</h2>
+
+        <p>
+            <strong>Artwork:</strong>
+            {{ bid.artwork.title }}
+        </p>
+
+        <p>
+            <strong>Seller:</strong>
+            {{ bid.artwork.seller.display_name }}
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            {{ bid.amount }}
+        </p>
+
+    </aside>
+
+</main>
+
 </body>
 </html>
