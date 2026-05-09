@@ -33,7 +33,7 @@ def account_bids(request):
     # TEMPORARY TEST VERSION: (svo það þurfi ekki að vera logged in til að sjá bids)
     # Manually fetch a specific test user from database
     test_user = User.objects.get(
-        username="ernao"
+        username="User1"
     )
 
     # Get bids belonging to test user
@@ -59,11 +59,25 @@ def account_bids(request):
 # Page for viewing and editing user contact information
 def contact_information(request):
 
-    # Try to get contact information for the logged-in user.
+    # TODO FINAL VERSION:
+    # Use request.user after authentication/login flow is finished
+    # contact = ContactInfo.objects.filter(
+    #     user=request.user
+    # ).first()
+
+
+    # TEMPORARY TEST VERSION:
+    # Manually fetch a specific test user from database
+    test_user = User.objects.get(
+        username="User1"
+    )
+
+    # Try to get contact information for test user.
     # If no contact info exists yet, contact will be None.
     contact = ContactInfo.objects.filter(
-        user=request.user
+        user=test_user
     ).first()
+
     # If contact information form is submitted
     if request.method == "POST":
 
