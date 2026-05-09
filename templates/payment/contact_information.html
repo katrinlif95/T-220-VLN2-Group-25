@@ -8,9 +8,11 @@
 </head>
 <body>
 
+<!-- TODO fyrir CSS - .errorlist class sem django býr til sjálft fyrir öll error msg á forminu { form.national_id.errors }} -->
+
+
 <!-- Main page heading for the whole checkout/finalize flow -->
 <h1>Finalize bid</h1>
-
 
 <!--
     Step indicator for the finalize bid process.
@@ -52,7 +54,6 @@
         <!-- Heading for the first step -->
         <h2>Contact information</h2>
 
-
         <!--
             Form for entering contact information.
 
@@ -75,8 +76,10 @@
                     type="text"
                     id="street_address"
                     name="street_address"
-                    value="{{ contact.street_address|default:'' }}"
+                    value="{{ form.street_address.value|default:'' }}"
                 >
+                {{ form.street_address.errors }}
+
             </div>
 
 
@@ -90,8 +93,9 @@
                     type="text"
                     id="city"
                     name="city"
-                    value="{{ contact.city|default:'' }}"
+                    value="{{ form.city.value|default:'' }}"
                 >
+                {{ form.city.errors }}
             </div>
 
 
@@ -105,8 +109,9 @@
                     type="text"
                     id="postal_code"
                     name="postal_code"
-                    value="{{ contact.postal_code|default:'' }}"
+                    value="{{ form.postal_code.value|default:'' }}"
                 >
+                {{ form.postal_code.errors }}
             </div>
 
 
@@ -123,41 +128,51 @@
                 <select id="country" name="country">
 
                     <!-- Default empty option -->
-                    <option value="">
+                    <option value=""
+                        {% if not form.country.value %}selected{% endif %}>
                         Choose country
                     </option>
 
-                    <option value="Iceland">
+                    <option value="IS"
+                        {% if form.country.value == "IS" %}selected{% endif %}>
                         Iceland
                     </option>
 
-                    <option value="Denmark">
+                    <option value="DK"
+                        {% if form.country.value == "DK" %}selected{% endif %}>
                         Denmark
                     </option>
 
-                    <option value="Norway">
+                    <option value="NO"
+                        {% if form.country.value == "NO" %}selected{% endif %}>
                         Norway
                     </option>
 
-                    <option value="Sweden">
+                    <option value="SE"
+                        {% if form.country.value == "SE" %}selected{% endif %}>
                         Sweden
                     </option>
 
-                    <option value="Finland">
+                    <option value="FI"
+                        {% if form.country.value == "FI" %}selected{% endif %}>
                         Finland
                     </option>
 
-                    <option value="United Kingdom">
+                    <option value="UK"
+                        {% if form.country.value == "UK" %}selected{% endif %}>
                         United Kingdom
                     </option>
 
-                    <option value="United States">
+                    <option value="US"
+                        {% if form.country.value == "US" %}selected{% endif %}>
                         United States
                     </option>
 
                 </select>
-            </div>
 
+                {{ form.country.errors }}
+
+            </div>
 
             <!-- National id input -->
             <div>
@@ -169,8 +184,10 @@
                     type="text"
                     id="national_id"
                     name="national_id"
-                    value="{{ contact.national_id|default:'' }}"
+                    value="{{ form.national_id.value|default:'' }}"
                 >
+                {{ form.national_id.errors }}
+
             </div>
 
 
@@ -187,6 +204,13 @@
 
         </form>
     </section>
+
+<a
+    href="{% url 'account-bids' %}"
+    class="cancel-link"
+>
+    Cancel and return to my bids
+</a>
 
 
     <!--

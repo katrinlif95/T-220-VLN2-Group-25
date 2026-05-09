@@ -38,9 +38,21 @@
                         </a>
 
                         {% if bid.status == "accepted" or bid.status == "contingent" %}
-                            <a href="{% url 'finalize-contact' bid.id %}">
-                                Finalize bid
-                            </a>
+
+                            {% if bid.is_finalized %}
+
+                                <span class="disabled">
+                                    Finalized
+                                </span>
+
+                            {% else %}
+
+                                <a href="{% url 'finalize-contact' bid.id %}">
+                                    Finalize bid
+                                </a>
+
+                            {% endif %}
+
                         {% endif %}
                     </div>
                 </div>
