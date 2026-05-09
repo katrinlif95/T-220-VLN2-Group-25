@@ -34,6 +34,24 @@ class Seller(models.Model):
     # Required biography/description of the seller
     bio = models.TextField()
 
+    # Short description shown on artwork cards/detail pages
+    # Separate from the longer seller biography
+    short_description = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
+    # Public contact email shown on the platform
+    # Separate from the Django User account email
+    email = models.EmailField(blank=True)
+
+    # Opening hours for galleries
+    # Optional because artist profiles may not need this
+    opening_hours = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
     # Required URLs for branding (logo and cover image)
     logo_url = models.URLField()
     cover_image_url = models.URLField()
