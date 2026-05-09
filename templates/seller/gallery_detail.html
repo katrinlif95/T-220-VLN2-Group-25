@@ -1,48 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
 
-{% if seller.seller_type == "gallery" %}
-    <section>
-        <h2>Visit us</h2>
-        <p>{{ seller.street_address }}</p>
-        <p>{{ seller.postal_code }} {{ seller.city }}</p>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/seller.css' %}">
+{% endblock %}
+
+{% block title %}{{ seller.display_name }} | ArtVault{% endblock %}
+
+{% block content %}
+
+<section class="seller-page">
+
+    <div class="page-container">
+        <nav class="breadcrumbs">
+            <a href="{% url 'home' %}">Homepage</a>
+            <span>/</span>
+            <a href="{% url 'gallery-index' %}">Galleries</a>
+            <span>/</span>
+            <span>{{ seller.display_name }}</span>
+        </nav>
+    </div>
+
+    <section class="seller-hero">
+        <img src="{% static seller.cover_image_url %}" alt="{{ seller.display_name }}">
+        <h1>{{ seller.display_name }}</h1>
     </section>
-{% endif %}
 
-<h1>{{ seller.display_name }}</h1>
+    <section class="seller-profile">
+        <div class="page-container">
+            <div class="seller-profile-container">
 
-{# Seller cover image #}
-<img src="{{ seller.cover_image_url }}" alt="{{ seller.display_name }} cover image" width="600">
+                <div class="seller-profile-logo">
+                    <img src="{% static seller.logo_url %}" alt="{{ seller.display_name }}">
+                </div>
 
-{# Seller logo #}
-<img src="{{ seller.logo_url }}" alt="{{ seller.display_name }} logo" width="150">
+                <div class="seller-about">
+                    <h2>About us</h2>
+                    <p>{{ seller.bio }}</p>
+                </div>
 
-<p>{{ seller.bio }}</p>
+                <div class="gallery-visit">
+                    <h2>Visit us</h2>
+                    <p>{{ seller.street_name }}, {{ seller.postal_code }} {{ seller.city }}</p>
+                    <p>{{ seller.opening_hours }}</p> <!-- spurning að hafa sér fyrir helgar -->
 
-<section>
-    <h2>Artworks</h2>
+                </div>
 
-    {% for artwork in artworks %}
-        <a href="{% url 'artwork-detail' artwork.id %}">
-            <div>
-                {% with image=artwork.images.first %}
-                    {% if image %}
-                        <img src="{{ image.image_url }}" alt="{{ image.alt_text }}" width="200">
-                    {% endif %}
-                {% endwith %}
+                <div class="seller-contact">
+                    <h2>Contact us</h2>
+                    {{ seller.email }}
 
-                <h3>{{ artwork.title }}</h3>
+                    <div class="seller-socials">
+                        <span>f</span>
+                        <span>◎</span>
+                        <span>𝕏</span>
+                    </div>
+                </div>
+
             </div>
-        </a>
-    {% empty %}
-        <p>No artworks listed yet.</p>
-    {% endfor %}
+        </div>
+    </section>
+
+    <section class="seller-artworks">
+        <div class="page-container">
+            <div class="seller-artworks-container">
+
+                <h2>Artworks</h2>
+
+                <div class="artwork-grid">
+                    {% for artwork in seller_artworks %}
+                        <article class="artwork-card">
+
+                            <a href="{% url 'artwork-detail' artwork.id %}">
+                                <img src="{% static artwork.image %}" alt="{{ artwork.title }}">
+                            </a>
+
+                            <div class="artwork-card-content">
+
+                                {% if artwork.sold %}
+                                    <p class="status-badge sold">Sold</p>
+                                {% else %}
+                                    <p class="status-badge available">Available</p>
+                                {% endif %}
+
+                                <div class="artwork-title">
+                                    <a href="{% url 'artwork-detail' artwork.id %}">
+                                        <h2>{{ artwork.title }}</h2>
+                                    </a>
+                                </div>
+
+                                <p>{{ artwork.medium }}</p>
+                                <p>{{ artwork.dimensions }}</p>
+
+                                <strong class="artwork-price">
+                                    {{ artwork.price }} ISK
+                                </strong>
+
+                            </div>
+
+                        </article>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
 </section>
 
-</body>
-</html>
+{% endblock %}

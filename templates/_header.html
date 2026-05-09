@@ -3,8 +3,8 @@
     <!-- Main navigation links -->
     <nav class="main-navigation">
         <a href="{% url 'artwork-index' %}">Artworks</a>
-        <a href="#">Artists</a>
-        <a href="#">Galleries</a>
+        <a href="{% url 'artist-index' %}">Artists</a>
+        <a href="{% url 'gallery-index' %}">Galleries</a>
     </nav>
     <!-- Website logo which links to homepage -->
     <a href="{% url 'home' %}" class="site-logo">ArtVault</a>
@@ -23,7 +23,7 @@
                 <span class="user-icon" aria-hidden="true">●</span>
                 <span>{{ user.first_name }}</span>
             </div>
-        <!-- Otherwise shows sign in button -->
+        <!-- Otherwise shows sign-in button -->
         {% else %}
             <div class="auth-links">
                 <button type="button" class="site-btn btn-main sign-in-btn" id="open-sign-in-modal">

@@ -1,41 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
 
-<h1>{{ seller.display_name }}</h1>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/seller.css' %}">
+{% endblock %}
 
-{# Seller cover image #}
-<img src="{{ seller.cover_image_url }}" alt="{{ seller.display_name }} cover image" width="600">
+{% block title %}{{ artist.display_name }} | ArtVault{% endblock %}
 
-{# Seller logo #}
-<img src="{{ seller.logo_url }}" alt="{{ seller.display_name }} logo" width="150">
+{% block content %}
 
-<p>{{ seller.bio }}</p>
+<section class="seller-page">
 
-<section>
-    <h2>Artworks</h2>
+    <div class="page-container">
+        <nav class="breadcrumbs">
+            <a href="{% url 'home' %}">Homepage</a>
+            <span>/</span>
+            <a href="{% url 'artist-index' %}">Artists</a>
+            <span>/</span>
+            <span>{{ artist.display_name }}</span>
+        </nav>
+    </div>
 
-    {% for artwork in artworks %}
-        <a href="{% url 'artwork-detail' artwork.id %}">
-            <div>
-                {% with image=artwork.images.first %}
-                    {% if image %}
-                        <img src="{{ image.image_url }}" alt="{{ image.alt_text }}" width="200">
-                    {% endif %}
-                {% endwith %}
+    <section class="seller-hero">
+        <img src="{% static artist.cover_image_url %}" alt="{{ artist.display_name }}">
+        <h1>{{ artist.display_name }}</h1>
+    </section>
 
-                <h3>{{ artwork.title }}</h3>
+    <section class="seller-profile">
+        <div class="page-container">
+            <div class="seller-profile-container">
+
+                <div class="seller-profile-logo">
+                    <img src="{% static artist.logo_url %}" alt="{{ artist.display_name }}">
+                </div>
+
+                <div class="seller-about">
+                    <h2>About us</h2>
+                    <p>{{ artist.bio }}</p>
+                </div>
+
+
+
+                <div class="seller-contact">
+                    <h2>Contact us</h2>
+                    <p>{{ artist.email }}</p>
+
+                    <div class="seller-socials">
+                        <span>f</span>
+                        <span>◎</span>
+                        <span>𝕏</span>
+                    </div>
+                </div>
+
             </div>
-        </a>
-    {% empty %}
-        <p>No artworks listed yet.</p>
-    {% endfor %}
+        </div>
+    </section>
+
+    <section class="seller-artworks">
+        <div class="page-container">
+            <div class="seller-artworks-container">
+
+                <h2>Artworks</h2>
+
+                <div class="artwork-grid">
+                    {% for artwork in artist_artworks %}
+                        <article class="artwork-card">
+
+                            <a href="{% url 'artwork-detail' artwork.id %}">
+                                <img src="{% static artwork.image %}" alt="{{ artwork.title }}">
+                            </a>
+
+                            <div class="artwork-card-content">
+
+                                {% if artwork.sold %}
+                                    <p class="status-badge sold">Sold</p>
+                                {% else %}
+                                    <p class="status-badge available">Available</p>
+                                {% endif %}
+
+                                <div class="artwork-title">
+                                    <a href="{% url 'artwork-detail' artwork.id %}">
+                                        <h2>{{ artwork.title }}</h2>
+                                    </a>
+                                </div>
+
+                                <p>{{ artwork.medium }}</p>
+                                <p>{{ artwork.dimensions }}</p>
+
+                                <strong class="artwork-price">
+                                    {{ artwork.price }} ISK
+                                </strong>
+
+                            </div>
+
+                        </article>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
 </section>
 
-
-</body>
-</html>
+{% endblock %}
