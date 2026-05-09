@@ -53,7 +53,7 @@ h1 {
 .site-header {
     display: grid;
     /* Left navigation, centered logo and right header actions */
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: minmax(260px, 1fr) auto minmax(360px, 1fr);
 
     align-items: center;
     padding: 16px 48px;
@@ -696,4 +696,24 @@ h1 {
     .footer-legal {
         justify-content: flex-start;
     }
+}
+
+.header-actions {
+    min-width: 260px;
+}
+
+.auth-links {
+    flex-shrink: 0;
+}
+
+.header-actions {
+    min-width: 280px;
+}
+
+.auth-links {
+    flex-shrink: 0;
+}
+
+.sign-in-btn {
+    white-space: nowrap;
 }

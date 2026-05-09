@@ -1,23 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Artists | ArtVault</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
 
-{# Loop through all artists sent from the view #}
-{% for artist in artists %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/seller.css' %}">
+{% endblock %}
 
-    {# Link to this artist's detail/profile page #}
-    <a href="{% url 'artist-detail' artist.id %}">
+{% block title %}Artists | ArtVault{% endblock %}
 
-        {# Show the artist's public display name #}
-        <h2>{{ artist.display_name }}</h2>
+{% block content %}
 
-    </a>
+<section class="artworks-page">
 
-{% endfor %}
+    <nav class="breadcrumbs">
+        <a href="{% url 'home' %}">Homepage</a>
+        <span>/</span>
+        <span class="current-page">Artists</span>
+    </nav>
 
-</body>
-</html>
+    <h1>Artists</h1>
+
+    <section class="artwork-grid">
+
+        {% for artist in artists %}
+
+            <article class="artwork-card">
+
+                <a href="{% url 'artist-detail' artist.id %}">
+                    <img src="{% static artist.logo_url %}" alt="{{ artist.display_name }}">
+                </a>
+
+                <div class="artwork-card-content">
+
+                    <a href="{% url 'artist-detail' artist.id %}">
+                        <h2>{{ artist.display_name }}</h2>
+                    </a>
+
+                    <p>{{ artist.city }}</p>
+
+                </div>
+
+            </article>
+
+        {% endfor %}
+
+    </section>
+
+</section>
+
+{% endblock %}

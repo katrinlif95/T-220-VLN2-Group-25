@@ -1,26 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Galleries | ArtVault</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
 
-{# Loop through all galleries sent from the view #}
-{% for gallery in galleries %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/seller.css' %}">
+{% endblock %}
 
-    {# Link to this gallery's detail/profile page #}
-    <a href="{% url 'gallery-detail' gallery.id %}">
+{% block title %}Galleries | ArtVault{% endblock %}
 
-        {# Show the gallery's public display name #}
-        <h2>{{ gallery.display_name }}</h2>
+{% block content %}
 
-    </a>
+<section class="artworks-page">
 
-{% empty %}
-    <p>No galleries found.</p>
-{% endfor %}
+    <nav class="breadcrumbs">
+        <a href="{% url 'home' %}">Homepage</a>
+        <span>/</span>
+        <span class="current-page">Galleries</span>
+    </nav>
 
+    <h1>Galleries</h1>
 
-</body>
-</html>
+    <section class="artwork-grid">
+
+        {% for seller in sellers %}
+
+            <article class="artwork-card">
+
+                <a href="{% url 'gallery-detail' seller.id %}">
+                    <img src="{% static seller.logo_url %}" alt="{{ seller.display_name }}">
+                </a>
+
+                <div class="artwork-card-content">
+
+                    <a href="{% url 'gallery-detail' seller.id %}">
+                        <h2>{{ seller.display_name }}</h2>
+                    </a>
+
+                    
+
+                </div>
+
+            </article>
+
+        {% endfor %}
+
+    </section>
+
+</section>
+
+{% endblock %}

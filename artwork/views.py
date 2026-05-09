@@ -147,6 +147,27 @@ artworks = [
         "sold": False,
         "image": "images/artworks/art_8.png",
     },
+
+    {
+        "id": 9,
+        "title": "Quiet Geometry",
+        "artist": "Adrian Sol",
+        "seller": "Adrian Sol",
+        "seller_description": "Minimalist contemporary artist exploring balance, geometry, "
+            "and sculptural form through calm and architectural compositions.",
+        "medium": "Mixed media sculpture",
+        "style": "Minimalist Contemporary",
+        "dimensions": "100 × 100 cm",
+        "year": 2026,
+        "edition": "Unique",
+        "provenance": "Created as part of Adrian Sol’s Geometry in Silence series, "
+            "exploring the relationship between material texture, shadow, and form.",
+        "price": 420000,
+        "starting_price": 360000,
+        "listed_date": "May 2026",
+        "sold": False,
+        "image": "images/artworks/art_9.png",
+    },
 ]
 
 
