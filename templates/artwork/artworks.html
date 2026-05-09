@@ -67,38 +67,42 @@
     <section class="artwork-grid">
 
     {% for art in artworks %}
-    <article class="artwork-card">
+        <article class="artwork-card">
 
-        <a href="{% url 'artwork-detail' art.id %}">
-            <img src="{% static art.image %}" alt="{{ art.title }}">
-        </a>
-
-        <h2 class="artwork-title">
-            <a href="{% url 'artwork-detail' art.id %}">{{ art.title }}
+            <a href="{% url 'artwork-detail' art.id %}">
+                {% with image=art.images.first %}
+                    {% if image %}
+                        <img src="{{ image.image_url }}" alt="{{ image.alt_text }}">
+                    {% else %}
+                        <img src="{% static 'images/placeholder-artwork.png' %}" alt="{{ art.title }}">
+                    {% endif %}
+                {% endwith %}
             </a>
-        </h2>
 
-        <p>{{ art.medium }}</p>
-        <p>{{ art.dimensions }}</p>
-        <p class="artwork-price">{{ art.price }} kr.</p>
+            <h2 class="artwork-title">
+                <a href="{% url 'artwork-detail' art.id %}">
+                    {{ art.title }}
+                </a>
+            </h2>
 
-        {% if art.sold %}
-            <p class="status-badge sold">Sold</p>
-        {% else %}
-            <p class="status-badge available">Available</p>
-        {% endif %}
+            <p>{{ art.artist_name }}</p>
+            <p>{{ art.medium }}</p>
+            <p>{{ art.dimensions }}</p>
 
-    </article>
-{% endfor %}
+            <p class="artwork-price">
+                {{ art.starting_price }} kr.
+            </p>
 
-    </section>
+            {% if art.status == "sold" %}
+                <p class="status-badge sold">Sold</p>
+            {% else %}
+                <p class="status-badge available">Available</p>
+            {% endif %}
+
+        </article>
+    {% endfor %}
+
+</section>
 
 </section>
 {% endblock %}
-
-
-
-
-
-
-

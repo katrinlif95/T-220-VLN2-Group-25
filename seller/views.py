@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from artwork.views import artworks
+#from artwork.views import artworks # bara hafa þetta fyrir dummy data
 from .models import Seller
 from artwork.models import Artwork
 

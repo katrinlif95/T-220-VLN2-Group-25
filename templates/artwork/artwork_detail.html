@@ -15,80 +15,118 @@
         <span class="current-page">{{ artwork.title }}</span>
     </div>
 
-    <section class="artwork-detail-layout">
+<section class="artwork-detail-layout">
 
-        <div class="artwork-detail-image">
-            <img src="{% static artwork.image %}" alt="{{ artwork.title }}">
-        </div>
+    <div class="artwork-detail-image">
 
-        <div class="artwork-detail-info">
-
-            {% if artwork.sold %}
-                <p class="status-badge sold">Sold</p>
+        {% with image=artwork.images.first %}
+            {% if image %}
+                <img src="{{ image.image_url }}" alt="{{ image.alt_text }}">
             {% else %}
-                <p class="status-badge available">Available</p>
+                <img src="{% static 'images/placeholder-artwork.png' %}" alt="{{ artwork.title }}">
             {% endif %}
+        {% endwith %}
 
-            <h1>{{ artwork.title }}</h1>
-            <p class="artist-name">{{ artwork.artist }}</p>
+    </div>
 
-            <p class="artwork-style">{{ artwork.style }}</p>
-            <p class="artwork-medium">{{ artwork.medium }}</p>
+    <div class="artwork-detail-info">
 
-            <div class="bid-info">
-                <p>Current highest bid:</p>
-                <strong>{{ artwork.price }} ISK</strong>
-            </div>
+        {% if is_sold %}
+            <p class="status-badge sold">Sold</p>
+        {% else %}
+            <p class="status-badge available">Available</p>
+        {% endif %}
 
-            <div class="date-detail">
-                <div>
-                    <p>Starting price:</p>
-                    <strong>{{ artwork.starting_price }} ISK</strong>
-                </div>
+        <h1>{{ artwork.title }}</h1>
+        <p class="artist-name">{{ artwork.artist_name }}</p>
 
-                <div>
-                    <p>Listed:</p>
-                    <strong>{{ artwork.listed_date }}</strong>
-                </div>
-            </div>
+        <p class="artwork-style">{{ artwork.style }}</p>
+        <p class="artwork-medium">{{ artwork.medium }}</p>
 
-            {% if not artwork.sold %}
-                <a href="#" class="site-btn btn-main submit-bid-btn">Submit a bid</a>
-            {% endif %}
-
+        <div class="bid-info">
+            <p>Current highest bid:</p>
+            <strong>{{ artwork.starting_price }} ISK</strong>
         </div>
 
-    </section>
-
-    <section class="artwork-extra-info">
-        <div class="artwork-left-info">
-
-            <div class="about-work">
-                <h2>About the work</h2>
-                <p><strong>Size</strong><span>{{ artwork.dimensions }}</span></p>
-                <p><strong>Year</strong><span>{{ artwork.year }}</span></p>
-                <p><strong>Edition</strong><span>{{ artwork.edition }}</span> </p>
-            </div>
-
-            <div class="provenance">
-                <h2>Provenance</h2>
-                <p>{{ artwork.provenance }}</p>
-            </div>
-        </div>
-
-        <div class="seller-card">
-            <div class="seller-logo">
-                {{ artwork.seller|slice:":1" }} <!--breytum þessu þegar kemur logo í data:-->
+        <div class="date-detail">
+            <div>
+                <p>Starting price:</p>
+                <strong>{{ artwork.starting_price }} ISK</strong>
             </div>
 
             <div>
-                <h2>{{ artwork.seller }}</h2>
-                <p>{{ artwork.seller_description }}</p>
-                <a href="#">Visit gallery →</a>
+                <p>Listed:</p>
+                <strong>{{ artwork.created_at|date:"F Y" }}</strong>
             </div>
         </div>
 
-    </section>
+        {% if not is_sold %}
+            <a href="#" class="site-btn btn-main submit-bid-btn">
+                Submit a bid
+            </a>
+        {% endif %}
+
+    </div>
+
+</section>
+
+<section class="artwork-extra-info">
+
+    <div class="artwork-left-info">
+
+        <div class="about-work">
+            <h2>About the work</h2>
+
+            <p>
+                <strong>Size</strong>
+                <span>{{ artwork.dimensions }}</span>
+            </p>
+
+            <p>
+                <strong>Year</strong>
+                <span>{{ artwork.year }}</span>
+            </p>
+
+            <p>
+                <strong>Edition</strong>
+                <span>{{ artwork.edition }}</span>
+            </p>
+
+        </div>
+
+        <div class="provenance">
+            <h2>Provenance</h2>
+            <p>{{ artwork.provenance }}</p>
+        </div>
+
+    </div>
+
+    <div class="seller-card">
+
+        <div class="seller-logo">
+            <img
+            src="{{ artwork.seller.logo_url }}"
+            alt="{{ artwork.seller.display_name }}"
+    >
+        </div>
+
+        <div>
+            <h2>{{ artwork.seller }}</h2>
+
+            <p>{{ artwork.seller.short_description }}</p>
+
+            <a href="{% url 'gallery-detail' seller_id=artwork.seller.id %}">
+                {% if artwork.seller.seller_type == "artist" %}
+                    Visit artist →
+                {% else %}
+                    Visit gallery →
+                {% endif %}
+            </a>
+        </div>
+
+    </div>
+
+</section>
 
 </section>
 
