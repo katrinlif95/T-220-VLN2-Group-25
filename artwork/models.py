@@ -36,6 +36,10 @@ class Artwork(models.Model):
     # Pricing
     starting_price = models.DecimalField(max_digits=10, decimal_places=2)
 
+    # Controls artwork order on listing pages
+    # Lower numbers appear first
+    display_order = models.PositiveIntegerField(default=0)
+
     # Status (e.g. available / sold)
     status = models.CharField(
         max_length=20,
