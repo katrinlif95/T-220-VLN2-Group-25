@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class Seller(models.Model):
     # Define allowed seller types (prevents typos and enforces valid values)
     SELLER_TYPE_CHOICES = [
-        ("artist", "Artist"),    #(?)chat lagði til þetta væri individual út frá verkefnalýsingunni
+        ("artist", "Artist"),
         ("gallery", "Gallery"),
     ]
 
@@ -34,6 +34,24 @@ class Seller(models.Model):
     # Required biography/description of the seller
     bio = models.TextField()
 
+    # Short description shown on artwork cards/detail pages
+    # Separate from the longer seller biography
+    short_description = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
+    # Public contact email shown on the platform
+    # Separate from the Django User account email
+    email = models.EmailField(blank=True)
+
+    # Opening hours for galleries
+    # Optional because artist profiles may not need this
+    opening_hours = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
     # Required URLs for branding (logo and cover image)
     logo_url = models.URLField()
     cover_image_url = models.URLField()
@@ -42,7 +60,7 @@ class Seller(models.Model):
     # According to requirements, these should ONLY be shown for galleries
     # Therefore they are optional in the database (blank=True)
     # but should be validated in forms if seller_type == "gallery"
-    street_name = models.CharField(max_length=255, blank=True)
+    street_address = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=100, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)
 

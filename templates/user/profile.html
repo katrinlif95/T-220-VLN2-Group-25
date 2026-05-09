@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}My account | ArtVault{% endblock %}
+
+{% block content %}
+<section class="account-page">
+
+    {% include 'user/_account_navigation.html' with active_page="Profile" active_tab="profile" %}
+
+    <!-- Profile content -->
+    <section class="profile-section" >
+        <!-- Profile image row -->
+        <div class="profile-image-row">
+            <!--TODO: Breyta seinna svo að notandi geti upload-að mynd-->
+            <div class="profile-image-placeholder">
+            </div>
+
+            <a href="#" class="change-profile-image">Change profile image</a>
+
+            <button class="edit-icon-btn" type="button" aria-label="Edit profile image">
+                <span class="material-symbols-outlined">edit</span>
+            </button>
+        </div>
+
+        <!-- Profile form -->
+        <form class="profile-form">
+            <div class="profile-form-row">
+                <label for="profile-name">Name</label>
+                <input id="profile-name" type="text">
+
+                <button class="edit-icon-btn" type="button" aria-label="Edit name">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
+            </div>
+
+            <div class="profile-form-row">
+                    <label for="profile-email">Email</label>
+                    <input id="profile-email" type="email">
+
+                <button class="edit-icon-btn" type="button" aria-label="Edit email">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
+            </div>
+        </form>
+    </section>
+
+</section>
+{% endblock %}

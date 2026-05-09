@@ -1,14 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- Breadcrumbs -->
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="{% url 'home' %}">Homepage</a>
+    <span>&gt;</span>
+    <span class="current-page">My account &gt; {{ active_page }}</span>
+</nav>
 
-<a href="{% url 'account-profile' %}">Profile</a>
-<a href="{% url 'account-bids' %}">Bids</a>
-<a href="{% url 'account-contact' %}">Contact information</a>
+<h1 class="account-title">My account</h1>
 
-</body>
-</html>
+<!-- Account tabs -->
+<nav class="account-tabs" aria-label="Account sections">
+    <a href="{% url 'account-profile' %}"
+       class="{% if active_tab == 'profile' %}active{% endif %}">
+        Profile
+    </a>
+
+    <a href="{% url 'account-bids' %}"
+       class="{% if active_tab == 'bids' %}active{% endif %}">
+        Bids
+    </a>
+
+    <a href="{% url 'account-contact' %}"
+       class="{% if active_tab == 'contact' %}active{% endif %}">
+        Contact information
+    </a>
+</nav>

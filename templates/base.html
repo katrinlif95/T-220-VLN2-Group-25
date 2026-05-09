@@ -16,7 +16,7 @@
 </head>
 <body>
     <!-- Shared navigation/header -->
-    {% include '_navigation.html' %}
+    {% include '_header.html' %}
 
     <!-- Main content of page -->
     <main class="main-content">
@@ -26,6 +26,9 @@
 
     <!-- Shared footer -->
     {% include '_footer.html' %}
+
+    <!-- Modals -->
+    {% comment %}{% include 'user/sign_in.html' %}{% endcomment %}
 
     <!-- Bootstrap Javascript bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" ></script>

@@ -2,7 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <title>Finalize Bid</title>
+
+    <!-- Internal css bara til að testa pop up glugga staðfestingu -->
+     <style>
+
+        /* Dark overlay behind modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.5);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* White modal box */
+        .success-modal {
+            background: white;
+
+            padding: 2rem;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            max-width: 400px;
+        }
+
+    </style>
+
+
 </head>
 <body>
 
@@ -10,12 +47,76 @@
 <h1>Review</h1>
 
 
-{# Show artwork title connected to the bid #}
-<p>Artwork: {{ artwork.title }}</p>
+<!-- Step indicator for the finalize bid process -->
+<nav class="checkout-steps">
+
+    <!-- Completed step -->
+    <a href="{% url 'finalize-contact' bid.id %}">
+        Contact information
+    </a>
+
+    <!-- Completed step -->
+    <a href="{% url 'finalize-payment' bid.id %}">
+        Payment details
+    </a>
+
+    <!-- Current step -->
+    <span class="active">
+        Review
+    </span>
+
+</nav>
 
 
-{# Show bid amount/price #}
-<p>Bid amount: {{ bid.price }}</p>
+<section>
+
+    <h2>Payment details</h2>
+
+    <p>
+        <strong>Payment method:</strong>
+        {{ payment_method_label }}
+    </p>
+
+    {% if payment_info.payment_method == "credit_card" %}
+        <p><strong>Name on card:</strong> {{ payment_info.card_name }}</p>
+        <p><strong>Card number:</strong> {{ payment_info.card_number }}</p>
+        <p><strong>Expiry date:</strong> {{ payment_info.expiry_date }}</p>
+        <p><strong>CVC:</strong> {{ payment_info.cvc }}</p>
+    {% endif %}
+
+    {% if payment_info.payment_method == "bank_transfer" %}
+        <p><strong>Bank account:</strong> {{ payment_info.bank_account }}</p>
+    {% endif %}
+
+    {% if payment_info.payment_method == "wire_transfer" %}
+        <p><strong>Name of sending bank:</strong> {{ payment_info.sending_bank }}</p>
+        <p><strong>Routing number:</strong> {{ payment_info.routing_number }}</p>
+        <p><strong>Account number:</strong> {{ payment_info.account_number }}</p>
+    {% endif %}
+
+</section>
+
+
+<section>
+
+    <h2>Purchase summary</h2>
+
+    <p>
+        <strong>Artwork:</strong>
+        {{ bid.artwork.title }}
+    </p>
+
+    <p>
+        <strong>Seller:</strong>
+        {{ bid.artwork.seller.display_name }}
+    </p>
+
+    <p>
+        <strong>Price:</strong>
+        {{ bid.amount }}
+    </p>
+
+</section>
 
 
 {# Form for final payment confirmation #}
@@ -33,29 +134,39 @@
 </form>
 
 
-{#
+<!--- TODO útfæra success message modal -->
+<!--
 Only show success message/modal
 if show_success_modal = True is sent from the view
-#}
+-->
 {% if show_success_modal %}
 
-    {# Success message heading #}
-    <h2>Payment successful!</h2>
+    <!-- Dark background overlay behind modal -->
+    <div class="modal-overlay">
 
-    {# Success message text #}
-    <p>
-        Your bid was finalized successfully.
-    </p>
+        <!-- Main success modal container -->
+        <div class="success-modal">
 
-    {# Link that sends user back to homepage #}
-    <a href="/">
-        Return to homepage
-    </a>
+            {# Success message heading #}
+            <h2>Payment successful!</h2>
+
+            {# Success message text #}
+            <p>
+                Your payment was completed successfully
+                and your bid has been finalized.
+            </p>
+
+            {# Link that sends user back to homepage #}
+            <a href="/">
+                Return to homepage
+            </a>
+
+        </div>
+
+    </div>
+
 
 {% endif %}
 
-
-
-</form>
 </body>
 </html>

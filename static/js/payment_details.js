@@ -1,0 +1,43 @@
+    // Get payment method dropdown element
+    const paymentMethod = document.getElementById("payment_method");
+
+    // Get containers for each payment method section
+    const creditCardFields = document.getElementById("credit-card-fields");
+    const bankTransferFields = document.getElementById("bank-transfer-fields");
+    const wireTransferFields = document.getElementById("wire-transfer-fields");
+
+
+    // Show correct input fields depending
+    // on selected payment method
+    function updatePaymentFields() {
+
+        // Hide all payment sections by default
+        creditCardFields.style.display = "none";
+        bankTransferFields.style.display = "none";
+        wireTransferFields.style.display = "none";
+
+        // Show credit card fields
+        if (paymentMethod.value === "credit_card") {
+            creditCardFields.style.display = "block";
+        }
+
+        // Show bank transfer fields
+        if (paymentMethod.value === "bank_transfer") {
+            bankTransferFields.style.display = "block";
+        }
+
+        // Show wire transfer fields
+        if (paymentMethod.value === "wire_transfer") {
+            wireTransferFields.style.display = "block";
+        }
+    }
+
+
+    // Update visible fields whenever
+    // selected payment method changes
+    paymentMethod.addEventListener("change", updatePaymentFields);
+
+
+    // Run once when page loads
+    // so correct fields are shown immediately
+    updatePaymentFields();

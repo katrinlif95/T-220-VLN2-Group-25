@@ -2,74 +2,265 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Page title shown in the browser tab -->
     <title>Finalize Bid</title>
 </head>
+
+{% load static %}
 <body>
 
-<!-- Page heading -->
-<h1>Payment details</h1>
+<!-- Main page heading for the whole checkout/finalize flow -->
+<h1>Finalize bid</h1>
 
 
 <!--
-Form for selecting payment method.
+    Step indicator for the finalize bid process.
 
-Currently this is a simplified/mock implementation.
-The selected payment method is not yet saved to the database.
-Additional payment validation and frontend behavior
-still need to be implemented.
+    This does not need to be clickable.
+    It only shows the user where they are in the process.
 -->
-<form method="post">
+<nav class="checkout-steps">
 
-    <!-- Django security token required for POST forms -->
-    {% csrf_token %}
+    <!-- Completed step -->
+    <a href="{% url 'finalize-contact' bid.id %}">
+        Contact information
+    </a>
+
+    <!-- Current step -->
+    <span class="active">
+        Payment details
+    </span>
+
+    <!-- Future step, disabled for now -->
+    <span class="disabled">
+        Review
+    </span>
+
+</nav>
 
 
-    <!-- Payment method dropdown label -->
-    <label for="payment_method">
-        Payment method
-    </label>
+<!--
+    Main content area.
+
+    Later this can be styled with CSS so the form is on the left
+    and the purchase summary is on the right.
+-->
+<main>
+
+    <!-- Payment details section -->
+    <section>
+
+        <!-- Page heading -->
+        <h2>Payment details</h2>
+
+
+        <!--
+            Form for selecting payment method.
+        -->
+        <form method="post">
+
+            <!-- Django security token required for POST forms -->
+            {% csrf_token %}
+
+            <!-- Payment method dropdown label -->
+            <label for="payment_method">
+                Payment method
+            </label>
+
+            <!--
+                Dropdown for selecting payment method.
+
+                TODO:
+                - Save selected payment method in backend
+                - Add validation for payment details
+            -->
+            <select id="payment_method" name="payment_method">
+
+                <!-- Default empty option -->
+                <option value=""
+                    {% if not form.payment_method.value %}selected{% endif %}>
+                    Choose a payment method
+                </option>
+
+                <!-- Credit card option -->
+                <option value="credit_card"
+                    {% if form.payment_method.value == "credit_card" %}selected{% endif %}>
+                    Credit card
+                </option>
+
+                <!-- Bank transfer option -->
+                <option value="bank_transfer"
+                    {% if form.payment_method.value == "bank_transfer" %}selected{% endif %}>
+                    Bank transfer
+                </option>
+
+                <!-- Wire transfer option -->
+                <option value="wire_transfer"
+                    {% if form.payment_method.value == "wire_transfer" %}selected{% endif %}>
+                    Wire transfer
+                </option>
+
+            </select>
+
+            {{ form.payment_method.errors }}
+
+            <div id="credit-card-fields">
+
+                <label>
+                    Name on card
+                </label>
+
+                <input
+                    type="text"
+                    name="card_name"
+                    value="{{ form.card_name.value|default:'' }}"
+                >
+                {{ form.card_name.errors }}
+
+
+                <label>
+                    Card number
+                </label>
+
+                <input
+                    type="text"
+                    name="card_number"
+                    placeholder="0000 0000 0000 0000"
+                    value="{{ form.card_number.value|default:'' }}"
+                >
+                {{ form.card_number.errors }}
+
+
+                <label>
+                    Expiry date
+                </label>
+
+                <input
+                    type="text"
+                    name="expiry_date"
+                    placeholder="MM/YY"
+                    value="{{ form.expiry_date.value|default:'' }}"
+                >
+                {{ form.expiry_date.errors }}
+
+
+                <label>
+                    CVC
+                </label>
+
+                <input
+                    type="text"
+                    name="cvc"
+                    placeholder="000"
+                    value="{{ form.cvc.value|default:'' }}"
+                >
+                {{ form.cvc.errors }}
+
+            </div>
+
+
+            <div id="bank-transfer-fields" style="display: none;">
+
+                <label for="bank_account">
+                    Bank account
+                </label>
+
+                <input
+                    type="text"
+                    id="bank_account"
+                    name="bank_account"
+                    placeholder="0000-00-000000"
+                    value="{{ form.bank_account.value|default:'' }}"
+                >
+                {{ form.bank_account.errors }}
+
+            </div>
+
+
+            <div id="wire-transfer-fields" style="display: none;">
+
+                <label for="sending_bank">
+                    Name of sending bank
+                </label>
+
+                <input
+                    type="text"
+                    id="sending_bank"
+                    name="sending_bank"
+                    value="{{ form.sending_bank.value|default:'' }}"
+                >
+                {{ form.sending_bank.errors }}
+
+
+                <label for="routing_number">
+                    Routing number
+                </label>
+
+                <input
+                    type="text"
+                    id="routing_number"
+                    name="routing_number"
+                    value="{{ form.routing_number.value|default:'' }}"
+                >
+                {{ form.routing_number.errors }}
+
+
+                <label for="account_number">
+                    Account number
+                </label>
+
+                <input
+                    type="text"
+                    id="account_number"
+                    name="account_number"
+                    value="{{ form.account_number.value|default:'' }}"
+                >
+                {{ form.account_number.errors }}
+
+            </div>
+
+
+            <!-- Continue button redirects user to review step -->
+            <button type="submit">
+                Continue
+            </button>
+
+        </form>
+
+    </section>
 
 
     <!--
-    Dropdown for selecting payment method.
+        Purchase summary section.
 
-    TODO:
-    - Save selected payment method in backend
-    - Dynamically show/hide additional fields
-      depending on selected payment method
-    - Add validation for payment details
+        This gives the user a quick overview of what they are about to buy.
+        Later this can be styled as a sidebar/card.
     -->
-    <select id="payment_method" name="payment_method">
+    <aside>
 
-        <!-- Default empty option -->
-        <option value="">
-            Choose a payment method
-        </option>
+        <h2>Purchase summary</h2>
 
-        <!-- Credit card option -->
-        <option value="credit_card">
-            Credit card
-        </option>
+        <p>
+            <strong>Artwork:</strong>
+            {{ bid.artwork.title }}
+        </p>
 
-        <!-- Bank transfer option -->
-        <option value="bank_transfer">
-            Bank transfer
-        </option>
+        <p>
+            <strong>Seller:</strong>
+            {{ bid.artwork.seller.display_name }}
+        </p>
 
-        <!-- Wire transfer option -->
-        <option value="wire_transfer">
-            Wire transfer
-        </option>
+        <p>
+            <strong>Price:</strong>
+            {{ bid.amount }}
+        </p>
 
-    </select>
+    </aside>
 
+</main>
 
-    <!-- Continue button redirects user to review step -->
-    <button type="submit">
-        Continue
-    </button>
-
-</form>
+<script src="{% static 'js/payment_details.js' %}"></script>
 
 </body>
 </html>
