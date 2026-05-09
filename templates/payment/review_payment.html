@@ -2,12 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <title>Finalize Bid</title>
+
+    <!-- Internal css bara til að testa pop up glugga staðfestingu -->
+     <style>
+
+        /* Dark overlay behind modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.5);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* White modal box */
+        .success-modal {
+            background: white;
+
+            padding: 2rem;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            max-width: 400px;
+        }
+
+    </style>
+
+
 </head>
 <body>
 
 {# Review page heading #}
 <h1>Review</h1>
+
 
 <!-- Step indicator for the finalize bid process -->
 <nav class="checkout-steps">
@@ -29,13 +67,14 @@
 
 </nav>
 
+
 <section>
 
     <h2>Payment details</h2>
 
     <p>
         <strong>Payment method:</strong>
-        {{ payment_info.payment_method }}
+        {{ payment_method_label }}
     </p>
 
     {% if payment_info.payment_method == "credit_card" %}
@@ -57,26 +96,27 @@
 
 </section>
 
-    <section>
 
-        <h2>Purchase summary</h2>
+<section>
 
-        <p>
-            <strong>Artwork:</strong>
-            {{ bid.artwork.title }}
-        </p>
+    <h2>Purchase summary</h2>
 
-        <p>
-            <strong>Seller:</strong>
-            {{ bid.artwork.seller.display_name }}
-        </p>
+    <p>
+        <strong>Artwork:</strong>
+        {{ bid.artwork.title }}
+    </p>
 
-        <p>
-            <strong>Price:</strong>
-            {{ bid.amount }}
-        </p>
+    <p>
+        <strong>Seller:</strong>
+        {{ bid.artwork.seller.display_name }}
+    </p>
 
-    </section>
+    <p>
+        <strong>Price:</strong>
+        {{ bid.amount }}
+    </p>
+
+</section>
 
 
 {# Form for final payment confirmation #}
@@ -93,29 +133,40 @@
 
 </form>
 
+
 <!--- TODO útfæra success message modal -->
 <!--
 Only show success message/modal
 if show_success_modal = True is sent from the view
-{% if show_success_modal %} -->
+-->
+{% if show_success_modal %}
 
-    {# Success message heading #}
-    <h2>Payment successful!</h2>
+    <!-- Dark background overlay behind modal -->
+    <div class="modal-overlay">
 
-    {# Success message text #}
-    <p>
-         Your payment was completed successfully and your bid has been finalized.
-    </p>
+        <!-- Main success modal container -->
+        <div class="success-modal">
 
-    {# Link that sends user back to homepage #}
-    <a href="/">
-        Return to homepage
-    </a>
+            {# Success message heading #}
+            <h2>Payment successful!</h2>
+
+            {# Success message text #}
+            <p>
+                Your payment was completed successfully
+                and your bid has been finalized.
+            </p>
+
+            {# Link that sends user back to homepage #}
+            <a href="/">
+                Return to homepage
+            </a>
+
+        </div>
+
+    </div>
+
 
 {% endif %}
 
-
-
-</form>
 </body>
 </html>

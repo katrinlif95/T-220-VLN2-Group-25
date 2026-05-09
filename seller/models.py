@@ -42,7 +42,7 @@ class Seller(models.Model):
     # According to requirements, these should ONLY be shown for galleries
     # Therefore they are optional in the database (blank=True)
     # but should be validated in forms if seller_type == "gallery"
-    street_name = models.CharField(max_length=255, blank=True)
+    street_address = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=100, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)
 
