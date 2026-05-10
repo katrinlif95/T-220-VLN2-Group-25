@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-
 from artwork.models import Artwork
+from artwork.services import get_current_highest_bid_amount
 
 
 def artwork_index(request):
@@ -33,9 +33,12 @@ def artwork_detail(request, artwork_id):
         for image in images
     ]
 
+    highest_bid_amount = get_current_highest_bid_amount(artwork)
+
     return render(request, "artwork/artwork_detail.html", {
         "artwork": artwork,
         "images": images,
         "main_image": main_image,
         "images_data": images_data,
+        "highest_bid_amount": highest_bid_amount,
     })
