@@ -48,7 +48,7 @@ class Artwork(models.Model):
     )
 
     # When listed
-    listed_at = models.DateTimeField(auto_now_add=True)
+    listed_at = models.DateTimeField()
             # auto_now_add=True sets the timestamp when the object is created
 
     def __str__(self):

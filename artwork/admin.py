@@ -29,7 +29,7 @@ class ArtworkImageInline(admin.TabularInline):
 class ArtworkAdmin(admin.ModelAdmin):
 
     # Updated list view (removed old single image preview)
-    list_display = ("title", "seller", "status")
+    list_display = ("id", "title", "seller", "status", "listed_at", "display_order")
 
     # Add inline images here 👇
     inlines = [ArtworkImageInline]

@@ -1,6 +1,26 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import Seller
 
-admin.site.register(Seller)
+
+@admin.register(Seller)
+class SellerAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "display_name",
+        "seller_type",
+        "user",
+        "city",
+    )
+
+    list_filter = (
+        "seller_type",
+    )
+
+    search_fields = (
+        "display_name",
+        "user__username",
+    )
+
+    ordering = (
+        "id",
+    )
