@@ -26,7 +26,7 @@
             <article class="artwork-card">
 
                 <a href="{% url 'artist-detail' artist.id %}">
-                    <img src="{% static artist.logo_url %}" alt="{{ artist.display_name }}">
+                    <img src="{{ artist.logo_url }}" alt="{{ artist.display_name }}">
                 </a>
 
                 <div class="artwork-card-content">
@@ -40,6 +40,10 @@
                 </div>
 
             </article>
+
+        {% empty %}
+
+            <p>No artists found.</p>
 
         {% endfor %}
 
