@@ -100,3 +100,7 @@
     font-size: 2rem;
     margin-bottom: 1.5rem;
 }
+
+.artwork-card-container {
+    line-height: 1.5;
+}

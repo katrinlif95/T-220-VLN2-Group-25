@@ -48,9 +48,15 @@
                     <p>{{ seller.email }}</p>
 
                     <div class="seller-socials">
-                        <span>f</span>
-                        <span>◎</span>
-                        <span>𝕏</span>
+                        <a href="https://www.facebook.com/" target="_blank">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/" target="_blank">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://x.com/" target="_blank">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -94,9 +100,11 @@
                                 <p>{{ artwork.medium }}</p>
                                 <p>{{ artwork.dimensions }}</p>
 
-                                <strong class="artwork-price">
-                                    {{ artwork.starting_price|isk }} kr
-                                </strong>
+                                <p class="starting-price">
+                                    <span>Starting bid:</span>
+                                    <strong>{{ artwork.starting_price|isk }} ISK</strong>
+                                </p>
+
 
                             </div>
 
