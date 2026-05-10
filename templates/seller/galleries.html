@@ -21,25 +21,29 @@
 
     <section class="artwork-grid">
 
-        {% for seller in sellers %}
+        {% for gallery in galleries %}
 
             <article class="artwork-card">
 
-                <a href="{% url 'gallery-detail' seller.id %}">
-                    <img src="{% static seller.logo_url %}" alt="{{ seller.display_name }}">
+                <a href="{% url 'gallery-detail' gallery.id %}">
+                    <img src="{{ gallery.logo_url }}" alt="{{ gallery.display_name }}">
                 </a>
 
                 <div class="artwork-card-content">
 
-                    <a href="{% url 'gallery-detail' seller.id %}">
-                        <h2>{{ seller.display_name }}</h2>
+                    <a href="{% url 'gallery-detail' gallery.id %}">
+                        <h2>{{ gallery.display_name }}</h2>
                     </a>
 
-                    
+                    <p>{{ gallery.city }}</p>
 
                 </div>
 
             </article>
+
+        {% empty %}
+
+            <p>No galleries found.</p>
 
         {% endfor %}
 

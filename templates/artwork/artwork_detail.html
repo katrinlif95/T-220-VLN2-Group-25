@@ -115,13 +115,15 @@
 
             <p>{{ artwork.seller.short_description }}</p>
 
-            <a href="{% url 'gallery-detail' seller_id=artwork.seller.id %}">
-                {% if artwork.seller.seller_type == "artist" %}
+            {% if artwork.seller.seller_type == "artist" %}
+                <a href="{% url 'artist-detail' seller_id=artwork.seller.id %}">
                     Visit artist →
-                {% else %}
+                </a>
+            {% else %}
+                <a href="{% url 'gallery-detail' seller_id=artwork.seller.id %}">
                     Visit gallery →
-                {% endif %}
-            </a>
+                </a>
+{% endif %}
         </div>
 
     </div>
