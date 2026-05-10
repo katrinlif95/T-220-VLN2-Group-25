@@ -436,18 +436,19 @@ h1 {
     font-size: 16px;
     font-weight: 700;
     margin: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .artwork-card p {
     font-size: 13px;
     margin: 0;
-    /*color: var(--text-secondary-color); muna að eyða þessu út ef ég sé að það hefur engin áhrif (yfirskrifar status-bagde lit) */
-
+    line-height: 1;
 }
 
 .artwork-card strong {
     display: block;
-    margin-top: 2px
+    margin-top: 2px;
 }
 
 .artwork-title a {
@@ -465,7 +466,7 @@ h1 {
     width: fit-content;
     color: white;
     font-size: 11px;
-    padding: 5px 10px;
+    padding: 3px 5px;
     border-radius: 999px;
 }
 
@@ -485,6 +486,71 @@ h1 {
 
 .artwork-price {
     font-weight: 700;
+}
+
+.artwork-price span {
+    font-weight: 300;
+}
+
+/*<!-- TODO færa css fyrir flettitakka -->*/
+
+.artwork-detail-image {
+    position: relative;
+    display: inline-block;
+}
+
+#main-artwork-image {
+    display: block;
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+}
+
+.artwork-detail-image .image-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: rgba(255, 255, 255, 0.85);
+
+    font-size: 28px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    z-index: 2;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.artwork-detail-image .image-arrow-left {
+    left: 14px;
+}
+
+.artwork-detail-image .image-arrow-right {
+    right: 14px;
+}
+
+.image-arrow:hover {
+    background-color: white;
+}
+
+
+.artwork-image-wrapper {
+    position: relative;
+}
+
+.artwork-image-wrapper .status-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    margin-left: 0;
 }
 
 
@@ -763,4 +829,56 @@ h1 {
 
 .sign-in-btn {
     white-space: nowrap;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**//**/
+.artwork-meta {
+    display: flex;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-secondary-color);
+}
+
+.artwork-meta p {
+    margin: 0;
+}
+
+.artwork-price-info {
+    margin-top: 6px;
+}
+
+.starting-price,
+.current-price {
+    margin: 0;
+}
+
+.starting-price p {
+    font-size: 20px;
+}
+
+.starting-price span,
+.current-price span {
+    font-weight: 400;
+}
+
+.current-price {
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+.starting-price strong,
+.current-price strong {
+    display: inline;
 }

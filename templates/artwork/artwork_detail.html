@@ -160,59 +160,6 @@
 
 </section>
 
-
-<!-- TODO færa css fyrir flettitakka -->
-<style>
-
-.artwork-detail-image {
-    position: relative;
-    display: inline-block;
-}
-
-#main-artwork-image {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-.image-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-
-    width: 42px;
-    height: 42px;
-
-    border: none;
-    border-radius: 50%;
-
-    background-color: rgba(255, 255, 255, 0.85);
-
-    font-size: 28px;
-    line-height: 1;
-
-    cursor: pointer;
-
-    z-index: 2;
-
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-}
-
-.image-arrow-left {
-    left: 14px;
-}
-
-.image-arrow-right {
-    right: 14px;
-}
-
-.image-arrow:hover {
-    background-color: white;
-}
-
-</style>
-
 <!-- Store artwork image data as JSON for JavaScript carousel functionality -->
 {{ images_data|json_script:"artwork-images" }}
 <!-- Load JavaScript file handling artwork image navigation -->
