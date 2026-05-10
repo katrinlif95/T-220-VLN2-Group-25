@@ -1,5 +1,3 @@
-
-
 def artwork_is_sold(artwork):
     """
     Return True if the artwork has an accepted
@@ -46,3 +44,19 @@ def get_current_highest_bid_amount(artwork):
         return highest_bid.amount
 
     return None
+
+
+def add_artwork_display_status(artworks):
+    """
+    Add computed sold/available status
+    to artwork objects for templates.
+
+    This does not save anything to the database.
+    """
+
+    for artwork in artworks:
+        artwork.is_sold = artwork_is_sold(
+            artwork
+        )
+
+    return artworks

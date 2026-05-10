@@ -79,7 +79,7 @@
 
                             <div class="artwork-card-content">
 
-                                {% if artwork.status == "sold" %}
+                                {% if artwork.is_sold %}
                                     <p class="status-badge sold">Sold</p>
                                 {% else %}
                                     <p class="status-badge available">Available</p>

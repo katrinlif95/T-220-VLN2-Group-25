@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load artwork_extras %}
 
 {% block title %}Bids | ArtVault{% endblock %}
 
@@ -26,10 +27,10 @@
                     <h3>{{ bid.artwork.title }}</h3>
 
                     <p>Seller: {{ bid.artwork.seller.display_name }}</p>
-                    <p>Current highest bid: </p>
-                    <p>Your bid: {{ bid.amount }} ISK</p>
-                    <p>Date: </p>
-                    <p>Expiration: </p>
+                    <p>Current highest bid: {{ bid.artwork.highest_bid_amount|isk }} kr.</p>
+                    <p>Your bid: {{ bid.amount|isk }} kr.</p>
+                    <p>Bid submitted: {{ bid.created_at|date:"d.m.Y" }} </p>
+                    <p>Expires: {{ bid.expires_at|date:"d.m.Y" }} </p>
                     <p>Status: {{ bid.status|title }}</p>
 
                     <div class="bid-actions">

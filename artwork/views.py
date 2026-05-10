@@ -1,11 +1,17 @@
 from django.shortcuts import render, get_object_or_404
 from artwork.models import Artwork
-from artwork.services import get_current_highest_bid_amount
+from artwork.services import add_artwork_display_status, artwork_is_sold, get_current_highest_bid_amount
 
 
 def artwork_index(request):
 
-    artworks = Artwork.objects.all().order_by("display_order")
+    artworks = Artwork.objects.all().order_by(
+        "display_order"
+    )
+
+    artworks = add_artwork_display_status(
+        artworks
+    )
 
     return render(request, "artwork/artworks.html", {
         "artworks": artworks,
@@ -33,6 +39,7 @@ def artwork_detail(request, artwork_id):
         for image in images
     ]
 
+    is_sold = artwork_is_sold(artwork)
     highest_bid_amount = get_current_highest_bid_amount(artwork)
 
     return render(request, "artwork/artwork_detail.html", {
@@ -40,5 +47,6 @@ def artwork_detail(request, artwork_id):
         "images": images,
         "main_image": main_image,
         "images_data": images_data,
+        "is_sold": is_sold,
         "highest_bid_amount": highest_bid_amount,
     })
