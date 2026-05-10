@@ -79,25 +79,37 @@
                 {% endwith %}
             </a>
 
+            {% if art.status == "sold" %}
+                <p class="status-badge sold">Sold</p>
+            {% else %}
+                <p class="status-badge available">Available</p>
+            {% endif %}
             <h2 class="artwork-title">
                 <a href="{% url 'artwork-detail' art.id %}">
                     {{ art.title }}
                 </a>
             </h2>
 
-            <p>{{ art.artist_name }}</p>
-            <p>{{ art.medium }}</p>
-            <p>{{ art.dimensions }}</p>
+            <div class="artwork-meta">
+                <p>{{ art.medium }} • {{ art.dimensions }}</p>
 
-            <p class="artwork-price">
-                {{ art.starting_price }} kr.
-            </p>
+            </div>
 
-            {% if art.status == "sold" %}
-                <p class="status-badge sold">Sold</p>
-            {% else %}
-                <p class="status-badge available">Available</p>
-            {% endif %}
+            <div class="artwork-price-info">
+
+                <p class="starting-price">
+                    <span>Starting bid:</span>
+                    <strong>{{ art.starting_price }} ISK</strong>
+                </p>
+
+                {% if art.current_bid %}
+                    <p class="current-price">
+                        <span>Current bid:</span>
+                        <strong>{{ art.current_price }} ISK</strong>
+                    </p>
+                {% endif %}
+
+            </div>
 
         </article>
     {% endfor %}
