@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-
-# Create your views here.
 from bid.models import Bid
 from django.contrib.auth.models import User  #má taka út þegar login flow er orðið virkt og hardcoded test búið
 from .models import ContactInfo
+from artwork.services import get_current_highest_bid_amount
 
 # Main account/profile page
 # Displays general user profile information
@@ -41,12 +40,21 @@ def account_bids(request):
         user=test_user
     )
 
-    # Mark bids that already have completed payments
+    # Add extra display information to each bid
     for bid in bids:
+        # Mark bids that already have
+        # a completed payment
         bid.is_finalized = bid.payments.filter(
             status="completed"
         ).exists()
 
+        # Add current highest bid amount
+        # for artwork display
+        bid.artwork.highest_bid_amount = (
+            get_current_highest_bid_amount(
+                bid.artwork
+            )
+        )
     return render(
         request,
         "user/bids.html",

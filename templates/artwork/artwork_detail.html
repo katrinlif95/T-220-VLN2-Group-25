@@ -68,7 +68,12 @@
 
         <div class="bid-info">
             <p>Current highest bid:</p>
-            <strong>{{ highest_bid_amount|isk }} kr.</strong>
+
+            {% if highest_bid_amount %}
+                <strong>{{ highest_bid_amount|isk }} kr.</strong>
+            {% else %}
+                <strong>No bids yet</strong>
+            {% endif %}
         </div>
 
         <div class="date-detail">
