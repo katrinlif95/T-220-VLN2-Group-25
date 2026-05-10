@@ -21,7 +21,7 @@
 
 .seller-hero img {
     width: 100%;
-    height: 180px;
+    height: 200px;
     object-fit: cover;
     object-position: center 67%;
     display: block;
@@ -32,7 +32,7 @@
     right: 18%;
     top: 50%;
     transform: translateY(-50%);
-
+    font-family: playfair-display;
     color: white;
     font-size: 3rem;
 }
@@ -80,10 +80,14 @@
    Contact / socials
    ========================= */
 
-.seller-socials {
+.socials-links {
     display: flex;
     gap: 1rem;
     font-size: 1.8rem;
+}
+
+.social-links a {
+    font-size: 24px;
 }
 
 
