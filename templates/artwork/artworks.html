@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load humanize %}
+{% load artwork_extras %}
 
 {% block title %}Artworks | ArtVault{% endblock %}
 
@@ -91,7 +91,7 @@
             <p>{{ art.dimensions }}</p>
 
             <p class="artwork-price">
-                {{ art.starting_price|floatformat:0|intcomma }} kr.
+                {{ art.starting_price|isk }} kr.
             </p>
 
             {% if art.status == "sold" %}

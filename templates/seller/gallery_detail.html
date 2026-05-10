@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load humanize %}
+{% load artwork_extras %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/seller.css' %}">
@@ -98,7 +98,7 @@
                                 <p>{{ artwork.dimensions }}</p>
 
                                 <strong class="artwork-price">
-                                    {{ artwork.starting_price|floatformat:0|intcomma }} kr.
+                                    {{ artwork.starting_price|isk }} kr.
                                 </strong>
 
                             </div>
