@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load humanize %}
+{% load artwork_extras %}
 
 {% block title %}{{ artwork.title }} | ArtVault{% endblock %}
 
@@ -68,13 +68,13 @@
 
         <div class="bid-info">
             <p>Current highest bid:</p>
-            <strong>{{ highest_bid.amount|floatformat:0|intcomma }} kr</strong>
+            <strong>{{ highest_bid_amount|isk }} kr.</strong>
         </div>
 
         <div class="date-detail">
             <div>
                 <p>Starting price:</p>
-                <strong>{{ artwork.starting_price|floatformat:0|intcomma }} kr</strong>
+                <strong>{{ artwork.starting_price|isk }} kr.</strong>
             </div>
 
             <div>
