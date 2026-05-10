@@ -459,14 +459,6 @@ h1 {
     text-decoration: underline;
 }
 
-
-.status-badge {
-
-    width: fit-content;
-    margin-left: auto;
-}
-
-
 .status-badge {
     display: block;
     margin-left: auto;
@@ -475,7 +467,10 @@ h1 {
     font-size: 11px;
     padding: 5px 10px;
     border-radius: 999px;
+}
 
+.artwork-detail-page .status-badge {
+    padding: 6px 14px;
 }
 
 
@@ -605,28 +600,42 @@ h1 {
 
 .seller-card {
     display: flex;
-    gap: 18px;
     align-items: flex-start;
+    gap: 18px;
+    width: 100%;
 }
 
 .seller-logo {
     width: 56px;
     height: 56px;
+    flex-shrink: 0;
     border-radius: 50%;
     background-color: var(--neutral-color);
 
     display: flex;
     align-items: center;
     justify-content: center;
-
-    font-weight: 700;
 }
+
+.seller-logo img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.seller-card > div:last-child {
+    flex: 1;
+    min-width: 0;
+}
+
 
 .seller-card a {
     display: block;
+    width: 100%;
     text-align: right;
     font-weight: 600;
-
 }
 
 .seller-card a:hover {

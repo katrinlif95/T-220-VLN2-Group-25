@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{% static 'css/seller.css' %}">
 {% endblock %}
 
-{% block title %}{{ artist.display_name }} | ArtVault{% endblock %}
+{% block title %}{{ seller.display_name }} | ArtVault{% endblock %}
 
 {% block content %}
 
@@ -17,13 +17,13 @@
             <span>/</span>
             <a href="{% url 'artist-index' %}">Artists</a>
             <span>/</span>
-            <span>{{ artist.display_name }}</span>
+            <span>{{ seller.display_name }}</span>
         </nav>
     </div>
 
     <section class="seller-hero">
         <img src="{% static artist.cover_image_url %}" alt="{{ artist.display_name }}">
-        <h1>{{ artist.display_name }}</h1>
+        <h1>{{ seller.display_name }}</h1>
     </section>
 
     <section class="seller-profile">
@@ -31,19 +31,20 @@
             <div class="seller-profile-container">
 
                 <div class="seller-profile-logo">
-                    <img src="{% static artist.logo_url %}" alt="{{ artist.display_name }}">
+                    <img src="{% static artist.logo_url %}" alt="{{ seller.display_name }}">
                 </div>
 
                 <div class="seller-about">
                     <h2>About us</h2>
-                    <p>{{ artist.bio }}</p>
+                    <p>{{ seller.bio }}</p>
                 </div>
 
-
+                <!-- Empty column to keep artist contact info aligned with gallery layout -->
+                <div></div>
 
                 <div class="seller-contact">
                     <h2>Contact us</h2>
-                    <p>{{ artist.email }}</p>
+                    <p>{{ seller.email }}</p>
 
                     <div class="seller-socials">
                         <span>f</span>
@@ -63,7 +64,7 @@
                 <h2>Artworks</h2>
 
                 <div class="artwork-grid">
-                    {% for artwork in artist_artworks %}
+                    {% for artwork in artworks %}
                         <article class="artwork-card">
 
                             <a href="{% url 'artwork-detail' artwork.id %}">

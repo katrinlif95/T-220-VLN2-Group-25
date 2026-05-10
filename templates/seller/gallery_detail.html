@@ -22,7 +22,7 @@
     </div>
 
     <section class="seller-hero">
-        <img src="{% static seller.cover_image_url %}" alt="{{ seller.display_name }}">
+        <img src="{{ seller.cover_image_url }}" alt="{{ seller.display_name }}">
         <h1>{{ seller.display_name }}</h1>
     </section>
 
@@ -31,7 +31,7 @@
             <div class="seller-profile-container">
 
                 <div class="seller-profile-logo">
-                    <img src="{% static seller.logo_url %}" alt="{{ seller.display_name }}">
+                    <img src="{{ seller.logo_url }}" alt="{{ seller.display_name }}">
                 </div>
 
                 <div class="seller-about">
@@ -41,14 +41,13 @@
 
                 <div class="gallery-visit">
                     <h2>Visit us</h2>
-                    <p>{{ seller.street_name }}, {{ seller.postal_code }} {{ seller.city }}</p>
-                    <p>{{ seller.opening_hours }}</p> <!-- spurning að hafa sér fyrir helgar -->
-
+                    <p>{{ seller.street_address }}, {{ seller.postal_code }} {{ seller.city }}</p>
+                    <p>{{ seller.opening_hours }}</p>
                 </div>
 
                 <div class="seller-contact">
                     <h2>Contact us</h2>
-                    {{ seller.email }}
+                    <p>{{ seller.email }}</p>
 
                     <div class="seller-socials">
                         <span>f</span>
@@ -68,16 +67,21 @@
                 <h2>Artworks</h2>
 
                 <div class="artwork-grid">
-                    {% for artwork in seller_artworks %}
+
+                    {% for artwork in artworks %}
                         <article class="artwork-card">
 
                             <a href="{% url 'artwork-detail' artwork.id %}">
-                                <img src="{% static artwork.image %}" alt="{{ artwork.title }}">
+                                {% with image=artwork.images.first %}
+                                    {% if image %}
+                                        <img src="{{ image.image_url }}" alt="{{ image.alt_text }}">
+                                    {% endif %}
+                                {% endwith %}
                             </a>
 
                             <div class="artwork-card-content">
 
-                                {% if artwork.sold %}
+                                {% if artwork.status == "sold" %}
                                     <p class="status-badge sold">Sold</p>
                                 {% else %}
                                     <p class="status-badge available">Available</p>
@@ -93,13 +97,19 @@
                                 <p>{{ artwork.dimensions }}</p>
 
                                 <strong class="artwork-price">
-                                    {{ artwork.price }} ISK
+                                    {{ artwork.starting_price }} ISK
                                 </strong>
 
                             </div>
 
                         </article>
+
+                    {% empty %}
+
+                        <p>No artworks listed yet.</p>
+
                     {% endfor %}
+
                 </div>
 
             </div>
