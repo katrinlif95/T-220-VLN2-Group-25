@@ -79,7 +79,7 @@
                 {% endwith %}
             </a>
 
-            {% if art.status == "sold" %}
+            {% if art.is_sold %}
                 <p class="status-badge sold">Sold</p>
             {% else %}
                 <p class="status-badge available">Available</p>

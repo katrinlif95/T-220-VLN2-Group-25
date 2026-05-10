@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load artwork_extras %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/seller.css' %}">
@@ -78,7 +79,7 @@
 
                             <div class="artwork-card-content">
 
-                                {% if artwork.status == "sold" %}
+                                {% if artwork.is_sold %}
                                     <p class="status-badge sold">Sold</p>
                                 {% else %}
                                     <p class="status-badge available">Available</p>
@@ -94,7 +95,7 @@
                                 <p>{{ artwork.dimensions }}</p>
 
                                 <strong class="artwork-price">
-                                    {{ artwork.starting_price }} ISK
+                                    {{ artwork.starting_price|isk }} kr
                                 </strong>
 
                             </div>
