@@ -866,6 +866,7 @@ h1 {
 
 .starting-price p {
     font-size: 20px;
+    line-height: 1.5;
 }
 
 .starting-price span,
