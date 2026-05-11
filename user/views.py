@@ -24,7 +24,7 @@ def register(request):
         form = UserCreationForm()
 
     return render(request, "user/register.html", {
-        'form': UserCreationForm()
+        'form': form
     })
 
 # Page showing all bids belonging to the logged-in user
