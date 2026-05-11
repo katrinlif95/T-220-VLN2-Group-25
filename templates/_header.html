@@ -19,17 +19,35 @@
         </form>
         <!-- Shows user menu if user is signed in -->
         {% if user.is_authenticated %}
-            <div class="user-menu">
-                <div class="nav-profile-avatar">
-                    {{ user.first_name|first }}
-                </div>
-            </div>
-        <!-- Otherwise shows sign-in button -->
+            <a href="{% url 'account-profile' %}" class="user-menu">
+                <span class="material-symbols-outlined user-icon">
+                    account_circle
+                </span>
+
+                <span class="username">
+                    {% if user.first_name %}
+                        {{ user.first_name }}
+                    {% else %}
+                        {{ user.username }}
+                    {% endif %}
+                </span>
+            </a>
+
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="site-btn btn-outline-custom auth-btn">
+                    Log out
+                </button>
+            </form>
         {% else %}
             <div class="auth-links">
-                <button type="button" class="site-btn btn-main sign-in-btn" id="open-sign-in-modal">
-                    Sign in
-                </button>
+                <a href="{% url 'login' %}" class="site-btn btn-outline-custom auth-btn">
+                    Log in
+                </a>
+
+                <a href="{% url 'register' %}" class="site-btn btn-main auth-btn">
+                    Sign up
+                </a>
             </div>
         {% endif %}
     </div>

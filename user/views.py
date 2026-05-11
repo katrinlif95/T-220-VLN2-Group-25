@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from bid.models import Bid
 from django.contrib.auth.models import User  #má taka út þegar login flow er orðið virkt og hardcoded test búið
@@ -13,6 +14,18 @@ def profile_detail(request):
         "user/profile.html"
     )
 
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+    else:
+        form = UserCreationForm()
+
+    return render(request, "user/register.html", {
+        'form': form
+    })
 
 # Page showing all bids belonging to the logged-in user
 def account_bids(request):
