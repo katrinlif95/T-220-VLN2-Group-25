@@ -1,8 +1,10 @@
 <!-- Breadcrumbs -->
-<nav class="breadcrumbs" aria-label="Breadcrumb">
+<nav class="breadcrumbs">
     <a href="{% url 'home' %}">Homepage</a>
-    <span>&gt;</span>
-    <span class="current-page">My account &gt; {{ active_page }}</span>
+    <span>></span>
+    <a href="{% url 'account-profile' %}">My account</a>
+    <span>></span>
+    <span class="current-page">{{ active_page }}</span>
 </nav>
 
 <h1 class="account-title">My account</h1>

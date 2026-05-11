@@ -339,10 +339,12 @@ h1 {
 }
 
 /* ARTWORKS */
-/* Breadcrumbs */
+
 .artworks-page {
     padding: 16px 72px 60px;
 }
+
+/* Breadcrumbs */
 
 .breadcrumbs {
     display: flex;

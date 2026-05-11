@@ -15,10 +15,10 @@
     <div class="page-container">
         <nav class="breadcrumbs">
             <a href="{% url 'home' %}">Homepage</a>
-            <span>/</span>
+            <span>></span>
             <a href="{% url 'artist-index' %}">Artists</a>
-            <span>/</span>
-            <span>{{ seller.display_name }}</span>
+            <span>></span>
+            <span class="current-page">{{ seller.display_name }}</span>
         </nav>
     </div>
 

@@ -20,8 +20,9 @@
         <!-- Shows user menu if user is signed in -->
         {% if user.is_authenticated %}
             <div class="user-menu">
-                <span class="user-icon" aria-hidden="true">●</span>
-                <span>{{ user.first_name }}</span>
+                <div class="nav-profile-avatar">
+                    {{ user.first_name|first }}
+                </div>
             </div>
         <!-- Otherwise shows sign-in button -->
         {% else %}
