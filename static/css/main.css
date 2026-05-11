@@ -63,36 +63,16 @@ h1 {
 .site-logo {
     font-size: 40px;
     font-weight: 750;
+    font-family: playfair display;
     justify-self: center;
-}
-
-.main-navigation {
-    font-size: 20px;
-    display: flex;
-
-    /* Responsive spacing between navigation links */
-    gap: clamp(24px, 4vw, 64px);
-
-    font-weight: 600;
-    justify-self: start;
-}
-
-.main-navigation a:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--secondary-color);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
-}
-
-.main-navigation a:active {
-    text-decoration-color: #1a6985;
 }
 
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 12px;
     justify-self: end;
+    min-width: 0;
 }
 
 .auth-links {
@@ -124,7 +104,7 @@ h1 {
 
 /* SEARCH */
 .search {
-    width: max-content;
+    width: clamp(140px, 20vw, 300px);
     height: 40px;
     display: flex;
     align-items: center;
@@ -148,8 +128,8 @@ h1 {
     outline: none;
     border: none;
     background: transparent;
-    /* Allows the input to fill remaining space */
     flex: 1;
+    min-width: 0;
 }
 
 .search-input::placeholder {
@@ -162,6 +142,30 @@ h1 {
     font-size: 22px;
 }
 
+/* NAVIGATION */
+
+.main-navigation {
+    font-size: 20px;
+    display: flex;
+
+    /* Responsive spacing between navigation links */
+    gap: clamp(24px, 4vw, 64px);
+
+    font-weight: 600;
+    justify-self: start;
+}
+
+.main-navigation a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--secondary-color);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+}
+
+.main-navigation a:active {
+    text-decoration-color: #1a6985;
+}
+
 /* BUTTONS */
 .site-btn {
     padding: 12px 20px;
@@ -171,6 +175,7 @@ h1 {
     cursor: pointer;
     display: inline-block;
     text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
 .btn-main {
@@ -194,12 +199,12 @@ h1 {
 
 .btn-outline-custom {
     background-color: transparent;
-    border: 1.75px solid var(--main-color);
+    border: 1px solid var(--main-color);
     color: var(--main-color);
 }
 
 .btn-outline-custom:hover {
-    background-color: var(--main-color);
+    background-color: var(--secondary-color);
     color: white;
 }
 
@@ -215,8 +220,9 @@ h1 {
 }
 
 .auth-btn {
-    padding: 8px 16px;
+    padding: 7px 14px;
     font-weight: 500;
+    font-size: 14px;
 }
 
 .hero-btn {

@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 {% load artwork_extras %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
 
 {% block title %}Bids | ArtVault{% endblock %}
 
 {% block content %}
-<section class="account-page">
 
-    {% include 'user/_account_navigation.html' with active_page="Bids" active_tab="bids" %}
+{% include 'user/_account_navigation.html' with active_page="Bids" active_tab="bids" %}
+
+<section class="account-page">
 
     <!-- Bids content -->
     <section class="bids-section">

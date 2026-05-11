@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
 {% endblock %}
 
 {% block title %}My account | ArtVault{% endblock %}
@@ -17,10 +18,17 @@
     <section class="profile-section" >
         <!-- Profile image row -->
         <div class="profile-image-row">
-            <!--TODO: Breyta seinna svo að notandi geti upload-að mynd-->
-            <div class="profile-image-placeholder">
-                AJ
-            </div>
+            {% if user.profile.image %}
+                <img
+                    class="profile-image"
+                    src="{{ profile_image_url }}"
+                    alt="Profile image for {{ user.first_name }}"
+                >
+            {% else %}
+                <div class="profile-image-placeholder">
+                    {{ user.first_name|first }}{{ user.last_name|first }}
+                </div>
+            {% endif %}
 
             <a href="#" class="change-profile-image">Change profile image</a>
 

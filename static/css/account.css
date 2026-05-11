@@ -62,7 +62,22 @@
     font-weight: 500;
 }
 
-.change-profile-image {}
+.profile-image {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.change-profile-image {
+    color: var(--main-color);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.change-profile-image:hover {
+    text-decoration: underline;
+}
 
 /* Profile form styling */
 
@@ -178,6 +193,10 @@
 }
 
 
+/* Bids page */
+
+
+
 /* Profile form inputs */
 
 .profile-form input {
@@ -196,5 +215,7 @@
     outline: none;
     border-color: #b5b5b5;
 }
+
+
 
 
