@@ -1,19 +1,87 @@
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 
 from bid.models import Bid
-from .models import ContactInfo
+
 from artwork.services import get_current_highest_bid_amount
+
+from .forms import ProfileUpdateForm
+from .models import (
+    ContactInfo,
+    UserProfile,
+)
 
 # Main account/profile page
 # Displays general user profile information
 @login_required
 def profile_detail(request):
 
+    # Get or create profile connected to current user
+    profile, created = UserProfile.objects.get_or_create(
+        user=request.user
+    )
+
+    # Handle submitted profile update form
+    if request.method == "POST":
+
+        # Bind submitted form data and uploaded files
+        form = ProfileUpdateForm(
+            request.POST,
+            request.FILES,
+        )
+
+        # Validate submitted form data
+        if form.is_valid():
+
+            # Update Django User model fields
+            request.user.first_name = form.cleaned_data["first_name"]
+            request.user.last_name = form.cleaned_data["last_name"]
+
+            # Save updated user information
+            request.user.save()
+
+            # Update uploaded profile image if provided
+            if form.cleaned_data["profile_image"]:
+                profile.profile_image = form.cleaned_data["profile_image"]
+
+                # Save updated profile image
+                profile.save()
+
+            # Success confirmation message
+            messages.success(
+                request,
+                "Profile updated successfully."
+            )
+
+            # Redirect back to profile page
+            return redirect("account-profile")
+
+        # Error message shown if form validation fails
+        messages.error(
+            request,
+            "Failed to update profile."
+        )
+
+    else:
+
+        # Prefill form with current user information
+        form = ProfileUpdateForm(
+            initial={
+                "first_name": request.user.first_name,
+                "last_name": request.user.last_name,
+            }
+        )
+
+    # Render profile page with form and profile data
     return render(
         request,
-        "user/profile.html"
+        "user/profile.html",
+        {
+            "form": form,
+            "profile": profile,
+        }
     )
 
 def register(request):

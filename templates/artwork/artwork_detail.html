@@ -106,9 +106,24 @@
                 </button>
 
             {% else %}
-                <a href="#" class="bid-login-message">
-                    Please sign in to place a bid
-                </a>
+                <p class="bid-login-message">
+
+                    Please
+
+                    <a href="{% url 'login' %}">
+                        log in
+                    </a>
+
+                    or
+
+                    <a href="{% url 'register' %}">
+                        sign up
+                    </a>
+
+                    to place a bid
+
+                </p>
+
             {% endif %}
 
         {% endif %}
@@ -188,21 +203,24 @@
 <style>
 .bid-login-message {
     display: inline-block;
-
     margin-top: 40px;
-
-    color: #1f6f8b;
-    text-decoration: none;
 
     font-size: 17px;
     font-weight: 700;
 
+    color: var(--main-color);
+}
+
+.bid-login-message a {
+    color: var(--main-color);
+
+    text-decoration: underline;
+
     transition: 0.2s ease;
 }
 
-.bid-login-message:hover {
-    color: #14566d;
-    text-decoration: underline;
+.bid-login-message a:hover {
+    color: var(--secondary-color);
 }
 </style>
 
