@@ -31,46 +31,41 @@ def submit_bid(request, artwork_id):
     # Handle submitted bid form
     if request.method == "POST":
 
-        # Check whether user already has
-        # a pending bid on this artwork
-        existing_pending_bid = Bid.objects.filter(
+        # Check whether user already has a bid
+        # that can be resubmitted on this artwork
+        existing_resubmittable_bid = Bid.objects.filter(
             user=request.user,
             artwork=artwork,
-            status=Bid.STATUS_PENDING
+            status__in=[
+                Bid.STATUS_PENDING,
+                Bid.STATUS_REJECTED,
+            ]
         ).first()
 
-        # Populate form with submitted POST data
-        # and provide related artwork/existing bid
-        # for validation
         form = BidForm(
             request.POST,
             artwork=artwork,
-            existing_bid=existing_pending_bid
+            existing_bid=existing_resubmittable_bid
         )
 
         # Run form + model validation
         if form.is_valid():
 
-            # Check whether user already has
-            # a pending bid on this artwork
-            existing_pending_bid = Bid.objects.filter(
-                user=request.user,
-                artwork=artwork,
-                status=Bid.STATUS_PENDING
-            ).first()
-
-            # Create bid object without saving yet
-            # Needed to manually assign user/artwork
             bid = form.save(commit=False)
 
-            # Update existing pending bid
+            # Update existing pending/rejected bid
             # instead of creating a new one
-            if existing_pending_bid:
+            if existing_resubmittable_bid:
 
-                existing_pending_bid.amount = bid.amount
-                existing_pending_bid.expires_at = bid.expires_at
+                existing_resubmittable_bid.amount = bid.amount
+                existing_resubmittable_bid.expires_at = bid.expires_at
 
-                existing_pending_bid.save()
+                # If the bid was rejected, resubmitting it
+                # should make it pending again
+                existing_resubmittable_bid.status = Bid.STATUS_PENDING
+
+                existing_resubmittable_bid.save()
+
 
             # Otherwise create a completely new bid
             else:
@@ -100,7 +95,7 @@ def submit_bid(request, artwork_id):
                 "images_data": images_data,
                 "is_sold": artwork_is_sold(artwork),
                 "highest_bid_amount": get_current_highest_bid_amount(artwork),
-                "existing_pending_bid": existing_pending_bid,
+                "existing_resubmittable_bid": existing_resubmittable_bid,
                 "bid_form": form,
                 "open_bid_modal": True,
             })

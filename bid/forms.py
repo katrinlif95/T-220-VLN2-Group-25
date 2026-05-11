@@ -105,8 +105,10 @@ class BidForm(forms.ModelForm):
 
     def clean(self):
         """
-        Validate that resubmitted bids contain
+        Validate that pending resubmitted bids contain
         at least one actual change.
+
+        Rejected bids may be resubmitted unchanged.
         """
 
         cleaned_data = super().clean()
@@ -114,14 +116,16 @@ class BidForm(forms.ModelForm):
         amount = cleaned_data.get("amount")
         expires_at = cleaned_data.get("expires_at")
 
-        # Prevent resubmitting identical bid data
+        # Prevent resubmitting identical data
+        # only when the existing bid is still pending
         if (
                 self.existing_bid
+                and self.existing_bid.status == Bid.STATUS_PENDING
                 and amount == self.existing_bid.amount
                 and expires_at == self.existing_bid.expires_at
         ):
             raise forms.ValidationError(
-                "No changes made, nothing to resubmit."
+                "Please update your bid before resubmitting."
             )
 
         return cleaned_data

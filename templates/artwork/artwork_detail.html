@@ -78,7 +78,7 @@
 
         <div class="date-detail">
             <div>
-                <p>Starting price:</p>
+                <p>Starting bid:</p>
                 <strong>{{ artwork.starting_price|isk }} ISK</strong>
             </div>
 
@@ -97,7 +97,7 @@
                     id="open-bid-modal"
                     class="site-btn btn-main submit-bid-btn"
                 >
-                    {% if existing_pending_bid %}
+                    {% if existing_resubmittable_bid %}
                         Resubmit bid
                     {% else %}
                         Submit a bid
@@ -178,7 +178,6 @@
 </section>
 
 </section>
-
 
 {% include "bid/submit_bid_modal.html" %}
 
@@ -305,6 +304,6 @@
 <script src="{% static 'js/artwork_detail.js' %}?v=3"></script>
 
 <!-- Load JavaScript file handling submit bid button modal -->
-<script src="{% static 'js/submit_bid_modal.js' %}?v=22"></script>
+<script src="{% static 'js/submit_bid_modal.js' %}?v=24"></script>
 
 {% endblock %}
