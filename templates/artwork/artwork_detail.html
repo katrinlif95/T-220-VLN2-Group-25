@@ -89,9 +89,28 @@
         </div>
 
         {% if not is_sold %}
-            <a href="#" class="site-btn btn-main submit-bid-btn">
-                Submit a bid
-            </a>
+
+            {% if user.is_authenticated %}
+
+                <button
+                    type="button"
+                    id="open-bid-modal"
+                    class="site-btn btn-main submit-bid-btn"
+                >
+                    {% if existing_pending_bid %}
+                        Resubmit bid
+                    {% else %}
+                        Submit a bid
+                    {% endif %}
+
+                </button>
+
+            {% else %}
+                <a href="#" class="bid-login-message">
+                    Please sign in to place a bid
+                </a>
+            {% endif %}
+
         {% endif %}
 
     </div>
@@ -160,9 +179,132 @@
 
 </section>
 
+
+{% include "bid/submit_bid_modal.html" %}
+
+
+<!-- TODO færa css, notaði þetta bara til að testa -->
+<!-- Útlit á message "Please sign in to place a bid þegar notandi er ekki innskráður -->
+<!-- Style for bid login message -->
+<style>
+.bid-login-message {
+    display: inline-block;
+
+    margin-top: 40px;
+
+    color: #1f6f8b;
+    text-decoration: none;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+.bid-login-message:hover {
+    color: #14566d;
+    text-decoration: underline;
+}
+</style>
+
+<!-- Útlit á pop up glugga þegar smellt á submit bid / resubmit bid -->
+<!-- Style for submit bid modal pop up -->
+<style>
+
+.hidden {
+    display: none;
+}
+
+.bid-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+}
+
+.bid-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.bid-modal-content {
+    position: relative;
+    z-index: 10000;
+
+    width: 360px;
+    max-width: 90%;
+
+    margin: 120px auto;
+    padding: 28px 32px;
+
+    background: white;
+    border-radius: 10px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.bid-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+
+    border: none;
+    background: none;
+
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.bid-modal-content h2 {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.bid-form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.bid-form-row label {
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.bid-form-row input {
+    padding: 8px 10px;
+}
+
+.bid-form-row small {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #666;
+}
+
+.submit-bid-modal-button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+
+    border: none;
+    border-radius: 4px;
+
+    background: #2596be;
+    color: white;
+
+    font-weight: 600;
+    cursor: pointer;
+}
+
+</style>
+
 <!-- Store artwork image data as JSON for JavaScript carousel functionality -->
 {{ images_data|json_script:"artwork-images" }}
+
 <!-- Load JavaScript file handling artwork image navigation -->
 <script src="{% static 'js/artwork_detail.js' %}?v=3"></script>
+
+<!-- Load JavaScript file handling submit bid button modal -->
+<script src="{% static 'js/submit_bid_modal.js' %}?v=22"></script>
 
 {% endblock %}
