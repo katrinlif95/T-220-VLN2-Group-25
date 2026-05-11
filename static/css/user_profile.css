@@ -1,0 +1,200 @@
+/* Account breadcrumbs */
+
+.breadcrumbs {
+    margin-top: 16px;
+    margin-bottom: 32px;
+    padding-left: 72px;
+    font-size: 14px;
+    color: #777777;
+}
+
+.breadcrumbs a {
+    color: #777777;
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs .current-page {
+    color: var(--main-color);
+}
+
+/* Account page layout */
+
+.account-page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 0 80px;
+}
+
+.profile-section {
+    margin-top: 10px;
+}
+
+/* Profile image section */
+
+.profile-image-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-image-placeholder {
+    width: 72px;
+    height: 72px;
+
+    border-radius: 50%;
+    border: 1px solid #d9d9d9;
+    background-color: #f5f5f5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #555;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.change-profile-image {}
+
+/* Profile form styling */
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.profile-form-row {
+    display: grid;
+    grid-template-columns: 1fr 44px;
+    gap: 12px;
+    align-items: end;
+}
+
+.profile-form-row label {
+    grid-column: 1 / -1;
+    margin-bottom: -6px;
+}
+
+.profile-form-row input {
+    width: 100%;
+    height: 36px;
+}
+
+.profile-form-row label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.edit-icon-btn {
+    width: 44px;
+    height: 44px;
+
+    border: none;
+
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.edit-icon-btn:hover {
+    opacity: 1;
+}
+
+/* Profile form labels */
+
+.profile-form-row label {
+    display: block;
+    margin-bottom: 6px;
+
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 0.01em;
+}
+
+
+
+/* Account page navigation tabs */
+
+.account-title {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.account-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.account-tabs a {
+    position: relative;
+    width: 200px;
+    text-align: center;
+
+    text-decoration: none;
+    color: #E9E8E8;
+    padding-bottom: 10px;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+}
+
+.account-tabs a::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+
+    width: 100%;
+    height: 2px;
+
+    background-color: #E9E8E8;
+}
+
+.account-tabs a.active::after {
+    background-color: var(--main-color);
+}
+
+.account-tabs a.active {
+    font-weight: 600;
+    color: var(--main-color);
+}
+
+
+/* Profile form inputs */
+
+.profile-form input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: white;
+    color: #444;
+    transition: border-color 0.2s ease;
+}
+
+.profile-form input:focus {
+    outline: none;
+    border-color: #b5b5b5;
+}
+
+

@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'payment',
 ]
 
+#'user.apps.UserConfig',
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -84,6 +86,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'artvault.wsgi.application'
 
+LOGIN_REDIRECT_URL = '/account/'
+LOGIN_URL = '/'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases

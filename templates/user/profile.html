@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
+{% endblock %}
 
 {% block title %}My account | ArtVault{% endblock %}
 
 {% block content %}
-<section class="account-page">
 
-    {% include 'user/_account_navigation.html' with active_page="Profile" active_tab="profile" %}
+{% include 'user/_account_navigation.html' with active_page="Profile" active_tab="profile" %}
+
+<section class="account-page">
 
     <!-- Profile content -->
     <section class="profile-section" >
@@ -13,6 +19,7 @@
         <div class="profile-image-row">
             <!--TODO: Breyta seinna svo að notandi geti upload-að mynd-->
             <div class="profile-image-placeholder">
+                AJ
             </div>
 
             <a href="#" class="change-profile-image">Change profile image</a>
