@@ -100,13 +100,13 @@
 
                 <p class="starting-price">
                     <span>Starting bid:</span>
-                    <strong>{{ art.starting_price }} ISK</strong>
+                    <strong>{{ art.starting_price|isk }} ISK</strong>
                 </p>
 
                 {% if art.current_bid %}
                     <p class="current-price">
                         <span>Current bid:</span>
-                        <strong>{{ art.current_price }} ISK</strong>
+                        <strong>{{ art.current_price|isk }} ISK</strong>
                     </p>
                 {% endif %}
 
