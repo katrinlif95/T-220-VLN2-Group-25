@@ -17,38 +17,64 @@
                 <span class="search-icon material-symbols-outlined">search</span>
             </div>
         </form>
+
         <!-- Shows user menu if user is signed in -->
         {% if user.is_authenticated %}
+
             <a href="{% url 'account-profile' %}" class="user-menu">
-                <span class="material-symbols-outlined user-icon">
-                    account_circle
-                </span>
 
-                <span class="username">
-                    {% if user.first_name %}
-                        {{ user.first_name }}
-                    {% else %}
-                        {{ user.username }}
-                    {% endif %}
-                </span>
-            </a>
+                {% if user.profile.profile_image %}
+                    <img
+                        class="user-icon"
+                        src="{{ user.profile.profile_image.url }}"
+                        alt="Profile image for {{ user.first_name }}"
+                    >
+                {% else %}
+                    <span class="material-symbols-outlined user-icon">
+                        account_circle
+                    </span>
+                {% endif %}
 
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="site-btn btn-outline-custom auth-btn">
-                    Log out
-                </button>
-            </form>
-        {% else %}
-            <div class="auth-links">
-                <a href="{% url 'login' %}" class="site-btn btn-outline-custom auth-btn">
-                    Log in
-                </a>
+                        <span class="username">
+                            {% if user.first_name %}
+                                {{ user.first_name }}
+                            {% else %}
+                                {{ user.username }}
+                            {% endif %}
+                        </span>
+                    </a>
 
-                <a href="{% url 'register' %}" class="site-btn btn-main auth-btn">
-                    Sign up
-                </a>
-            </div>
-        {% endif %}
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="site-btn btn-outline-custom auth-btn">
+                            Log out
+                        </button>
+                    </form>
+                {% else %}
+
+                    <div class="auth-links">
+                        <a href="{% url 'login' %}" class="site-btn btn-outline-custom auth-btn">
+                            Log in
+                        </a>
+
+                        <a href="{% url 'register' %}" class="site-btn btn-main auth-btn">
+                            Sign up
+                        </a>
+                    </div>
+                {% endif %}
     </div>
 </header>
+
+<!-- TODO fjarlægja tímabundið css til að prófa stærð á icon mynd -->
+<style>
+    .user-menu img.user-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+    object-fit: cover;
+
+    display: block;
+}
+
+</style>

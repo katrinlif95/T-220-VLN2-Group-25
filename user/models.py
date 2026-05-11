@@ -31,6 +31,15 @@ class UserProfile(models.Model):
     # Optional profile image URL
     profile_image_url = models.URLField(blank=True)
 
+    # Optional uploaded profile image
+    # Images are stored inside:
+    # media/profile_images/
+    profile_image = models.ImageField(
+        upload_to="profile_images/",
+        blank=True,
+        null=True,
+    )
+
     # String representation shown in admin and debugging
     def __str__(self):
         return f"{self.user.username} profile"

@@ -11,10 +11,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import os
-from dotenv import load_dotenv
 
 from pathlib import Path
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -146,3 +144,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+# Media files (uploaded user content)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
