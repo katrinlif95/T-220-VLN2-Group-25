@@ -1,0 +1,123 @@
+{% load artwork_extras %}
+
+<div id="bid-modal" class="bid-modal hidden">
+
+    <div class="bid-modal-overlay"></div>
+
+    <div class="bid-modal-content">
+
+        <button
+            type="button"
+            class="bid-modal-close"
+            id="close-bid-modal"
+        >
+            ×
+        </button>
+
+        <h2>Place bid</h2>
+
+
+        <form
+            method="post"
+            action="{% url 'submit-bid' artwork.id %}"
+            class="bid-form"
+            id="submit-bid-form"
+            data-min-bid="{% if highest_bid_amount %}{{ highest_bid_amount }}{% else %}{{ artwork.starting_price }}{% endif %}"
+            data-existing-amount="{% if existing_pending_bid %}{{ existing_pending_bid.amount|floatformat:0 }}{% endif %}"
+            data-existing-expiration="{% if existing_pending_bid %}{{ existing_pending_bid.expires_at|date:'Y-m-d' }}{% endif %}"
+        >
+            {% csrf_token %}
+
+            <div class="bid-form-row">
+                <label for="bid-amount">Bid amount:</label>
+
+                <input
+                    id="bid-amount"
+                    name="amount"
+                    type="number"
+                    step="1"
+                    min="1"
+
+                    {% if existing_pending_bid %}
+                        value="{{ existing_pending_bid.amount|floatformat:0 }}"
+                    {% endif %}
+
+                    placeholder="{% if highest_bid_amount %}Enter higher than current bid{% else %}Enter higher than starting bid{% endif %}"
+                    required
+                >
+
+                <div
+                    class="form-field-error"
+                    id="amount-error"
+                ></div>
+
+                {% if highest_bid_amount %}
+
+                    <small>
+                        Enter more than {{ highest_bid_amount|isk }} ISK.
+                    </small>
+
+                {% else %}
+
+                    <small>
+                        Enter at least {{ artwork.starting_price|isk }} ISK.
+                    </small>
+
+                {% endif %}
+
+            </div>
+
+            <div class="bid-form-row">
+                <label for="bid-expiration">Expiration date:</label>
+                <input
+                    id="bid-expiration"
+                    name="expires_at"
+                    type="date"
+
+                    {% if existing_pending_bid %}
+                        value="{{ existing_pending_bid.expires_at|date:'Y-m-d' }}"
+                    {% endif %}
+
+                    required
+                >
+
+                <div
+                    class="form-field-error"
+                    id="expiration-error"
+                ></div>
+
+                <small>
+                    Select how long your bid should remain active.
+                </small>
+            </div>
+
+            <div class="form-field-error" id="bid-form-error"></div>
+
+            <button type="submit" class="submit-bid-modal-button">
+
+                {% if existing_pending_bid %}
+                    Resubmit bid
+                {% else %}
+                    Submit a bid
+                {% endif %}
+        </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- TODO stíla lit á error skilaboð í pop up á submit bid, gert hér for testing -->
+<style>
+    .form-field-error {
+    margin-top: 6px;
+
+    color: #c62828;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+</style>
+

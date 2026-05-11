@@ -1,12 +1,14 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
 from bid.models import Bid
-from django.contrib.auth.models import User  #má taka út þegar login flow er orðið virkt og hardcoded test búið
 from .models import ContactInfo
 from artwork.services import get_current_highest_bid_amount
 
 # Main account/profile page
 # Displays general user profile information
+@login_required
 def profile_detail(request):
 
     return render(
@@ -28,6 +30,7 @@ def register(request):
     })
 
 # Page showing all bids belonging to the logged-in user
+@login_required
 def account_bids(request):
 
     # Clear finalize checkout session data
@@ -36,21 +39,9 @@ def account_bids(request):
     request.session.pop("finalize_payment_info", None)
 
 
-    # TODO FINAL VERSION : Get all bids belonging to current logged-in user
-    # bids = Bid.objects.filter(
-        #user=request.user
-    #)
-
-
-    # TEMPORARY TEST VERSION: (svo það þurfi ekki að vera logged in til að sjá bids)
-    # Manually fetch a specific test user from database
-    test_user = User.objects.get(
-        username="User1"
-    )
-
-    # Get bids belonging to test user
+    # Get bids belonging to current logged-in user
     bids = Bid.objects.filter(
-        user=test_user
+        user=request.user
     )
 
     # Add extra display information to each bid
@@ -78,25 +69,12 @@ def account_bids(request):
 
 
 # Page for viewing and editing user contact information
+@login_required
 def contact_information(request):
 
-    # TODO FINAL VERSION:
-    # Use request.user after authentication/login flow is finished
-    # contact = ContactInfo.objects.filter(
-    #     user=request.user
-    # ).first()
-
-
-    # TEMPORARY TEST VERSION:
-    # Manually fetch a specific test user from database
-    test_user = User.objects.get(
-        username="User1"
-    )
-
-    # Try to get contact information for test user.
-    # If no contact info exists yet, contact will be None.
+    # Get contact information belonging to current logged-in user
     contact = ContactInfo.objects.filter(
-        user=test_user
+        user=request.user
     ).first()
 
     # If contact information form is submitted
