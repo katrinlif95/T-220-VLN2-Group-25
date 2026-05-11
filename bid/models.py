@@ -1,10 +1,8 @@
 from django.db import models
-
-# Create your models here.
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
 from artwork.models import Artwork
+from django.utils import timezone
 
 
 class Bid(models.Model):
@@ -74,46 +72,21 @@ class Bid(models.Model):
     def clean(self):
 
         # Prevent zero or negative bids
-        if self.amount <= 0:
+        if self.amount is not None and self.amount <= 0:
             raise ValidationError(
                 "Bid amount must be greater than zero."
             )
 
-        # Prevent bids below starting price
-        if (
-            self.artwork
-            and self.amount < self.artwork.starting_price
-        ):
-            raise ValidationError(
-                "Bid amount cannot be lower than starting price."
-            )
-
         # Prevent seller from bidding on own artwork
         if (
-            self.artwork
-            and self.artwork.seller.user == self.user
+            self.artwork_id
+            and self.user_id
+            and self.artwork.seller.user_id == self.user_id
         ):
             raise ValidationError(
                 "Seller cannot bid on their own artwork."
             )
 
-        if self.artwork:
-            # Find the highest other bid for the same artwork.
-            # Compare the new bid amount only against other bids,
-            # not against the previous version of this same bid.
-            highest_other_bid = Bid.objects.filter(
-                artwork=self.artwork
-            ).exclude(
-                pk=self.pk
-            ).order_by(
-                "-amount"
-            ).first()
-
-            # New amount must be higher than the highest other bid.
-            if highest_other_bid and self.amount <= highest_other_bid.amount:
-                raise ValidationError(
-                    "Bid must be higher than current highest bid."
-                )
 
     # String representation in admin and shell
     def __str__(self):
