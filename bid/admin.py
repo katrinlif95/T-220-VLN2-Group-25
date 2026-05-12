@@ -12,8 +12,9 @@ class BidAdmin(admin.ModelAdmin):
         "user",
         "artwork",
         "amount",
-        "status",
         "expires_at",
+        "status",
+        "payment_status",
     )
 
     # Sidebar filters
@@ -39,3 +40,11 @@ class BidAdmin(admin.ModelAdmin):
     ordering = (
         "-created_at",
     )
+
+    def payment_status(self, obj):
+        payment = obj.payments.first()
+
+        if payment:
+            return payment.get_status_display()
+
+        return "No payment"
