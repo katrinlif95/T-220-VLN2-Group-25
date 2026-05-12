@@ -63,7 +63,6 @@ h1 {
 .site-logo {
     font-size: 40px;
     font-weight: 750;
-    font-family: playfair display;
     justify-self: center;
 }
 
@@ -84,20 +83,23 @@ h1 {
 
 .user-menu {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 6px;
+
+    gap: 2px;
 
     text-decoration: none;
     color: var(--main-color);
 }
 
 .username {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 400;
 }
 
 .user-icon {
     font-size: 40px;
+    line-height: 1;
 }
 
 
@@ -466,12 +468,6 @@ h1 {
     list-style: none;
 }
 
-/* ARTWORKS */
-
-.artworks-page {
-    padding: 16px 72px 60px;
-}
-
 /* Breadcrumbs */
 
 .breadcrumbs {
@@ -541,6 +537,12 @@ h1 {
 .filter-select select:focus {
     outline: none;
     border-color: var(--main-color);
+}
+
+/* ARTWORKS */
+
+.artworks-page {
+    padding: 16px 72px 60px;
 }
 
 .artwork-grid {
@@ -622,7 +624,6 @@ h1 {
     font-weight: 300;
 }
 
-/*<!-- TODO færa css fyrir flettitakka -->*/
 
 .artwork-detail-image {
     position: relative;
@@ -702,7 +703,6 @@ h1 {
     display: block;
     object-fit: cover;
 }
-
 
 
 .artwork-detail-info h1 {
@@ -878,6 +878,65 @@ h1 {
     }
 }
 
+/* Artwork cards inside artist and gallery detail pages */
+
+.seller-artworks .artwork-card img {
+    border-radius: 0;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.seller-artworks .artwork-card {
+    text-align: left;
+}
+
+.seller-artworks .artwork-title,
+.seller-artworks .artwork-card p {
+    text-align: left;
+}
+
+
+/**//**/
+.artwork-meta {
+    display: flex;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-secondary-color);
+}
+
+.artwork-meta p {
+    margin: 0;
+}
+
+.artwork-price-info {
+    margin-top: 6px;
+}
+
+.starting-price,
+.current-price {
+    margin: 0;
+}
+
+.starting-price p {
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.starting-price span,
+.current-price span {
+    font-weight: 400;
+}
+
+.current-price {
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+.starting-price strong,
+.current-price strong {
+    display: inline;
+}
+
 @media (max-width: 700px) {
 
     .site-header {
@@ -962,59 +1021,8 @@ h1 {
     .auth-image-section {
         display: none;
     }
-.sign-in-btn {
-    white-space: nowrap;
+
+    .sign-in-btn {
+        white-space: nowrap;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**//**/
-.artwork-meta {
-    display: flex;
-    gap: 6px;
-    font-size: 14px;
-    color: var(--text-secondary-color);
-}
-
-.artwork-meta p {
-    margin: 0;
-}
-
-.artwork-price-info {
-    margin-top: 6px;
-}
-
-.starting-price,
-.current-price {
-    margin: 0;
-}
-
-.starting-price p {
-    font-size: 20px;
-    line-height: 1.5;
-}
-
-.starting-price span,
-.current-price span {
-    font-weight: 400;
-}
-
-.current-price {
-    font-weight: 700;
-    margin-top: 2px;
-}
-
-.starting-price strong,
-.current-price strong {
-    display: inline;
-}}

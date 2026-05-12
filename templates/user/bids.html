@@ -32,13 +32,26 @@
                 <div class="bid-info">
                     <h3>{{ bid.artwork.title }}</h3>
 
-                    <p>Seller: {{ bid.artwork.seller.display_name }}</p>
-                    <p>Current highest bid: {{ bid.artwork.highest_bid_amount|isk }} kr.</p>
-                    <p>Your bid: {{ bid.amount|isk }} kr.</p>
-                    <p>Bid submitted: {{ bid.created_at|date:"d.m.Y" }} </p>
-                    <p>Expires: {{ bid.expires_at|date:"d.m.Y" }} </p>
-                    <p>Status: {{ bid.status|title }}</p>
+                    <div class="bid-details">
+                        <span>Seller</span>
+                        <span class="bid-value">{{ bid.artwork.seller.display_name }}</span>
 
+                        <span>Current highest bid</span>
+                        <span class="bid-value">{{ bid.artwork.highest_bid_amount|isk }} kr.</span>
+
+                        <span>Your bid</span>
+                        <span class="bid-value">{{ bid.amount|isk }} kr.</span>
+
+                        <span>Bid submitted</span>
+                        <span class="bid-value">{{ bid.created_at|date:"d.m.Y" }}</span>
+
+                        <span>Expiration</span>
+                        <span class="bid-value">{{ bid.expires_at|date:"d.m.Y" }}</span>
+
+                        <span class="bid-status">Status</span>
+                        <span class="bid-status-btn">{{ bid.status|title }}</span>
+
+                    </div>
                     <div class="bid-actions">
                         <a href="{% url 'artwork-detail' bid.artwork.id %}">
                             View artwork

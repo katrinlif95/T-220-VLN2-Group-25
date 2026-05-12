@@ -108,3 +108,13 @@
 .artwork-card-container {
     line-height: 1.5;
 }
+
+.seller-image-link img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.artwork-card-content {
+    text-align: center;
+}

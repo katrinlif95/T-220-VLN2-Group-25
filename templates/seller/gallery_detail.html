@@ -67,6 +67,7 @@
         </div>
     </section>
 
+     <!-- Artworks Section -->
     <section class="seller-artworks">
         <div class="page-container">
             <div class="seller-artworks-container">
@@ -100,15 +101,18 @@
                                     </a>
                                 </div>
 
-                                <p>{{ artwork.medium }}</p>
-                                <p>{{ artwork.dimensions }}</p>
+                                <div class="artwork-meta">
+                                    <p>{{ artwork.medium }} • {{ artwork.dimensions }}</p>
+                                </div>
 
-                                <strong class="artwork-price">
-                                    {{ artwork.starting_price|isk }} kr.
-                                </strong>
+                                <div class="artwork-price-info">
 
+                                    <p class="starting-price">
+                                        <span>Starting bid:</span>
+                                        <strong>{{ artwork.starting_price|isk }} ISK</strong>
+                                    </p>
+                                </div>
                             </div>
-
                         </article>
 
                     {% empty %}
