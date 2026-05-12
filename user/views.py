@@ -7,7 +7,7 @@ from bid.models import Bid
 
 from artwork.services import get_current_highest_bid_amount
 
-from .forms import ProfileUpdateForm
+from .forms import ProfileUpdateForm, ContactInfoProfileForm
 from .models import (
     ContactInfo,
     UserProfile,
@@ -135,7 +135,6 @@ def account_bids(request):
         }
     )
 
-
 # Page for viewing and editing user contact information
 @login_required
 def contact_information(request):
@@ -148,31 +147,49 @@ def contact_information(request):
     # If contact information form is submitted
     if request.method == "POST":
 
-        # If contact info does not exist yet,
-        # create a new ContactInfo object for this user
-        if contact is None:
-            contact = ContactInfo(
-                user=request.user
+        # Bind submitted data to ContactInfoProfileForm
+        form = ContactInfoProfileForm(
+            request.POST,
+            instance=contact
+        )
+
+        # Validate submitted contact information
+        if form.is_valid():
+
+            # Create/update contact object, but do not save yet
+            contact = form.save(commit=False)
+
+            # Make sure contact info belongs to current user
+            contact.user = request.user
+
+            # Save contact info to database
+            contact.save()
+
+            messages.success(
+                request,
+                "Contact information updated successfully."
             )
 
-        # Update contact info fields from submitted form data
-        contact.street_address = request.POST.get("street_address")
-        contact.city = request.POST.get("city")
-        contact.postal_code = request.POST.get("postal_code")
-        contact.country = request.POST.get("country")
-        contact.national_id = request.POST.get("national_id")
+            # Redirect to prevent duplicate form submission
+            return redirect("account-contact")
 
-        # Save contact info to database
-        contact.save()
+        messages.error(
+            request,
+            "Failed to update contact information."
+        )
 
-        # Redirect back to contact information page
-        # to prevent duplicate form submission on refresh
-        return redirect("account-contact")
+    else:
+
+        # Prefill form with existing contact information
+        form = ContactInfoProfileForm(
+            instance=contact
+        )
 
     return render(
         request,
         "user/contact_information.html",
         {
-            "contact": contact
+            "contact": contact,
+            "form": form,
         }
     )

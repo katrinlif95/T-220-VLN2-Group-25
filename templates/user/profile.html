@@ -87,10 +87,10 @@
                                 alt="Profile image for {{ user.first_name }}"
                             >
                         {% else %}
-                            <div id="profile-image-preview"
+                            <span id="profile-image-preview"
                                  class="profile-image-placeholder clickable-profile-image">
                                 {{ user.first_name|first }}{{ user.last_name|first }}
-                            </div>
+                            </span>
                         {% endif %}
 
                         <!-- Edit icon overlay -->
@@ -342,9 +342,7 @@
 
 </style>
 
-
-
-<!-- Profile page Javascript -->
-<script src="{% static 'js/profile.js' %}"></script>
+<!-- Account Javascript -->
+<script src="{% static 'js/account.js' %}"></script>
 
 {% endblock %}
