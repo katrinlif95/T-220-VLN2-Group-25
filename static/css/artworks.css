@@ -1,0 +1,336 @@
+/* ==============
+    ARTWORK PAGE
+   ============== */
+.artworks-page {
+    padding: 16px 72px 60px;
+}
+
+.artwork-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 56px;
+    row-gap: 28px;
+}
+
+/* ==============
+    ARTWORK CARDS
+   ============== */
+.artwork-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    margin-bottom: 4px;
+    transition: transform 0.2s ease;
+}
+
+.artwork-card img:hover {
+    transform: scale(1.02);
+}
+
+.artwork-card h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.artwork-card p {
+    font-size: 13px;
+    margin: 0;
+    line-height: 1;
+}
+
+.artwork-card strong {
+    display: block;
+    margin-top: 2px;
+}
+
+.artwork-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.artwork-title a:hover {
+    text-decoration: underline;
+}
+
+.artwork-price {
+    font-weight: 700;
+}
+
+.artwork-price span {
+    font-weight: 300;
+}
+
+.status-badge {
+    display: block;
+    margin-left: auto;
+    width: fit-content;
+    color: white;
+    font-size: 13px;
+    padding: 8px 10px;
+    border-radius: 999px;
+}
+
+.status-badge.sold {
+    background-color: #CFCECC;
+    padding: 8px 14px;
+}
+
+.status-badge.available {
+    background-color: #2596BE;
+}
+
+/* ===================
+    ARTWORK CARD INFO
+   =================== */
+.artwork-meta {
+    display: flex;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-secondary-color);
+}
+
+.artwork-meta p {
+    margin: 0;
+}
+
+.artwork-price-info {
+    margin-top: 6px;
+}
+
+.starting-price,
+.current-price {
+    margin: 0;
+}
+
+.starting-price p {
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.starting-price span,
+.current-price span {
+    font-weight: 400;
+}
+
+.current-price {
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+.starting-price strong,
+.current-price strong {
+    display: inline;
+}
+
+/* =====================
+    ARTWORK DETAIL PAGE
+   ===================== */
+.artwork-detail-page {
+    padding: 16px 72px 60px;
+}
+
+.artwork-detail-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 100px;
+    margin-top: 24px;
+    align-items: start;
+}
+
+.artwork-detail-image img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.artwork-detail-info h1 {
+    font-size: 36px;
+    margin: 10px 0 8px;
+}
+
+.artist-name {
+    margin-bottom: 24px;
+    color: var(--text-secondary-color);
+}
+
+.artwork-style,
+.artwork-medium {
+    color: var(--text-secondary-color);
+    margin-bottom: 4px;
+}
+
+.bid-info {
+    margin-top: 28px;
+}
+
+.bid-info p {
+    margin-bottom: 4px;
+    color: var(--text-secondary-color);
+}
+
+.bid-info strong {
+    font-size: 20px;
+}
+
+.date-detail {
+    display: flex;
+    gap: 56px;
+    margin-top: 28px;
+}
+
+.date-detail p {
+    margin-bottom: 4px;
+    color: var(--text-secondary-color);
+}
+
+.submit-bid-btn {
+    display: block;
+    width: 260px;
+    margin-top: 36px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* ====================
+    DETAIL IMAGE GALLERY
+   ==================== */
+.artwork-detail-image {
+    position: relative;
+    display: inline-block;
+}
+
+#main-artwork-image {
+    display: block;
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+}
+
+.artwork-detail-image .image-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.85);
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.artwork-detail-image .image-arrow-left {
+    left: 14px;
+}
+
+.artwork-detail-image .image-arrow-right {
+    right: 14px;
+}
+
+.image-arrow:hover {
+    background-color: white;
+}
+
+.artwork-image-wrapper {
+    position: relative;
+}
+
+.artwork-detail-page .status-badge {
+    padding: 8px 14px;
+}
+
+.artwork-image-wrapper .status-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    margin-left: 0;
+}
+
+/* =================
+    EXTRA INFORMATION
+   ================= */
+.artwork-extra-info {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    margin-top: 72px;
+}
+
+.artwork-extra-info h2 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--neutral-color);
+}
+
+.artwork-left-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.about-work p {
+    display: flex;
+    gap: 40px;
+}
+
+.about-work p strong {
+    display: inline-block;
+    min-width: 80px;
+}
+
+.about-work p,
+.provenance p,
+.seller-card p {
+    color: var(--text-secondary-color);
+}
+
+.seller-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    width: 100%;
+}
+
+.seller-card > div:last-child {
+    flex: 1;
+    min-width: 0;
+}
+
+.seller-card a {
+    display: block;
+    width: 100%;
+    text-align: right;
+    font-weight: 600;
+}
+
+.seller-card a:hover {
+    text-decoration: underline;
+}
+
+.seller-logo {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--neutral-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seller-logo img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
