@@ -2,6 +2,8 @@ import re
 from django import forms
 from django.contrib.auth.models import User
 
+from .models import ContactInfo
+
 
 class ProfileUpdateForm(forms.Form):
 
@@ -64,3 +66,42 @@ class ProfileUpdateForm(forms.Form):
             )
 
         return value
+    
+class ContactInfoProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = ContactInfo
+
+        fields = [
+            "street_address",
+            "city",
+            "postal_code",
+            "country",
+            "national_id",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Contact information is optional
+        # on the account profile page
+        for field in self.fields.values():
+            field.required = False
+
+    def clean_national_id(self):
+        national_id = self.cleaned_data.get(
+            "national_id"
+        )
+
+        # Allow empty national ID
+        if not national_id:
+            return national_id
+
+        # If national ID is entered,
+        # it must contain digits only
+        if not national_id.isdigit():
+            raise forms.ValidationError(
+                "• National ID must contain digits only."
+            )
+
+        return national_id

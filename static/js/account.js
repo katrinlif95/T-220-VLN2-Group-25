@@ -28,18 +28,6 @@ const formInputs = document.querySelectorAll(
 );
 
 
-// Profile update form
-const profileForm = document.querySelector(
-    ".profile-form"
-);
-
-
-// Profile update button
-const updateButton = document.querySelector(
-    ".profile-update-btn"
-);
-
-
 // Hide existing success/error messages
 function hideProfileMessages() {
 
@@ -60,6 +48,31 @@ function showPreviewMessage() {
     if (previewMessage) {
 
         previewMessage.style.display = "flex";
+
+    }
+
+}
+
+
+// Add loading state to form submit buttons
+function addSubmitLoadingState(formSelector, buttonSelector) {
+
+    const form = document.querySelector(
+        formSelector
+    );
+
+    const button = document.querySelector(
+        buttonSelector
+    );
+
+    if (form && button) {
+
+        form.addEventListener("submit", function() {
+
+            button.disabled = true;
+            button.textContent = "Updating...";
+
+        });
 
     }
 
@@ -142,14 +155,15 @@ formInputs.forEach(input => {
 });
 
 
-// Show loading state when profile form is submitted
-if (profileForm && updateButton) {
+// Profile update loading state
+addSubmitLoadingState(
+    ".profile-form",
+    ".profile-update-btn"
+);
 
-    profileForm.addEventListener("submit", function() {
 
-        updateButton.disabled = true;
-        updateButton.textContent = "Updating...";
-
-    });
-
-}
+// Contact information update loading state
+addSubmitLoadingState(
+    ".contact-form",
+    "#update-contact-btn"
+);
