@@ -17,14 +17,23 @@ def artwork_is_sold(artwork):
 
 def get_highest_bid(artwork):
     """
-    Return the highest bid placed on the artwork.
+    Return the highest active bid placed
+    on the artwork.
+
+    Rejected and cancelled bids are excluded.
 
     Returns:
-        Bid object if bids exist
-        None if no bids exist
+        Bid object if active bids exist
+        None if no active bids exist
     """
 
-    return artwork.bids.order_by(
+    return artwork.bids.filter(
+        status__in=[
+            "pending",
+            "accepted",
+            "contingent",
+        ]
+    ).order_by(
         "-amount"
     ).first()
 

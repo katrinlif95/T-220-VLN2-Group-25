@@ -46,14 +46,18 @@ def artwork_detail(request, artwork_id):
     # Get highest actual bid amount, if any
     highest_bid_amount = get_current_highest_bid_amount(artwork)
 
-    # Check whether logged-in user already has a pending bid on this artwork
-    existing_pending_bid = None
+    # Check whether logged-in user already has a bid
+    # that can be resubmitted on this artwork
+    existing_resubmittable_bid = None
 
     if request.user.is_authenticated:
-        existing_pending_bid = Bid.objects.filter(
+        existing_resubmittable_bid = Bid.objects.filter(
             user=request.user,
             artwork=artwork,
-            status=Bid.STATUS_PENDING
+            status__in=[
+                Bid.STATUS_PENDING,
+                Bid.STATUS_REJECTED,
+            ]
         ).first()
 
     # Create empty bid form for submit bid modal
@@ -66,6 +70,6 @@ def artwork_detail(request, artwork_id):
         "images_data": images_data,
         "is_sold": is_sold,
         "highest_bid_amount": highest_bid_amount,
-        "existing_pending_bid": existing_pending_bid,
+        "existing_resubmittable_bid": existing_resubmittable_bid,
         "bid_form": bid_form,
     })

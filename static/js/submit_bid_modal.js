@@ -133,19 +133,23 @@ if (
         const existingExpiration =
             bidForm.dataset.existingExpiration;
 
+        const existingStatus =
+            bidForm.dataset.existingStatus;
 
-        // Validate that resubmitted bid contains
-        // at least one actual change
+
+        // Validate that pending resubmitted bid contains
+        // at least one actual change.
+        // Rejected bids may be resubmitted unchanged.
         if (
             isValid
+            && existingStatus === "pending"
             && existingAmount
             && existingExpiration
             && amount === existingAmount
             && expirationInput.value === existingExpiration
         ) {
-
-            bidFormError.textContent =
-                "No changes made, nothing to resubmit.";
+                    bidFormError.textContent =
+                "Please update your bid before resubmitting.";
 
             isValid = false;
         }

@@ -78,7 +78,7 @@
 
         <div class="date-detail">
             <div>
-                <p>Starting price:</p>
+                <p>Starting bid:</p>
                 <strong>{{ artwork.starting_price|isk }} ISK</strong>
             </div>
 
@@ -97,7 +97,7 @@
                     id="open-bid-modal"
                     class="site-btn btn-main submit-bid-btn"
                 >
-                    {% if existing_pending_bid %}
+                    {% if existing_resubmittable_bid %}
                         Resubmit bid
                     {% else %}
                         Submit a bid
@@ -106,9 +106,24 @@
                 </button>
 
             {% else %}
-                <a href="#" class="bid-login-message">
-                    Please sign in to place a bid
-                </a>
+                <p class="bid-login-message">
+
+                    Please
+
+                    <a href="{% url 'login' %}">
+                        log in
+                    </a>
+
+                    or
+
+                    <a href="{% url 'register' %}">
+                        sign up
+                    </a>
+
+                    to place a bid
+
+                </p>
+
             {% endif %}
 
         {% endif %}
@@ -179,7 +194,6 @@
 
 </section>
 
-
 {% include "bid/submit_bid_modal.html" %}
 
 
@@ -189,21 +203,24 @@
 <style>
 .bid-login-message {
     display: inline-block;
-
     margin-top: 40px;
-
-    color: #1f6f8b;
-    text-decoration: none;
 
     font-size: 17px;
     font-weight: 700;
 
+    color: var(--main-color);
+}
+
+.bid-login-message a {
+    color: var(--main-color);
+
+    text-decoration: underline;
+
     transition: 0.2s ease;
 }
 
-.bid-login-message:hover {
-    color: #14566d;
-    text-decoration: underline;
+.bid-login-message a:hover {
+    color: var(--secondary-color);
 }
 </style>
 
@@ -305,6 +322,6 @@
 <script src="{% static 'js/artwork_detail.js' %}?v=3"></script>
 
 <!-- Load JavaScript file handling submit bid button modal -->
-<script src="{% static 'js/submit_bid_modal.js' %}?v=22"></script>
+<script src="{% static 'js/submit_bid_modal.js' %}?v=24"></script>
 
 {% endblock %}

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/account.css' %}">
 {% endblock %}
@@ -15,49 +14,303 @@
 <section class="account-page">
 
     <!-- Profile content -->
-    <section class="profile-section" >
-        <!-- Profile image row -->
-        <div class="profile-image-row">
-            {% if user.profile.image %}
-                <img
-                    class="profile-image"
-                    src="{{ profile_image_url }}"
-                    alt="Profile image for {{ user.first_name }}"
-                >
-            {% else %}
-                <div class="profile-image-placeholder">
-                    {{ user.first_name|first }}{{ user.last_name|first }}
+    <section class="profile-section">
+
+    <!-- Profile page messages -->
+    <div class="profile-messages">
+
+        <!-- Success/error messages shown after profile update -->
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="profile-message {{ message.tags }}">
+
+                    {% if message.tags == "success" %}
+                        <span class="material-symbols-outlined">
+                            check_circle
+                        </span>
+                    {% endif %}
+
+                    {% if message.tags == "error" %}
+                        <span class="material-symbols-outlined">
+                            error
+                        </span>
+                    {% endif %}
+
+                    {{ message }}
+
                 </div>
-            {% endif %}
 
-            <a href="#" class="change-profile-image">Change profile image</a>
+            {% endfor %}
 
-            <button class="edit-icon-btn" type="button" aria-label="Edit profile image">
-                <span class="material-symbols-outlined">edit</span>
-            </button>
+        {% endif %}
+
+        <!-- Unsaved changes reminder message -->
+        <div
+            id="profile-preview-message"
+            class="profile-message info"
+            style="display: none;"
+        >
+            <span class="material-symbols-outlined">
+                info
+            </span>
+
+            Unsaved changes. Click "Update profile" to save.
         </div>
 
-        <!-- Profile form -->
-        <form class="profile-form">
-            <div class="profile-form-row">
-                <label for="profile-name">Name</label>
-                <input id="profile-name" type="text">
+    </div>
 
-                <button class="edit-icon-btn" type="button" aria-label="Edit name">
-                    <span class="material-symbols-outlined">edit</span>
+        <!-- Profile update form -->
+        <form
+            class="profile-form"
+            method="POST"
+            enctype="multipart/form-data"
+            novalidate
+        >
+
+            {% csrf_token %}
+
+            <!-- Profile image section -->
+            <div class="profile-image-row">
+
+                <!-- Profile image wrapper -->
+                <div class="profile-image-wrapper">
+
+                    <!-- Clickable profile image -->
+                    <label for="{{ form.profile_image.id_for_label }}">
+
+                        {% if profile.profile_image %}
+                            <img
+                                id="profile-image-preview"
+                                class="profile-image clickable-profile-image"
+                                src="{{ profile.profile_image.url }}"
+                                alt="Profile image for {{ user.first_name }}"
+                            >
+                        {% else %}
+                            <div id="profile-image-preview"
+                                 class="profile-image-placeholder clickable-profile-image">
+                                {{ user.first_name|first }}{{ user.last_name|first }}
+                            </div>
+                        {% endif %}
+
+                        <!-- Edit icon overlay -->
+                        <span class="profile-image-edit-icon material-symbols-outlined">
+                            edit
+                        </span>
+
+                    </label>
+
+                </div>
+
+                <!-- Change profile image link -->
+                <div class="profile-image-upload">
+
+                    <label
+                        class="change-profile-image-link"
+                        for="{{ form.profile_image.id_for_label }}"
+                    >
+                        Change profile image
+                    </label>
+
+                    {{ form.profile_image }}
+
+                </div>
+
+            </div>
+
+            <!-- First name -->
+            <div class="profile-form-row">
+                <label for="{{ form.first_name.id_for_label }}">
+                    First name
+                </label>
+
+                {{ form.first_name }}
+            </div>
+
+            <!-- Last name -->
+            <div class="profile-form-row">
+                <label for="{{ form.last_name.id_for_label }}">
+                    Last name
+                </label>
+
+                {{ form.last_name }}
+            </div>
+
+            <!-- Submit button -->
+            <div class="profile-form-row">
+                <button
+                    type="submit"
+                    class="site-btn btn-main profile-update-btn"
+                >
+                    Update profile
                 </button>
             </div>
 
-            <div class="profile-form-row">
-                    <label for="profile-email">Email</label>
-                    <input id="profile-email" type="email">
-
-                <button class="edit-icon-btn" type="button" aria-label="Edit email">
-                    <span class="material-symbols-outlined">edit</span>
-                </button>
-            </div>
         </form>
+
     </section>
 
 </section>
+
+
+<!-- TODO færa css á betri stað og passa það haldi sér rétt, ath ekki fjarlægja js file reference neðst -->
+<style>
+
+    /* Profile page messages */
+    .profile-messages {
+        max-width: 420px;
+        margin-bottom: 32px;
+    }
+
+    .profile-message {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        padding: 14px 18px;
+
+        border-radius: 10px;
+
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .profile-message.success {
+        background-color: #eef8f0;
+        color: #276738;
+        border: 1px solid #c8e6cf;
+    }
+
+    .profile-message.error {
+        background-color: #fdecec;
+        color: #a12626;
+        border: 1px solid #efb0b0;
+    }
+
+    /* Info message styling */
+    .profile-message.info {
+        background-color: #eef6fb;
+
+        color: var(--secondary-color);
+
+        border: 1px solid #c7dff0;
+    }
+
+    /* Wrapper for profile page messages */
+    .profile-messages {
+        max-width: 420px;
+
+        margin-left: auto;
+        margin-right: 0;
+        margin-bottom: 32px;
+    }
+
+    /* Profile image section layout */
+    .profile-image-row {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+
+        margin-bottom: 40px;
+        margin-left: -18px;
+
+        justify-content: flex-start;
+    }
+
+    /* Profile image wrapper for overlay icon */
+    .profile-image-wrapper {
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    /* Circular profile image */
+    .profile-image,
+    .profile-image-placeholder {
+        width: 180px;
+        height: 180px;
+
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    /* Make profile image clickable */
+    .clickable-profile-image {
+        cursor: pointer;
+
+        border: 3px solid transparent;
+        transition: 0.2s ease;
+    }
+
+    .clickable-profile-image:hover {
+        border-color: var(--secondary-color);
+    }
+
+    /* Edit icon overlay on profile image */
+    .profile-image-edit-icon {
+        position: absolute;
+        right: 8px;
+        bottom: 8px;
+
+        padding: 8px;
+
+        border-radius: 50%;
+
+        background-color: var(--main-color);
+        color: white;
+
+        font-size: 20px;
+
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .profile-image-edit-icon:hover {
+        background-color: var(--secondary-color);
+    }
+
+    /* Profile image upload controls */
+    .profile-image-upload {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-image-upload input[type="file"] {
+        display: none;
+    }
+
+    .change-profile-image-link {
+        font-size: 18px;
+        font-weight: 600;
+
+        color: var(--main-color);
+        text-decoration: underline;
+
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .change-profile-image-link:hover {
+        color: var(--secondary-color);
+    }
+
+    /* Profile update submit button */
+    .profile-update-btn {
+        width: 100%;
+
+        margin-top: 32px;
+        padding: 14px 26px;
+
+        font-size: 18px;
+    }
+
+</style>
+
+
+
+<!-- Profile page Javascript -->
+<script src="{% static 'js/profile.js' %}"></script>
+
 {% endblock %}

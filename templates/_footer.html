@@ -19,9 +19,9 @@
     <section class="footer-section">
         <!-- Explore(navigation) links to browse content -->
         <h2>Explore</h2>
-        <a href="#">Featured artworks</a>
-        <a href="#">Artists</a>
-        <a href="#">Galleries</a>
+        <a href="{% url 'artwork-index' %}">Featured artworks</a>
+        <a href="{% url 'artist-index' %}">Artists</a>
+        <a href="{% url 'gallery-index' %}">Galleries</a>
     </section>
 
     <section class="footer-section">
@@ -38,7 +38,7 @@
     <section class="footer-section">
         <!-- About us link -->
         <h2>About us</h2>
-        <a href="#">About ArtVault</a>
+        <a href="{% url 'about' %}">About ArtVault</a>
     </section>
 
     <div class="footer-legal">
