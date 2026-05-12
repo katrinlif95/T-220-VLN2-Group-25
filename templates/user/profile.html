@@ -20,19 +20,19 @@
     <div class="profile-messages">
 
         <!-- Success/error messages shown after profile update -->
-        {% if messages %}
+        {% for message in messages %}
 
-            {% for message in messages %}
+            {% if "finalize" not in message.tags %}
 
                 <div class="profile-message {{ message.tags }}">
 
-                    {% if message.tags == "success" %}
+                    {% if "success" in message.tags %}
                         <span class="material-symbols-outlined">
                             check_circle
                         </span>
                     {% endif %}
 
-                    {% if message.tags == "error" %}
+                    {% if "error" in message.tags %}
                         <span class="material-symbols-outlined">
                             error
                         </span>
@@ -42,9 +42,9 @@
 
                 </div>
 
-            {% endfor %}
+            {% endif %}
 
-        {% endif %}
+        {% endfor %}
 
         <!-- Unsaved changes reminder message -->
         <div
@@ -66,7 +66,6 @@
             class="profile-form"
             method="POST"
             enctype="multipart/form-data"
-            novalidate
         >
 
             {% csrf_token %}
@@ -88,10 +87,10 @@
                                 alt="Profile image for {{ user.first_name }}"
                             >
                         {% else %}
-                            <div id="profile-image-preview"
+                            <span id="profile-image-preview"
                                  class="profile-image-placeholder clickable-profile-image">
                                 {{ user.first_name|first }}{{ user.last_name|first }}
-                            </div>
+                            </span>
                         {% endif %}
 
                         <!-- Edit icon overlay -->
@@ -125,7 +124,18 @@
                     First name
                 </label>
 
-                {{ form.first_name }}
+                <div class="profile-field-group">
+
+                    {{ form.first_name }}
+
+                    {% for error in form.first_name.errors %}
+                        <p class="field-error">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+
+                </div>
+
             </div>
 
             <!-- Last name -->
@@ -134,7 +144,18 @@
                     Last name
                 </label>
 
-                {{ form.last_name }}
+                <div class="profile-field-group">
+
+                    {{ form.last_name }}
+
+                    {% for error in form.last_name.errors %}
+                        <p class="field-error">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+
+                </div>
+
             </div>
 
             <!-- Submit button -->
@@ -204,6 +225,19 @@
         margin-left: auto;
         margin-right: 0;
         margin-bottom: 32px;
+    }
+
+    /* Validation error message shown below form fields */
+    .field-error {
+    margin-top: 8px;
+    color: #a12626;
+    font-size: 14px;
+    font-weight: 500;
+    }
+
+    /* Wrapper for input and validation errors */
+    .profile-field-group {
+        width: 100%;
     }
 
     /* Profile image section layout */
@@ -308,9 +342,7 @@
 
 </style>
 
-
-
-<!-- Profile page Javascript -->
-<script src="{% static 'js/profile.js' %}"></script>
+<!-- Account Javascript -->
+<script src="{% static 'js/account.js' %}"></script>
 
 {% endblock %}

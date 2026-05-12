@@ -87,11 +87,52 @@ class Bid(models.Model):
                 "Seller cannot bid on their own artwork."
             )
 
+        # Skip validation for new bids
+        if not self.pk:
+            return
+
+        old_bid = Bid.objects.get(
+            pk=self.pk
+        )
+
+        status_changed = (
+                old_bid.status != self.status
+        )
+
+        # Check if bid already has
+        # a completed payment
+        has_completed_payment = (
+            self.payments.filter(
+                status="completed"
+            ).exists()
+        )
+
+        # Prevent changing bid status
+        # after completed payment
+        if (
+                status_changed
+                and has_completed_payment
+        ):
+            raise ValidationError(
+                "Cannot change bid status after payment has been completed."
+            )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+
+        super().save(*args, **kwargs)
+
+
 
     # String representation in admin and shell
     def __str__(self):
+        formatted_amount = (
+            f"{int(self.amount):,}"
+            .replace(",", ".")
+        )
+
         return (
-            f"{self.user.username} bid "
-            f"{self.amount} on "
+            f"{self.user.first_name or self.user.username} "
+            f"bid {formatted_amount} ISK on "
             f"{self.artwork.title}"
         )
