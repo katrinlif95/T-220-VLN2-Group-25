@@ -45,21 +45,7 @@ Finalize Bid
 
 <h1>Review</h1>
 
-<nav class="checkout-steps">
-
-    <a href="{% url 'finalize-contact' bid.id %}">
-        Contact information
-    </a>
-
-    <a href="{% url 'finalize-payment' bid.id %}">
-        Payment details
-    </a>
-
-    <span class="active">
-        Review
-    </span>
-
-</nav>
+{% include "payment/_checkout_steps.html" %}
 
 <main>
 

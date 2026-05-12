@@ -31,6 +31,7 @@ class BidAdmin(admin.ModelAdmin):
 
     # Read-only fields in admin detail view
     readonly_fields = (
+        "payment_status",
         "created_at",
         "updated_at",
         "cancelled_at",
