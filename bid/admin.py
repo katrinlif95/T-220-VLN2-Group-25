@@ -9,6 +9,7 @@ class BidAdmin(admin.ModelAdmin):
 
     # Columns shown in admin list view
     list_display = (
+        "id",
         "user",
         "artwork",
         "amount",
@@ -31,6 +32,7 @@ class BidAdmin(admin.ModelAdmin):
 
     # Read-only fields in admin detail view
     readonly_fields = (
+        "id",
         "payment_status",
         "created_at",
         "updated_at",

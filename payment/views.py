@@ -37,7 +37,8 @@ def contact_information(request, bid_id):
         # Show validation error message
         messages.error(
             request,
-            validation["error"]
+            validation["error"],
+            extra_tags = "finalize"
         )
 
         # Redirect user back to account bids page
@@ -134,7 +135,8 @@ def payment_details(request, bid_id):
         # Show validation error message
         messages.error(
             request,
-            validation["error"]
+            validation["error"],
+            extra_tags = "finalize"
         )
 
         # Redirect user back to account bids page
@@ -212,7 +214,8 @@ def review_payment(request, bid_id):
         # Show validation error message
         messages.error(
             request,
-            validation["error"]
+            validation["error"],
+            extra_tags = "finalize"
         )
 
         # Redirect user back to account bids page
@@ -288,7 +291,8 @@ def confirm_payment(request, bid_id):
         # Show validation error message
         messages.error(
             request,
-            validation["error"]
+            validation["error"],
+            extra_tags = "finalize"
         )
 
         # Redirect user back to account bids page
