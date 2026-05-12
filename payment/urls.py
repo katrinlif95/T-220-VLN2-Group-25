@@ -5,35 +5,30 @@ from . import views
 urlpatterns = [
 
     # Contact information page
-    # http://127.0.0.1:8000/account/bids/3/finalize/contact/
     path(
-        "<int:bid_id>/finalize/contact/",
+        "<int:bid_id>/contact/",
         views.contact_information,
         name="finalize-contact"
     ),
 
     # Payment details page
-    # http://127.0.0.1:8000/account/bids/3/finalize/payment/
     path(
-        "<int:bid_id>/finalize/payment/",
+        "<int:bid_id>/payment/",
         views.payment_details,
         name="finalize-payment"
     ),
 
     # Review page
-    # http://127.0.0.1:8000/account/bids/3/finalize/review/
     path(
-        "<int:bid_id>/finalize/review/",
+        "<int:bid_id>/review/",
         views.review_payment,
         name="finalize-review"
     ),
 
-    # Confirm action, not really a page
-    # http://127.0.0.1:8000/account/bids/3/finalize/confirm/
+    # Confirm action
     path(
-        "<int:bid_id>/finalize/confirm/",
+        "<int:bid_id>/confirm/",
         views.confirm_payment,
         name="finalize-confirm"
     ),
-
 ]

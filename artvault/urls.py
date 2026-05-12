@@ -35,10 +35,8 @@ urlpatterns = [
 
     path('account/', include('user.urls')),
 
-    # Payment flow for bids
-    path('account/bids/', include('payment.urls')),
+    path('finalize/', include('payment.urls')),
 
-    # Bid submission routes
     path("bid/", include("bid.urls")),
 
 ]
