@@ -1,0 +1,22 @@
+{% load artwork_extras %}
+
+<aside class="purchase-summary">
+
+    <h2>Purchase summary</h2>
+
+    <p>
+        <strong>Artwork:</strong>
+        {{ bid.artwork.title }}
+    </p>
+
+    <p>
+        <strong>Seller:</strong>
+        {{ bid.artwork.seller.display_name }}
+    </p>
+
+    <p>
+        <strong>Amount:</strong>
+        {{ bid.amount|isk }} ISK
+    </p>
+
+</aside>

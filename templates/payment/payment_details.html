@@ -1,101 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-
-    <!-- Page title shown in the browser tab -->
-    <title>Finalize Bid</title>
-</head>
-
+{% extends "base.html" %}
 {% load static %}
-<body>
 
-<!-- Main page heading for the whole checkout/finalize flow -->
+{% block title %}
+Finalize Bid
+{% endblock %}
+
+{% block content %}
+
 <h1>Finalize bid</h1>
 
-
-<!--
-    Step indicator for the finalize bid process.
-
-    This does not need to be clickable.
-    It only shows the user where they are in the process.
--->
 <nav class="checkout-steps">
 
-    <!-- Completed step -->
     <a href="{% url 'finalize-contact' bid.id %}">
         Contact information
     </a>
 
-    <!-- Current step -->
     <span class="active">
         Payment details
     </span>
 
-    <!-- Future step, disabled for now -->
     <span class="disabled">
         Review
     </span>
 
 </nav>
 
-
-<!--
-    Main content area.
-
-    Later this can be styled with CSS so the form is on the left
-    and the purchase summary is on the right.
--->
 <main>
 
-    <!-- Payment details section -->
     <section>
 
-        <!-- Page heading -->
         <h2>Payment details</h2>
 
-
-        <!--
-            Form for selecting payment method.
-        -->
         <form method="post">
 
-            <!-- Django security token required for POST forms -->
             {% csrf_token %}
 
-            <!-- Payment method dropdown label -->
             <label for="payment_method">
                 Payment method
             </label>
 
-            <!--
-                Dropdown for selecting payment method.
-
-                TODO:
-                - Save selected payment method in backend
-                - Add validation for payment details
-            -->
             <select id="payment_method" name="payment_method">
 
-                <!-- Default empty option -->
                 <option value=""
                     {% if not form.payment_method.value %}selected{% endif %}>
                     Choose a payment method
                 </option>
 
-                <!-- Credit card option -->
                 <option value="credit_card"
                     {% if form.payment_method.value == "credit_card" %}selected{% endif %}>
                     Credit card
                 </option>
 
-                <!-- Bank transfer option -->
                 <option value="bank_transfer"
                     {% if form.payment_method.value == "bank_transfer" %}selected{% endif %}>
                     Bank transfer
                 </option>
 
-                <!-- Wire transfer option -->
                 <option value="wire_transfer"
                     {% if form.payment_method.value == "wire_transfer" %}selected{% endif %}>
                     Wire transfer
@@ -118,7 +78,6 @@
                 >
                 {{ form.card_name.errors }}
 
-
                 <label>
                     Card number
                 </label>
@@ -131,7 +90,6 @@
                 >
                 {{ form.card_number.errors }}
 
-
                 <label>
                     Expiry date
                 </label>
@@ -143,7 +101,6 @@
                     value="{{ form.expiry_date.value|default:'' }}"
                 >
                 {{ form.expiry_date.errors }}
-
 
                 <label>
                     CVC
@@ -158,7 +115,6 @@
                 {{ form.cvc.errors }}
 
             </div>
-
 
             <div id="bank-transfer-fields" style="display: none;">
 
@@ -177,7 +133,6 @@
 
             </div>
 
-
             <div id="wire-transfer-fields" style="display: none;">
 
                 <label for="sending_bank">
@@ -192,7 +147,6 @@
                 >
                 {{ form.sending_bank.errors }}
 
-
                 <label for="routing_number">
                     Routing number
                 </label>
@@ -204,7 +158,6 @@
                     value="{{ form.routing_number.value|default:'' }}"
                 >
                 {{ form.routing_number.errors }}
-
 
                 <label for="account_number">
                     Account number
@@ -220,8 +173,6 @@
 
             </div>
 
-
-            <!-- Continue button redirects user to review step -->
             <button type="submit">
                 Continue
             </button>
@@ -230,37 +181,10 @@
 
     </section>
 
-
-    <!--
-        Purchase summary section.
-
-        This gives the user a quick overview of what they are about to buy.
-        Later this can be styled as a sidebar/card.
-    -->
-    <aside>
-
-        <h2>Purchase summary</h2>
-
-        <p>
-            <strong>Artwork:</strong>
-            {{ bid.artwork.title }}
-        </p>
-
-        <p>
-            <strong>Seller:</strong>
-            {{ bid.artwork.seller.display_name }}
-        </p>
-
-        <p>
-            <strong>Price:</strong>
-            {{ bid.amount }}
-        </p>
-
-    </aside>
+    {% include "payment/_purchase_summary.html" %}
 
 </main>
 
 <script src="{% static 'js/payment_details.js' %}"></script>
 
-</body>
-</html>
+{% endblock %}
