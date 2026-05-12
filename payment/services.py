@@ -21,25 +21,20 @@ def bid_has_completed_payment(bid):
     ).exists()
 
 
-def validate_finalize_flow_access(bid):
-
-    # Bid must be accepted or contingent
-    if not can_finalize_bid(bid):
-
+def validate_finalize_flow_access(bid, user):
+    if bid.user != user:
         return {
             "is_valid": False,
-            "error": "This bid cannot be finalized."
+            "error": "You are not allowed to finalize this bid."
         }
 
-    # Bid must not already have a completed payment
-    if bid_has_completed_payment(bid):
-
+    if bid.status not in ["accepted", "contingent"]:
         return {
             "is_valid": False,
-            "error": "This bid has already been paid."
+            "error": "Only accepted or contingent bids can be finalized."
         }
 
     return {
         "is_valid": True,
-        "error": None
+        "error": ""
     }

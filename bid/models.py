@@ -126,8 +126,13 @@ class Bid(models.Model):
 
     # String representation in admin and shell
     def __str__(self):
+        formatted_amount = (
+            f"{int(self.amount):,}"
+            .replace(",", ".")
+        )
+
         return (
-            f"{self.user.username} bid "
-            f"{self.amount} on "
+            f"{self.user.first_name or self.user.username} "
+            f"bid {formatted_amount} ISK on "
             f"{self.artwork.title}"
         )

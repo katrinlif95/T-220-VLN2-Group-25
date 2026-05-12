@@ -1,46 +1,37 @@
-# TODO fara yfir kóða
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-
-# Import Bid model
 from bid.models import Bid
-
-# Import for error messaging
 from django.contrib import messages
-
-# Import payments forms
 from .forms import  ContactInfoForm,PaymentDetailsForm
-
-# Import payment business logic
 from .services import validate_finalize_flow_access
-
-# Import contact info for profile prefill
 from user.models import ContactInfo
-
-# Import payment model for database save
 from .models import Payment
 
-# TODO
-# FINAL VERSION:
-# REMOVE:
-from django.contrib.auth.models import User
-# Add @login_required above this view
-# so only authenticated users can finalize bids
-#
-# Example:
-#
-# from django.contrib.auth.decorators import login_required
-#
 
+# Build context values used by the checkout step navigation
+def get_checkout_navigation_context(request):
+    return {
+        "can_go_to_payment": "finalize_contact_info" in request.session,
+        "can_go_to_review": (
+            "finalize_contact_info" in request.session
+            and "finalize_payment_info" in request.session
+        )
+    }
 
+# Display and save contact information for the finalize checkout flow
+@login_required
 def contact_information(request, bid_id):
 
     # Get bid by id
     # Return 404 if bid does not exist
     bid = get_object_or_404(Bid, id=bid_id)
 
-    # Validate whether bid is allowed
-    # to continue through finalize flow
-    validation = validate_finalize_flow_access(bid)
+    # Validate that the current user owns the bid
+    # and that the bid can be finalized
+    validation = validate_finalize_flow_access(
+        bid,
+        request.user
+    )
 
     if not validation["is_valid"]:
         # Show validation error message
@@ -71,26 +62,14 @@ def contact_information(request, bid_id):
         # If form is invalid,
         # re-render contact information page with validation errors
         return render(request, "payment/contact_information.html", {
-
-            # Send bid to template
             "bid": bid,
-
-            # Send related artwork to template
             "artwork": bid.artwork,
+            "form": form,
 
-            # Send form with validation errors back to template
-            "form": form
+            "current_step": "contact",
+
+            **get_checkout_navigation_context(request),
         })
-
-        # Save validated contact information in session
-        # so it persists when navigating between finalize steps
-        request.session["finalize_contact_info"] = contact_info
-
-        # Redirect user to payment details step
-        return redirect(
-            "finalize-payment",
-            bid_id=bid.id
-        )
 
     # First use session data if user has already edited checkout contact info
     contact = request.session.get("finalize_contact_info")
@@ -100,21 +79,8 @@ def contact_information(request, bid_id):
 
     if not has_session_contact:
 
-        # TEMPORARY TEST VERSION:
-        # Allows finalize flow testing without login
-        #
-        # TODO FINAL VERSION:
-        # Replace this with @login_required
-        # and use request.user directly
-        if request.user.is_authenticated:
-            current_user = request.user
-        else:
-            current_user = User.objects.get(
-                username="User1"
-            )
-
         profile_contact = ContactInfo.objects.filter(
-            user=current_user     #TODO change to request.user
+            user=request.user
         ).first()
 
         # If profile contact info exists,
@@ -140,26 +106,29 @@ def contact_information(request, bid_id):
     # Render contact information page
     return render(request, "payment/contact_information.html", {
 
-        # Send bid to template
         "bid": bid,
-
-        # Send related artwork to template
         "artwork": bid.artwork,
+        "form": form,
 
-        # Send contact form to template
-        "form": form
+        "current_step": "contact",
+
+        ** get_checkout_navigation_context(request),
     })
 
-
+# Display and save payment details for the finalize checkout flow
+@login_required
 def payment_details(request, bid_id):
 
     # Get bid by id
     # Return 404 if bid does not exist
     bid = get_object_or_404(Bid, id=bid_id)
 
-    # Validate whether bid is allowed
-    # to continue through finalize flow
-    validation = validate_finalize_flow_access(bid)
+    # Validate that the current user owns the bid
+    # and that the bid can be finalized
+    validation = validate_finalize_flow_access(
+        bid,
+        request.user
+    )
 
     if not validation["is_valid"]:
         # Show validation error message
@@ -170,6 +139,14 @@ def payment_details(request, bid_id):
 
         # Redirect user back to account bids page
         return redirect("account-bids")
+
+    # User must complete contact information
+    # before accessing payment details
+    if "finalize_contact_info" not in request.session:
+        return redirect(
+            "finalize-contact",
+            bid_id=bid.id
+        )
 
     # If payment details form is submitted
     if request.method == "POST":
@@ -190,15 +167,13 @@ def payment_details(request, bid_id):
         # If form is invalid,
         # re-render payment details page with validation errors
         return render(request, "payment/payment_details.html", {
-
-            # Send bid to template
             "bid": bid,
-
-            # Send related artwork to template
             "artwork": bid.artwork,
+            "form": form,
 
-            # Send form with errors back to template
-            "form": form
+            "current_step": "payment",
+
+            **get_checkout_navigation_context(request),
         })
 
         # Create form with saved session data if it exists
@@ -209,27 +184,29 @@ def payment_details(request, bid_id):
 
     # Render payment details page
     return render(request, "payment/payment_details.html", {
-
-        # Send bid to template
         "bid": bid,
-
-        # Send related artwork to template
         "artwork": bid.artwork,
+        "form": form,
 
-        # Send payment details form to template
-        "form": form
+        "current_step": "payment",
+
+        **get_checkout_navigation_context(request),
     })
 
-
+# Display a review page before the user confirms payment
+@login_required
 def review_payment(request, bid_id):
 
     # Get bid by id
     # Return 404 if bid does not exist
     bid = get_object_or_404(Bid, id=bid_id)
 
-    # Validate whether bid is allowed
-    # to continue through finalize flow
-    validation = validate_finalize_flow_access(bid)
+    # Validate that the current user owns the bid
+    # and that the bid can be finalized
+    validation = validate_finalize_flow_access(
+        bid,
+        request.user
+    )
 
     if not validation["is_valid"]:
         # Show validation error message
@@ -240,6 +217,22 @@ def review_payment(request, bid_id):
 
         # Redirect user back to account bids page
         return redirect("account-bids")
+
+    # User must complete contact information
+    # before accessing review
+    if "finalize_contact_info" not in request.session:
+        return redirect(
+            "finalize-contact",
+            bid_id=bid.id
+        )
+
+    # User must complete payment details
+    # before accessing review
+    if "finalize_payment_info" not in request.session:
+        return redirect(
+            "finalize-payment",
+            bid_id=bid.id
+        )
 
     # Get saved payment information from session
     payment_info = request.session.get(
@@ -264,36 +257,32 @@ def review_payment(request, bid_id):
 
     # Render review page before final confirmation
     return render(request, "payment/review_payment.html", {
-
-        # Send bid to template
         "bid": bid,
-
-        # Send related artwork to template
         "artwork": bid.artwork,
-
-        # Send saved contact information to template
         "contact": request.session.get("finalize_contact_info", {}),
-
-        # Send saved payment information to template
         "payment_info": request.session.get("finalize_payment_info", {}),
-
-        # Send readable payment method label to template
         "payment_method_label": payment_method_label,
+        "show_success_modal": False,
 
-        # Hide success modal by default
-        "show_success_modal": False
+        "current_step": "review",
+
+        ** get_checkout_navigation_context(request),
     })
 
-
+# Create the payment record and show the success confirmation modal
+@login_required
 def confirm_payment(request, bid_id):
 
     # Get bid by id
     # Return 404 if bid does not exist
     bid = get_object_or_404(Bid, id=bid_id)
 
-    # Validate whether bid is allowed
-    # to continue through finalize flow
-    validation = validate_finalize_flow_access(bid)
+    # Validate that the current user owns the bid
+    # and that the bid can be finalized
+    validation = validate_finalize_flow_access(
+        bid,
+        request.user
+    )
 
     if not validation["is_valid"]:
         # Show validation error message
@@ -304,6 +293,14 @@ def confirm_payment(request, bid_id):
 
         # Redirect user back to account bids page
         return redirect("account-bids")
+
+    # User must complete contact information
+    # before confirming payment
+    if "finalize_contact_info" not in request.session:
+        return redirect(
+            "finalize-contact",
+            bid_id=bid.id
+        )
 
     # Get saved payment information from session
     payment_info = request.session.get("finalize_payment_info")
@@ -318,23 +315,28 @@ def confirm_payment(request, bid_id):
 
     # Create payment record in database
     payment = Payment.objects.create(
-        user=User.objects.get(username="User1"),            # TODO replace with =request.user
+        user=request.user,
         bid=bid,
         amount=bid.amount,
         payment_method=payment_info["payment_method"],
         status=Payment.STATUS_COMPLETED
     )
 
-    # Mark bid as finalized/completed
-    # TODO:
-    # Replace STATUS_COMPLETED with the correct Bid status
-    # if your Bid model uses a different name
-    # bid.status = Bid.STATUS_COMPLETED
-    # bid.save()
-
     # Clear finalize checkout session data
     request.session.pop("finalize_contact_info", None)
     request.session.pop("finalize_payment_info", None)
+
+    # Convert payment method value into readable label
+    payment_method_labels = {
+        "credit_card": "Credit card",
+        "bank_transfer": "Bank transfer",
+        "wire_transfer": "Wire transfer",
+    }
+
+    payment_method_label = payment_method_labels.get(
+        payment_info.get("payment_method"),
+        ""
+    )
 
     # Render review page again with success modal open
     return render(request, "payment/review_payment.html", {
@@ -343,5 +345,11 @@ def confirm_payment(request, bid_id):
         "payment": payment,
         "contact": {},
         "payment_info": payment_info,
-        "show_success_modal": True
+        "payment_method_label": payment_method_label,
+
+        "current_step": "review",
+
+        **get_checkout_navigation_context(request),
+
+        "show_success_modal": True,
     })
