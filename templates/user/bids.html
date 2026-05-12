@@ -49,7 +49,7 @@
                         <span class="bid-value">{{ bid.expires_at|date:"d.m.Y" }}</span>
 
                         <span class="bid-status">Status</span>
-                        <span class="bid-status-btn">{{ bid.status|title }}</span>
+                        <span class="bid-status-btn {{ bid.status }}">{{ bid.status|title }}</span>
 
                     </div>
                     <div class="bid-actions">

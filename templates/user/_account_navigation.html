@@ -2,9 +2,19 @@
 <nav class="breadcrumbs">
     <a href="{% url 'home' %}">Homepage</a>
     <span>></span>
-    <a href="{% url 'account-profile' %}">My account</a>
-    <span>></span>
-    <span class="current-page">{{ active_page }}</span>
+    {% if active_tab == "profile" %}
+        <span class="current-page">
+            My account<span class="breadcrumb-separator">></span>Profile
+        </span>
+    {% else %}
+        <a href="{% url 'account-profile' %}">
+            My account
+        </a>
+        <span>></span>
+        <span class="current-page">
+            {{ active_page }}
+        </span>
+    {% endif %}
 </nav>
 
 <h1 class="account-title">My account</h1>

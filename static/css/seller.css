@@ -1,19 +1,13 @@
-/* =========================
-   Seller / Gallery page
-   ========================= */
-
-.seller-page {
-}
-
+/* ============
+   PAGE LAYOUT
+   ============ */
 .page-container {
-    padding: 0 72px;
-    padding-top: 16px;
+    padding: 16px 72px 0;
 }
 
-
-/* =========================
-   Hero / banner
-   ========================= */
+/* ==============
+   HERO / BANNER
+   ============== */
 
 .seller-hero {
     position: relative;
@@ -37,10 +31,9 @@
     font-size: 3rem;
 }
 
-
-/* =========================
-   Seller profile / info strip
-   ========================= */
+/* =====================
+   PROFILE / INFO STRIP
+   ===================== */
 
 .seller-profile {
     font-size: 0.95rem;
@@ -54,7 +47,6 @@
     gap: 2rem;
     align-items: start;
 }
-
 
 .seller-profile-logo img {
     width: 70px;
@@ -75,26 +67,18 @@
     margin: 0;
 }
 
-
-/* =========================
-   Contact / socials
-   ========================= */
-
-.socials-links {
+/* ==================
+   CONTACT / SOCIALS
+   ================== */
+.social-links {
     display: flex;
     gap: 1rem;
     font-size: 1.8rem;
 }
 
-.social-links a {
-    font-size: 24px;
-}
-
-
-/* =========================
-   Artworks section
-   ========================= */
-
+/* =================
+    ARTWORK SECTION
+   ================= */
 .seller-artworks {
     padding: 1rem 0 2rem;
 }
@@ -103,6 +87,24 @@
     text-align: center;
     font-size: 2rem;
     margin-bottom: 1.5rem;
+}
+
+/* ======================
+    ARTWORK CARDS
+   ====================== */
+.seller-artworks .artwork-card img {
+    border-radius: 0;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.seller-artworks .artwork-card {
+    text-align: left;
+}
+
+.seller-artworks .artwork-title,
+.seller-artworks .artwork-card p {
+    text-align: left;
 }
 
 .artwork-card-container {

@@ -1,5 +1,6 @@
-/* Account breadcrumbs */
-
+/* ===============
+    BREADCRUMBS
+   =============== */
 .breadcrumbs {
     margin-top: 16px;
     margin-bottom: 32px;
@@ -21,50 +22,132 @@
     color: var(--main-color);
 }
 
-/* Account page layout */
+.breadcrumb-separator {
+    margin: 0 8px;
+}
 
+/* ==================
+    ACCOUNT LAYOUT
+   ================== */
 .account-page {
     max-width: 700px;
     margin: 0 auto;
     padding: 40px 0 80px;
 }
 
+.account-title {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
 .profile-section {
     margin-top: 10px;
 }
 
-/* Profile image section */
-
-.profile-image-row {
+/* =====================
+    ACCOUNT NAVIGATION
+   ===================== */
+.account-tabs {
     display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 36px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    justify-content: center;
 }
 
-.profile-image-placeholder {
-    width: 72px;
-    height: 72px;
+.account-tabs a:hover {
+    opacity: 0.8;
+}
 
-    border-radius: 50%;
-    border: 1px solid #d9d9d9;
-    background-color: #f5f5f5;
+.account-tabs a {
+    position: relative;
+    width: 200px;
+    text-align: center;
+    text-decoration: none;
+    color: #E9E8E8;
+    padding-bottom: 10px;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+}
 
+.account-tabs a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background-color: #E9E8E8;
+}
+
+.account-tabs a.active::after {
+    background-color: var(--main-color);
+}
+
+.account-tabs a.active {
+    font-weight: 600;
+    color: var(--main-color);
+}
+
+/* =================
+    PROFILE MESSAGES
+   ================= */
+/* TODO: Sameina .profile-messages í eina útgáfu */
+.profile-messages {
+    max-width: 420px;
+    margin-bottom: 32px;
+}
+
+/* Wrapper for profile page messages */
+.profile-messages {
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: 0;
+    margin-bottom: 32px;
+}
+
+.profile-message {
     display: flex;
     align-items: center;
-    justify-content: center;
-
-    color: #555;
-    font-size: 20px;
+    gap: 10px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 15px;
     font-weight: 500;
 }
 
-.profile-image {
-    width: 72px;
-    height: 72px;
+.profile-message.success {
+    background-color: #eef8f0;
+    color: #276738;
+    border: 1px solid #c8e6cf;
+}
+
+.profile-message.error {
+    background-color: #fdecec;
+    color: #a12626;
+    border: 1px solid #efb0b0;
+}
+
+/* Info message styling */
+.profile-message.info {
+    background-color: #eef6fb;
+    color: var(--secondary-color);
+    border: 1px solid #c7dff0;
+}
+
+/* =====================
+    PROFILE IMAGE SECTION
+   ===================== */
+.profile-image-row {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin-bottom: 40px;
+    margin-left: -18px;
+    justify-content: flex-start;
+}
+
+.profile-image,
+.profile-image-placeholder {
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -79,8 +162,71 @@
     text-decoration: underline;
 }
 
-/* Profile form styling */
+.profile-image-wrapper {
+        position: relative;
+        flex-shrink: 0;
+    }
 
+/* Make profile image clickable */
+.clickable-profile-image {
+    cursor: pointer;
+
+    border: 3px solid transparent;
+    transition: 0.2s ease;
+}
+
+.clickable-profile-image:hover {
+    border-color: var(--secondary-color);
+}
+
+/* Edit icon overlay on profile image */
+.profile-image-edit-icon {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.profile-image-edit-icon:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Profile image upload controls */
+.profile-image-upload {
+    display: flex;
+    align-items: center;
+}
+
+.profile-image-upload input[type="file"] {
+    display: none;
+}
+
+.change-profile-image-link {
+    font-size: 18px;
+    font-weight: 600;
+
+    color: var(--main-color);
+    text-decoration: underline;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.change-profile-image-link:hover {
+    color: var(--secondary-color);
+}
+
+
+/* =============
+    PROFILE FORM
+   ============= */
 .profile-form {
     display: flex;
     flex-direction: column;
@@ -96,9 +242,21 @@
     align-items: end;
 }
 
-.profile-form-row label {
-    grid-column: 1 / -1;
-    margin-bottom: -6px;
+.profile-form input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: white;
+    color: #444;
+    transition: border-color 0.2s ease;
+}
+
+.profile-form input:focus {
+    outline: none;
+    border-color: #b5b5b5;
 }
 
 .profile-form-row input {
@@ -107,22 +265,20 @@
 }
 
 .profile-form-row label {
-    display: block;
-    margin-bottom: 6px;
+    grid-column: 1 / -1;
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 0.01em;
 }
 
 .edit-icon-btn {
     width: 44px;
     height: 44px;
-
     border: none;
-
     background-color: white;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     cursor: pointer;
     opacity: 0.6;
     transition: opacity 0.2s ease;
@@ -132,72 +288,16 @@
     opacity: 1;
 }
 
-/* Profile form labels */
-
-.profile-form-row label {
-    display: block;
-    margin-bottom: 6px;
-
-    font-size: 13px;
-    color: #666;
-    letter-spacing: 0.01em;
-}
-
-
-/* Account page navigation tabs */
-
-.account-title {
-    text-align: center;
-    margin-bottom: 32px;
-}
-
-.account-tabs {
-    display: flex;
-    justify-content: center;
-
-}
-
-.account-tabs a:hover {
-    opacity: 0.8;
-}
-
-.account-tabs a {
-    position: relative;
-    width: 200px;
-    text-align: center;
-
-    text-decoration: none;
-    color: #E9E8E8;
-    padding-bottom: 10px;
-    font-size: 15px;
-    letter-spacing: 0.02em;
-}
-
-.account-tabs a::after {
-    content: "";
-
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-
+.profile-update-btn {
     width: 100%;
-    height: 2px;
-
-    background-color: #E9E8E8;
+    margin-top: 32px;
+    padding: 14px 26px;
+    font-size: 18px;
 }
 
-.account-tabs a.active::after {
-    background-color: var(--main-color);
-}
-
-.account-tabs a.active {
-    font-weight: 600;
-    color: var(--main-color);
-}
-
-
-/* Bids page */
-
+/* ============
+    BIDS PAGE
+   ============ */
 .bids-section {
     max-width: 600px;
     margin: 0 auto;
@@ -265,19 +365,35 @@
     justify-content: center;
     position: relative;
     right: 50px;
-
     width: fit-content;
 
     padding: 4px 10px;
     margin-top: 7px;
 
     border-radius: 10px;
-
-    background-color: #95C079;
-    color: #e8f3ea;
-
     font-size: 14px;
     font-weight: 600;
+}
+
+.bid-status-btn.pending {
+    background-color: #d59112;
+    color: white;
+}
+
+.bid-status-btn.accepted {
+    background-color: #95C079;
+    color: white;
+}
+
+.bid-status-btn.rejected {
+    background-color: #BE3630;
+    color: white;
+}
+
+.bid-status-btn.contingent {
+    background-color: #84AEBF;
+    color: white;
+
 }
 
 .bid-actions {
@@ -295,26 +411,67 @@
     color: #838383;
 }
 
+/* ====================
+    CONTACT INFORMATION
+   ==================== */
 
-/* Profile form inputs */
+.contact-section {
+    max-width: 600px;
+    margin: 32px auto 0;
+}
 
-.profile-form input {
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.contact-form-row,
+.contact-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.contact-form-split-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.contact-form label {
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 0.01em;
+}
+
+.contact-form input,
+.contact-form select {
     width: 100%;
     height: 44px;
     padding: 0 14px;
+
     border: 1px solid #d9d9d9;
     border-radius: 6px;
-    font-size: 14px;
+
     background-color: white;
     color: #444;
-    transition: border-color 0.2s ease;
+
+    font-size: 14px;
+    font-family: var(--font-main);
 }
 
-.profile-form input:focus {
+.contact-form input:focus,
+.contact-form select:focus {
     outline: none;
     border-color: #b5b5b5;
 }
 
-
+.contact-form button {
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px 26px;
+    font-size: 18px;
+}
 
 
