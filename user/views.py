@@ -120,13 +120,6 @@ def account_bids(request):
             status="completed"
         ).exists()
 
-        # Add current highest bid amount
-        # for artwork display
-        bid.artwork.highest_bid_amount = (
-            get_current_highest_bid_amount(
-                bid.artwork
-            )
-        )
     return render(
         request,
         "user/bids.html",
