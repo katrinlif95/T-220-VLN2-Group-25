@@ -1,0 +1,13 @@
+.checkout-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 48px 64px 80px;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 72px;
+}
+
+.checkout-summary {
+    border-left: 1px solid #d9d9d9;
+    padding-left: 48px;
+}
