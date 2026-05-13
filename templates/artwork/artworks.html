@@ -59,11 +59,10 @@
                         <span>Starting bid:</span>
                         <strong>{{ art.starting_price|isk }} ISK</strong>
                     </p>
-
-                    {% if art.current_bid %}
-                        <p class="current-price">
-                            <span>Current bid:</span>
-                            <strong>{{ art.current_price|isk }} ISK</strong>
+                    {% if art.highest_bid_amount %}
+                        <p class="current-highest-bid">
+                            <span>Current highest bid:</span>
+                            <strong>{{ art.highest_bid_amount|isk }} ISK</strong>
                         </p>
                     {% endif %}
 
