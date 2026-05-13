@@ -278,6 +278,16 @@
 
     </div>
 
+    {# Keep hidden artist filter active when other filters are submitted #}
+    {% if selected_artist %}
+    <input type="hidden" name="artist" value="{{ selected_artist }}">
+    {% endif %}
+
+    {# Keep hidden highlighted filter active when other filters are submitted #}
+    {% if highlighted_only %}
+    <input type="hidden" name="highlighted" value="true">
+    {% endif %}
+
     {% if selected_status or selected_medium or selected_style or selected_order_by or search_query or price_filter_active %}
     <a
         href="{% url 'artwork-index' %}"
