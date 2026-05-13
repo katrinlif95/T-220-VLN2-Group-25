@@ -69,8 +69,8 @@
         <div class="bid-info">
             <p>Current highest bid:</p>
 
-            {% if highest_bid_amount %}
-                <strong>{{ highest_bid_amount|isk }} ISK</strong>
+            {% if artwork.highest_bid_amount %}
+                <strong>{{ artwork.highest_bid_amount|isk }} ISK</strong>
             {% else %}
                 <strong>No bids yet</strong>
             {% endif %}

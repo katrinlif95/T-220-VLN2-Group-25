@@ -1,6 +1,4 @@
 from django.db import models
-
-# Create your models here.
 from seller.models import Seller
 
 
@@ -55,6 +53,26 @@ class Artwork(models.Model):
     # When listed
     listed_at = models.DateTimeField()
             # auto_now_add=True sets the timestamp when the object is created
+
+    @property
+    def highest_bid_amount(self):
+        """
+        Return the current highest active bid amount
+        for the artwork.
+
+        Uses artwork service logic to exclude
+        rejected and cancelled bids.
+
+        Returns:
+            highest bid amount if active bids exist
+            None if no active bids exist
+        """
+
+        # Import inside property to avoid circular imports
+        from artwork.services import get_current_highest_bid_amount
+
+        # Return highest active bid amount
+        return get_current_highest_bid_amount(self)
 
     def __str__(self):
         return self.title

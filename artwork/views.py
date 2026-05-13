@@ -225,7 +225,7 @@ def artwork_detail(request, artwork_id):
         "main_image": main_image,
         "images_data": images_data,
         "is_sold": is_sold,
-        "highest_bid_amount": highest_bid_amount,
+        "highest_bid_amount": get_current_highest_bid_amount(artwork),
         "existing_resubmittable_bid": existing_resubmittable_bid,
         "bid_form": bid_form,
     })
