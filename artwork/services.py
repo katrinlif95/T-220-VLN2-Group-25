@@ -14,6 +14,23 @@ def artwork_is_sold(artwork):
         ]
     ).exists()
 
+def sync_artwork_status_from_bids(artwork):
+    """
+    Keep the saved artwork status in sync
+    with accepted or contingent bids.
+    """
+
+    from artwork.models import Artwork
+
+    if artwork_is_sold(artwork):
+        artwork.status = Artwork.STATUS_SOLD
+    else:
+        artwork.status = Artwork.STATUS_AVAILABLE
+
+    artwork.save(
+        update_fields=["status"]
+    )
+
 
 def get_highest_bid(artwork):
     """

@@ -6,12 +6,14 @@ from seller.models import Seller
 
 class Artwork(models.Model):
 
+    STATUS_AVAILABLE = "available"
+    STATUS_SOLD = "sold"
+
     # Artwork status choices
     STATUS_CHOICES = [
-        ("available", "Available"),
-        ("sold", "Sold"),
+        (STATUS_AVAILABLE, "Available"),
+        (STATUS_SOLD, "Sold"),
     ]
-
 
     # Each artwork belongs to one seller
     seller = models.ForeignKey(
@@ -40,11 +42,14 @@ class Artwork(models.Model):
     # Lower numbers appear first
     display_order = models.PositiveIntegerField(default=0)
 
+    # Featured/highlighted artwork
+    highlighted = models.BooleanField(default=False)
+
     # Status (e.g. available / sold)
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
-        default="available"
+        default=STATUS_AVAILABLE
     )
 
     # When listed
