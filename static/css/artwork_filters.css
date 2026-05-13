@@ -320,13 +320,3 @@
     transition: color 0.2s ease;
 }
 
-@media (max-width: 768px) {
-
-    .clear-filters {
-        width: 100%;
-
-        text-align: center;
-
-        margin-top: -4px;
-    }
-}

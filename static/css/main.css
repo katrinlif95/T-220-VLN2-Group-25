@@ -541,53 +541,6 @@ h1 {
     font-weight: 500;
 }
 
-/* =========
-    FILTERS
-   ========= */
-.artwork-filters {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-bottom: 20px;
-}
-
-.filter-select {
-    position: relative;
-    display: inline-block;
-}
-
-.filter-select select {
-    width: 125px;
-    padding: 7px 30px 7px 16px;
-    border: 1px solid var(--neutral-color);
-    border-radius: 999px;
-    font-size: 16px;
-    color: var(--main-color);
-    /* Overrides browser's default dropdown*/
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-.filter-select select:hover {
-    border-color: var(--main-color);
-}
-
-.filter-select select:focus {
-    outline: none;
-    border-color: var(--main-color);
-}
-
-.filter-arrow {
-    position: absolute;
-    /* Vertically centers arrow */
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    font-size: 20px;
-}
-
 /* ============
     RESPONSIVE
    ============ */
@@ -683,9 +636,12 @@ h1 {
         grid-template-columns: 1fr;
     }
 
-    .artwork-filters {
-        flex-wrap: wrap;
-        gap: 12px;
+    .clear-filters {
+        width: 100%;
+
+        text-align: center;
+
+        margin-top: -4px;
     }
 
     .detail-meta {
