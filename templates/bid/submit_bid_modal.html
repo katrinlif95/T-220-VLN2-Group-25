@@ -47,7 +47,7 @@
                         value="{{ existing_resubmittable_bid.amount|floatformat:0 }}"
                     {% endif %}
 
-                    placeholder="{% if highest_bid_amount %}Enter higher than current bid{% else %}Enter higher than starting bid{% endif %}"
+                    placeholder="{% if highest_bid_amount %}Enter higher than current bid{% else %}Enter at least starting bid amount{% endif %}"
                     required
                 >
 
@@ -65,7 +65,7 @@
                 {% else %}
 
                     <small>
-                        Enter at least {{ artwork.starting_price|isk }} ISK.
+                        Enter {{ artwork.starting_price|isk }} ISK or higher.
                     </small>
 
                 {% endif %}
@@ -96,7 +96,7 @@
                 ></div>
 
                 <small>
-                    Select how long your bid should remain active.
+                    Select how long your bid should remain active. <br>It will expire automatically on this date.
                 </small>
 
             </div>

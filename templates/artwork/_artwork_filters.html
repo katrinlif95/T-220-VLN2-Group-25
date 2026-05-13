@@ -1,0 +1,257 @@
+{% load artwork_extras %}
+
+
+<!-- Artwork filters -->
+<form method="get" class="artwork-filters">
+
+    <!-- Medium filter dropdown -->
+    <div class="filter-select">
+
+        <select name="medium" class="auto-submit-filter">
+            <option value="" disabled hidden {% if not selected_medium %}selected{% endif %}>
+                Medium
+            </option>
+
+            <option value="oil" {% if selected_medium == "oil" %}selected{% endif %}>
+                Oil
+            </option>
+
+            <option value="acrylic" {% if selected_medium == "acrylic" %}selected{% endif %}>
+                Acrylic
+            </option>
+
+            <option value="watercolour" {% if selected_medium == "watercolour" %}selected{% endif %}>
+                Watercolour
+            </option>
+
+            <option value="sculpture" {% if selected_medium == "sculpture" %}selected{% endif %}>
+                Sculpture
+            </option>
+
+            <option value="photography" {% if selected_medium == "photography" %}selected{% endif %}>
+                Photography
+            </option>
+
+            <option value="mixed-media" {% if selected_medium == "mixed-media" %}selected{% endif %}>
+                Mixed media
+            </option>
+        </select>
+
+        {% if selected_medium %}
+            <button
+                type="button"
+                class="filter-clear-button"
+                data-clear-filter="medium"
+            >
+                ×
+            </button>
+        {% else %}
+            <span class="material-symbols-outlined filter-arrow">
+                keyboard_arrow_down
+            </span>
+        {% endif %}
+
+    </div>
+
+
+    <!-- Style filter dropdown -->
+    <div class="filter-select">
+
+        <select name="style" class="auto-submit-filter">
+            <option value="" disabled hidden {% if not selected_style %}selected{% endif %}>
+                Style
+            </option>
+
+            <option value="abstract" {% if selected_style == "abstract" %}selected{% endif %}>
+                Abstract
+            </option>
+
+            <option value="contemporary" {% if selected_style == "contemporary" %}selected{% endif %}>
+                Contemporary
+            </option>
+
+            <option value="realism" {% if selected_style == "realism" %}selected{% endif %}>
+                Realism
+            </option>
+
+            <option value="impressionism" {% if selected_style == "impressionism" %}selected{% endif %}>
+                Impressionism
+            </option>
+
+            <option value="modern" {% if selected_style == "modern" %}selected{% endif %}>
+                Modern
+            </option>
+        </select>
+
+        {% if selected_style %}
+            <button
+                type="button"
+                class="filter-clear-button"
+                data-clear-filter="style"
+            >
+                ×
+            </button>
+        {% else %}
+            <span class="material-symbols-outlined filter-arrow">
+                keyboard_arrow_down
+            </span>
+        {% endif %}
+
+    </div>
+
+
+    <!-- Order by dropdown -->
+    <div class="filter-select">
+
+        <select name="order_by" class="auto-submit-filter">
+            <option value="" disabled hidden {% if not selected_order_by %}selected{% endif %}>
+                Order by
+            </option>
+
+            <option value="title-asc" {% if selected_order_by == "title-asc" %}selected{% endif %}>
+                Title A-Z
+            </option>
+
+            <option value="title-desc" {% if selected_order_by == "title-desc" %}selected{% endif %}>
+                Title Z-A
+            </option>
+
+            <option value="price-asc" {% if selected_order_by == "price-asc" %}selected{% endif %}>
+                Price low to high
+            </option>
+
+            <option value="price-desc" {% if selected_order_by == "price-desc" %}selected{% endif %}>
+                Price high to low
+            </option>
+        </select>
+
+        {% if selected_order_by %}
+            <button
+                type="button"
+                class="filter-clear-button"
+                data-clear-filter="order_by"
+            >
+                ×
+            </button>
+        {% else %}
+            <span class="material-symbols-outlined filter-arrow">
+                keyboard_arrow_down
+            </span>
+        {% endif %}
+
+    </div>
+
+    <!-- Price range dropdown -->
+    <div class="filter-dropdown">
+        <button
+            type="button"
+            class="filter-dropdown-toggle"
+            id="price-filter-toggle"
+        >
+            <span>Price</span>
+
+            {% if price_filter_active %}
+
+                <span
+                    class="filter-clear-button"
+                    id="clear-price-filter"
+                    data-clear-filter="price"
+                >
+                    ×
+                </span>
+
+            {% else %}
+
+                <span class="material-symbols-outlined">
+                    keyboard_arrow_down
+                </span>
+
+            {% endif %}
+        </button>
+
+        <div
+            class="filter-dropdown-menu hidden"
+            id="price-filter-menu"
+        >
+            <div class="price-values">
+                <span id="min-price-value">{{ selected_min_price|isk }}</span>
+                ISK
+                -
+                <span id="max-price-value">{{ selected_max_price|isk }}</span>
+                ISK
+            </div>
+
+            <div class="dual-range-slider">
+                <div
+                    class="dual-range-track"
+                    id="dual-range-track"
+                ></div>
+
+                <input
+                    type="range"
+                    id="min-price"
+                    name="min_price"
+                    min="{{ slider_min_price|floatformat:0 }}"
+                    max="{{ slider_max_price|floatformat:0 }}"
+                    value="{{ selected_min_price|floatformat:0 }}"
+                    step="{{ price_step }}"
+                >
+
+                <input
+                    type="range"
+                    id="max-price"
+                    name="max_price"
+                    min="{{ slider_min_price|floatformat:0 }}"
+                    max="{{ slider_max_price|floatformat:0 }}"
+                    value="{{ selected_max_price|floatformat:0 }}"
+                    step="{{ price_step }}"
+                >
+            </div>
+        </div>
+    </div>
+
+    <!-- Search filter -->
+    <div
+        class="filter-search {% if search_query %}search-open{% endif %}"
+        id="filter-search"
+        data-active-search="{{ search_query }}"
+    >
+
+        <input
+            type="text"
+            name="search"
+            id="artwork-search-input"
+            class="filter-search-input"
+            placeholder="Search title"
+            value="{{ search_query }}"
+        >
+
+        <button
+            type="button"
+            class="filter-search-toggle"
+            id="search-toggle"
+        >
+            <span class="material-symbols-outlined"
+                  id="search-toggle-icon"
+            >
+                {% if search_query %}
+                    close
+                {% else %}
+                    search
+                {% endif %}
+            </span>
+
+        </button>
+
+    </div>
+
+    {% if selected_medium or selected_style or selected_order_by or search_query or price_filter_active %}
+    <a
+        href="{% url 'artwork-index' %}"
+        class="clear-filters"
+    >
+        Clear all
+    </a>
+    {% endif %}
+
+</form>
