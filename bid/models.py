@@ -122,6 +122,14 @@ class Bid(models.Model):
 
         super().save(*args, **kwargs)
 
+        from artwork.services import (
+            sync_artwork_status_from_bids
+        )
+
+        sync_artwork_status_from_bids(
+            self.artwork
+        )
+
 
 
     # String representation in admin and shell

@@ -24,6 +24,7 @@ def artwork_index(request):
     selected_style = request.GET.get("style", "")
     selected_order_by = request.GET.get("order_by", "")
     search_query = request.GET.get("search", "")
+    highlighted_only = request.GET.get("highlighted") == "true"
 
     # Price slider step size
     # Used for rounded slider increments
@@ -139,6 +140,11 @@ def artwork_index(request):
         artworks
     )
 
+    if highlighted_only:
+        artworks = artworks.filter(
+            highlighted=True
+        )
+
     return render(
         request,
         "artwork/artworks.html",
@@ -162,6 +168,8 @@ def artwork_index(request):
 
             "selected_min_price": selected_min_price,
             "selected_max_price": selected_max_price,
+
+            "highlighted_only": highlighted_only,
         }
     )
 
