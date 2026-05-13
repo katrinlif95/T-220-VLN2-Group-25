@@ -20,6 +20,7 @@ def artwork_index(request):
     artworks = Artwork.objects.all()
 
     # Get selected filter values from URL query parameters
+    selected_status = request.GET.get("status", "")
     selected_medium = request.GET.get("medium", "")
     selected_style = request.GET.get("style", "")
     selected_order_by = request.GET.get("order_by", "")
@@ -86,6 +87,12 @@ def artwork_index(request):
         slider_max_price
     )
 
+    # Filter by artwork status
+    if selected_status:
+        artworks = artworks.filter(
+            status=selected_status
+        )
+
     # Filter by medium
     if selected_medium:
         artworks = artworks.filter(
@@ -151,6 +158,7 @@ def artwork_index(request):
         {
             "artworks": artworks,
 
+            "selected_status": selected_status,
             "selected_medium": selected_medium,
             "selected_style": selected_style,
             "selected_order_by": selected_order_by,
