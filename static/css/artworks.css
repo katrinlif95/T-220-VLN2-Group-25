@@ -133,11 +133,13 @@
 }
 
 .artwork-detail-layout {
+    position: relative;
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 100px;
-    margin-top: 24px;
+    grid-template-columns: 520px 420px;
+    gap: 72px;
+    margin-top: 40px;
     align-items: start;
+    justify-content: center;
 }
 
 .artwork-detail-image img {
@@ -146,54 +148,238 @@
     object-fit: cover;
 }
 
+.artwork-detail-info {
+    position: relative;
+    width: 340px;
+    padding-top: 48px;
+}
+
 .artwork-detail-info h1 {
-    font-size: 36px;
-    margin: 10px 0 8px;
+    font-size: 28px;
+    margin: 10px 0 4px;
+}
+
+.artwork-main-details {
+    margin-left: 8px;
 }
 
 .artist-name {
-    margin-bottom: 24px;
     color: var(--text-secondary-color);
 }
 
-.artwork-style,
-.artwork-medium {
+.artwork-detail-info .artwork-meta {
+    margin-top: 8px;
+    margin-bottom: 42px;
+    text-align: center;
     color: var(--text-secondary-color);
-    margin-bottom: 4px;
+    font-size: 15px;
+    font-weight: 400;
 }
 
-.bid-info {
-    margin-top: 28px;
+.artwork-detail-info .artwork-meta span {
+    margin: 0 10px;
 }
 
-.bid-info p {
-    margin-bottom: 4px;
+.artwork-detail-info .bid-info {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.artwork-detail-info .bid-info p {
+    margin-bottom: 1px;
     color: var(--text-secondary-color);
+    font-size: 17px;
 }
 
-.bid-info strong {
+.artwork-detail-info .bid-info strong {
     font-size: 20px;
 }
 
 .date-detail {
     display: flex;
-    gap: 56px;
-    margin-top: 28px;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 50px;
 }
 
 .date-detail p {
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+    font-size: 16px;
     color: var(--text-secondary-color);
 }
 
 .submit-bid-btn {
     display: block;
-    width: 260px;
-    margin-top: 36px;
+    width: 320px;
+    margin: 36px auto 0;
     padding: 12px 20px;
     border-radius: 8px;
     text-align: center;
     font-weight: 600;
+}
+
+/* Bid login message */
+.bid-login-message {
+    display: block;
+    width: 100%;
+    margin-top: 36px;
+    font-size: 17px;
+    font-weight: 700;
+
+    color: var(--main-color);
+    text-align: center;
+}
+
+.bid-login-message a {
+    color: var(--main-color);
+    text-decoration: underline;
+    transition: 0.2s ease;
+}
+
+.bid-login-message a:hover {
+    color: var(--secondary-color);
+}
+
+.bid-login-message a:active {
+    color: #1a6985;
+}
+
+/*Submit bid modal pop up*/
+.hidden {
+    display: none;
+}
+
+.bid-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+}
+
+.bid-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.bid-modal-content {
+    position: relative;
+    z-index: 10000;
+
+    width: 420px;
+    max-width: 90%;
+
+    margin: 120px auto;
+    padding: 40px 40px;
+
+    background: var(--background-color);
+    border-radius: 10px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.bid-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid var(--neutral-color);
+    border-radius: 50%;
+    background: none;
+    color: var(--main-color);
+
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.bid-modal-close:hover {
+    border: 1px solid var(--text-tertiary-color);
+}
+
+.bid-modal-content h2 {
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.bid-form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+}
+
+.bid-form-row label {
+    font-size: 17px;
+    margin-bottom: 2px;
+    font-weight: 500;
+}
+
+.bid-form-row input {
+    padding: 8px 10px;
+    color: var(--main-color);
+    border: 1px solid var(--neutral-color);
+    border-radius: 8px;
+    background-color: white;
+}
+
+.bid-form-row input::placeholder {
+    color: var(--text-tertiary-color);
+}
+
+.bid-form-row input[type="date"] {
+    color: var(--main-color);
+}
+
+/* Style placeholder text inside date input (Chrome/WebKit browsers) */
+.bid-form-row input[type="date"]::-webkit-datetime-edit {
+    color: var(--text-tertiary-color);
+}
+
+/* Change date text color when user selects a date */
+.bid-form-row input[type="date"]:focus::-webkit-datetime-edit {
+    color: var(--main-color);
+}
+
+/* Change date text color after user selects a date */
+.bid-form-row input[type="date"]:valid::-webkit-datetime-edit {
+    color: var(--main-color);
+}
+
+.bid-form-row input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.5;
+}
+
+.bid-form-row input:hover {
+    border-color: var(--main-color);
+}
+
+.bid-form-row input:focus {
+    outline: none;
+    border-color: var(--main-color);
+    color: var(--main-color)
+}
+
+.bid-form-row small {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #666;
+}
+
+.submit-bid-modal-button {
+    display: block;
+    width: 280px;
+    margin: 8px auto 0;
+    padding: 12px 20px;
+
+    font-weight: 500;
 }
 
 /* ====================
@@ -202,56 +388,97 @@
 .artwork-detail-image {
     position: relative;
     display: inline-block;
+    overflow: visible;
 }
 
 #main-artwork-image {
-    display: block;
     width: 100%;
-    height: 500px;
-    object-fit: contain;
+    height: 520px;
+    object-fit: cover;
 }
 
 .artwork-detail-image .image-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 42px;
-    height: 42px;
-    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid var(--neutral-color);
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.85);
-    font-size: 28px;
-    line-height: 1;
+
+    background-color: white;
+    color: var(--main-color);
+
     cursor: pointer;
     z-index: 2;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+
+    transition:
+                border-color 0.2s ease,
+                background-color 0.2s ease,
+                transform 0.15s ease;
+}
+
+.image-arrow .material-symbols-outlined {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.image-arrow:hover {
+    border-color: var(--text-tertiary-color);
+}
+
+.image-arrow:active {
+    transform: translateY(-50%) scale(0.95);
 }
 
 .artwork-detail-image .image-arrow-left {
-    left: 14px;
+    left: -56px;
 }
 
 .artwork-detail-image .image-arrow-right {
-    right: 14px;
+    right: -56px;
 }
 
 .image-arrow:hover {
     background-color: white;
 }
 
-.artwork-image-wrapper {
-    position: relative;
-}
-
 .artwork-detail-page .status-badge {
     padding: 8px 14px;
+    font-size: 14px;
 }
 
-.artwork-image-wrapper .status-badge {
+.artwork-detail-info .status-badge.available {
     position: absolute;
-    top: 14px;
-    right: 14px;
-    margin-left: 0;
+    top: 10px;
+    right: 0;
+}
+
+.artwork-detail-layout .status-badge.sold {
+    position: absolute;
+    top: -33px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: calc(520px + 420px + 72px + 4px);
+
+    padding: 5px 0;
+
+    border-radius: 4px;
+
+    color: white;
+
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+
+    z-index: 5;
 }
 
 /* =================
@@ -270,6 +497,7 @@
     padding-bottom: 8px;
     border-bottom: 3px solid var(--neutral-color);
 }
+
 
 .artwork-left-info {
     display: grid;
@@ -307,8 +535,8 @@
 
 .seller-card a {
     display: block;
-    width: 100%;
-    text-align: right;
+    margin-top: 16px;
+    margin-left: 200px;
     font-weight: 600;
 }
 
@@ -333,4 +561,74 @@
     border-radius: 50%;
     object-fit: cover;
     display: block;
+}
+
+/* User bid summary and status */
+.user-bid-summary {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+}
+
+.user-bid-summary p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.user-bid-amount {
+    font-weight: 600;
+}
+
+.user-bid-summary span {
+    display: block;
+    color: var(--text-secondary-color);
+    font-size: 13px;
+}
+
+.user-bid-status {
+    width: 320px;
+    margin: 20px auto 0;
+}
+
+.user-bid-status p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--text-secondary-color);
+}
+
+.bid-status-badge {
+    display: inline-block;
+
+    padding: 3px 10px;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.bid-status-badge.pending {
+    background-color: #d59112;
+    color: white;
+}
+
+.bid-status-badge.accepted {
+    background-color: #95C079;
+    color: white;
+}
+
+.bid-status-badge.rejected {
+    background-color: #BE3630;
+    color: white;
+}
+
+.bid-status-badge.contingent {
+    background-color: #84AEBF;
+    color: white;
 }
