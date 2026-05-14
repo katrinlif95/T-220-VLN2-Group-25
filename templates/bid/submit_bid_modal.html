@@ -1,7 +1,5 @@
 {% load artwork_extras %}
 
-{% load artwork_extras %}
-
 <div id="bid-modal" class="bid-modal hidden">
 
     <div class="bid-modal-overlay"></div>
@@ -23,7 +21,6 @@
             action="{% url 'submit-bid' artwork.id %}"
             class="bid-form"
             id="submit-bid-form"
-            novalidate
             data-min-bid="{% if highest_bid_amount %}{{ highest_bid_amount }}{% else %}{{ artwork.starting_price }}{% endif %}"
             data-existing-amount="{% if existing_resubmittable_bid %}{{ existing_resubmittable_bid.amount|floatformat:0 }}{% endif %}"
             data-existing-expiration="{% if existing_resubmittable_bid %}{{ existing_resubmittable_bid.expires_at|date:'Y-m-d' }}{% endif %}"

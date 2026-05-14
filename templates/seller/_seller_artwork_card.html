@@ -4,7 +4,7 @@
 <article class="artwork-card">
 
     <a href="{% url 'artwork-detail' artwork.id %}">
-        {% with image=artwork.images.first %}
+        {% with image=artwork.images.all.0 %}
             {% if image %}
                 <img src="{{ image.image_url }}" alt="{{ image.alt_text }}">
             {% endif %}

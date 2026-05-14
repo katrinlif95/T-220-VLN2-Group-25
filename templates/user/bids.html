@@ -19,7 +19,7 @@
 
         {% for bid in bids %}
             <article class="bid-card">
-                {% with first_image=bid.artwork.images.first %}
+                {% with first_image=bid.artwork.images.all.0 %}
                     {% if first_image %}
                         <img
                             class="bid-artwork-image"
@@ -37,7 +37,7 @@
                         <span class="bid-value">{{ bid.artwork.seller.display_name }}</span>
 
                         <span>Current highest bid</span>
-                        <span class="bid-value">{{ bid.artwork.highest_bid_amount|isk }} ISK</span>
+                        <span class="bid-value">{{ bid.artwork_annotated_highest_bid_amount|isk }} ISK</span>
 
                         <span>Your bid</span>
                         <span class="bid-value">{{ bid.amount|isk }} ISK</span>

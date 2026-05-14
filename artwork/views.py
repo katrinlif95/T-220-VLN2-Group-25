@@ -1,13 +1,9 @@
-from django.db.models import Min, Max
+from django.db.models import Min, Max, Exists, OuterRef, Subquery, Prefetch
 from django.shortcuts import render, get_object_or_404
 from decimal import Decimal, ROUND_FLOOR, ROUND_CEILING
 
-from artwork.models import Artwork
-from artwork.services import (
-    add_artwork_display_status,
-    artwork_is_sold,
-    get_current_highest_bid_amount,
-)
+from artwork.models import Artwork, ArtworkImage
+from artwork.services import artwork_is_sold,get_current_highest_bid_amount
 
 from bid.forms import BidForm
 from bid.models import Bid
@@ -15,9 +11,41 @@ from bid.models import Bid
 import math
 
 def artwork_index(request):
+    # Subquery checking whether each artwork has
+    # an accepted or contingent bid
+    sold_bid_exists = Bid.objects.filter(
+        artwork=OuterRef("pk"),
+        status__in=["accepted", "contingent"],
+    )
+
+    # Subquery getting the highest active bid amount
+    highest_bid_amount = Bid.objects.filter(
+        artwork=OuterRef("pk"),
+        status__in=["pending", "accepted", "contingent"],
+    ).order_by(
+        "-amount"
+    ).values(
+        "amount"
+    )[:1]
 
     # Get all artworks before filtering
-    artworks = Artwork.objects.all()
+    # Annotate sold status and highest bid
+    # to avoid one query per artwork
+    artworks = (
+        Artwork.objects
+        .annotate(
+            is_sold=Exists(sold_bid_exists),
+            annotated_highest_bid_amount=Subquery(
+                highest_bid_amount
+            ),
+        )
+        .prefetch_related(
+            Prefetch(
+                "images",
+                queryset=ArtworkImage.objects.order_by("order")
+            )
+        )
+    )
 
     # Get selected filter values from URL query parameters
     selected_status = request.GET.get("status", "")
@@ -155,11 +183,6 @@ def artwork_index(request):
             artist_name__iexact=selected_artist
         )
 
-    # Add display status, e.g. sold / available
-    artworks = add_artwork_display_status(
-        artworks
-    )
-
 
     return render(
         request,
@@ -195,15 +218,15 @@ def artwork_index(request):
 def artwork_detail(request, artwork_id):
 
     artwork = get_object_or_404(
-        Artwork,
+        Artwork.objects.select_related("seller"),
         id=artwork_id
     )
 
-    # Get artwork images in display order
+    # Get prefetched artwork images in display order
     images = artwork.images.order_by("order")
 
     # Set first image as the main displayed image
-    main_image = images.first()
+    main_image = images[0] if images else None
 
     # Prepare image data for JavaScript carousel functionality
     images_data = [
@@ -231,6 +254,7 @@ def artwork_detail(request, artwork_id):
             status__in=[
                 Bid.STATUS_PENDING,
                 Bid.STATUS_REJECTED,
+                Bid.STATUS_EXPIRED,
             ]
         ).first()
 
@@ -243,7 +267,7 @@ def artwork_detail(request, artwork_id):
         "main_image": main_image,
         "images_data": images_data,
         "is_sold": is_sold,
-        "highest_bid_amount": get_current_highest_bid_amount(artwork),
+        "highest_bid_amount": highest_bid_amount,
         "existing_resubmittable_bid": existing_resubmittable_bid,
         "bid_form": bid_form,
     })
