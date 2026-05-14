@@ -4,6 +4,39 @@
 <!-- Artwork filters -->
 <form method="get" class="artwork-filters">
 
+    <!-- Status filter dropdown -->
+    <div class="filter-select">
+
+        <select name="status" class="auto-submit-filter">
+            <option value="" disabled hidden {% if not selected_status %}selected{% endif %}>
+                Status
+            </option>
+
+            <option value="available" {% if selected_status == "available" %}selected{% endif %}>
+                Available
+            </option>
+
+            <option value="sold" {% if selected_status == "sold" %}selected{% endif %}>
+                Sold
+            </option>
+        </select>
+
+        {% if selected_status %}
+            <button
+                type="button"
+                class="filter-clear-button"
+                data-clear-filter="status"
+            >
+                ×
+            </button>
+        {% else %}
+            <span class="material-symbols-outlined filter-arrow">
+                keyboard_arrow_down
+            </span>
+        {% endif %}
+
+    </div>
+
     <!-- Medium filter dropdown -->
     <div class="filter-select">
 
@@ -117,11 +150,11 @@
             </option>
 
             <option value="price-asc" {% if selected_order_by == "price-asc" %}selected{% endif %}>
-                Price low to high
+                Lowest price
             </option>
 
             <option value="price-desc" {% if selected_order_by == "price-desc" %}selected{% endif %}>
-                Price high to low
+                Highest price
             </option>
         </select>
 
@@ -245,7 +278,17 @@
 
     </div>
 
-    {% if selected_medium or selected_style or selected_order_by or search_query or price_filter_active %}
+    {# Keep hidden artist filter active when other filters are submitted #}
+    {% if selected_artist %}
+    <input type="hidden" name="artist" value="{{ selected_artist }}">
+    {% endif %}
+
+    {# Keep hidden highlighted filter active when other filters are submitted #}
+    {% if highlighted_only %}
+    <input type="hidden" name="highlighted" value="true">
+    {% endif %}
+
+    {% if selected_status or selected_medium or selected_style or selected_order_by or search_query or price_filter_active %}
     <a
         href="{% url 'artwork-index' %}"
         class="clear-filters"

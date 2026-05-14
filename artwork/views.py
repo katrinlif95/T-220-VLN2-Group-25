@@ -20,11 +20,13 @@ def artwork_index(request):
     artworks = Artwork.objects.all()
 
     # Get selected filter values from URL query parameters
+    selected_status = request.GET.get("status", "")
     selected_medium = request.GET.get("medium", "")
     selected_style = request.GET.get("style", "")
     selected_order_by = request.GET.get("order_by", "")
     search_query = request.GET.get("search", "")
     highlighted_only = request.GET.get("highlighted") == "true"
+    selected_artist = request.GET.get("artist", "")
 
     # Price slider step size
     # Used for rounded slider increments
@@ -86,6 +88,12 @@ def artwork_index(request):
         slider_max_price
     )
 
+    # Filter by artwork status
+    if selected_status:
+        artworks = artworks.filter(
+            status=selected_status
+        )
+
     # Filter by medium
     if selected_medium:
         artworks = artworks.filter(
@@ -145,12 +153,18 @@ def artwork_index(request):
             highlighted=True
         )
 
+    if selected_artist:
+        artworks = artworks.filter(
+            artist_name__iexact=selected_artist
+        )
+
     return render(
         request,
         "artwork/artworks.html",
         {
             "artworks": artworks,
 
+            "selected_status": selected_status,
             "selected_medium": selected_medium,
             "selected_style": selected_style,
             "selected_order_by": selected_order_by,
@@ -170,6 +184,7 @@ def artwork_index(request):
             "selected_max_price": selected_max_price,
 
             "highlighted_only": highlighted_only,
+            "selected_artist": selected_artist,
         }
     )
 
@@ -225,7 +240,7 @@ def artwork_detail(request, artwork_id):
         "main_image": main_image,
         "images_data": images_data,
         "is_sold": is_sold,
-        "highest_bid_amount": highest_bid_amount,
+        "highest_bid_amount": get_current_highest_bid_amount(artwork),
         "existing_resubmittable_bid": existing_resubmittable_bid,
         "bid_form": bid_form,
     })

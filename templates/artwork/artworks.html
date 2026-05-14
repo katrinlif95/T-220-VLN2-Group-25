@@ -63,6 +63,9 @@
                     {% if art.highest_bid_amount %}
                         <p class="current-price">
                             <span>Current bid:</span>
+                    {% if art.highest_bid_amount %}
+                        <p class="current-highest-bid">
+                            <span>Current highest bid:</span>
                             <strong>{{ art.highest_bid_amount|isk }} ISK</strong>
                         </p>
                     {% endif %}

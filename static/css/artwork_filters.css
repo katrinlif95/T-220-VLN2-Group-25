@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     column-gap: 24px;
-    row-gap: 14px;
+    row-gap: 12px;
     flex-wrap: wrap;
     margin-bottom: 20px;
 }
@@ -37,11 +37,15 @@
 /* SELECT DROPDOWNS */
 
 .filter-select select {
-    width: 165px;
+    width: 148px;
     padding: 0 42px 0 16px;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+}
+
+.filter-select select[name="status"] {
+    width: 125px;
 }
 
 
@@ -247,7 +251,7 @@
 }
 
 .filter-search.search-open {
-    width: 280px;
+    width: 250px;
 }
 
 .filter-search-input {

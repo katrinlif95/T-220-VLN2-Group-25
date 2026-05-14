@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from bid.models import Bid
 from django.contrib import messages
 from .forms import  ContactInfoForm,PaymentDetailsForm
-from .services import validate_finalize_flow_access
+from .services import validate_finalize_flow_access, reject_other_pending_bids
 from user.models import ContactInfo
 from .models import Payment
 
@@ -325,6 +325,10 @@ def confirm_payment(request, bid_id):
         payment_method=payment_info["payment_method"],
         status=Payment.STATUS_COMPLETED
     )
+
+    # Reject all other pending bids
+    # on the same artwork after successful payment
+    reject_other_pending_bids(bid)
 
     # Clear finalize checkout session data
     request.session.pop("finalize_contact_info", None)
