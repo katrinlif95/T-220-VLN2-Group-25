@@ -206,13 +206,28 @@
     font-weight: 600;
 }
 
+/* More by this artist button when sold*/
+.artist-filter-btn {
+    background-color: transparent;
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+    text-decoration: none;
+}
+
+.artist-filter-btn:hover {
+    background-color: transparent;
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
 /* Bid login message */
 .bid-login-message {
     display: block;
     width: 100%;
     margin-top: 36px;
+
     font-size: 17px;
-    font-weight: 700;
+    font-weight: 400;
 
     color: var(--main-color);
     text-align: center;
@@ -220,16 +235,13 @@
 
 .bid-login-message a {
     color: var(--main-color);
+    font-weight: 700;
     text-decoration: underline;
     transition: 0.2s ease;
 }
 
 .bid-login-message a:hover {
     color: var(--secondary-color);
-}
-
-.bid-login-message a:active {
-    color: #1a6985;
 }
 
 /*Submit bid modal pop up*/

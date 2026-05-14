@@ -143,20 +143,23 @@ def artwork_index(request):
             "display_order"
         )
 
-    # Add display status, e.g. sold / available
-    artworks = add_artwork_display_status(
-        artworks
-    )
-
+    # Filter highlighted artworks for explore link
     if highlighted_only:
         artworks = artworks.filter(
             highlighted=True
         )
 
+    # Filter by artist name for more by artist button
     if selected_artist:
         artworks = artworks.filter(
             artist_name__iexact=selected_artist
         )
+
+    # Add display status, e.g. sold / available
+    artworks = add_artwork_display_status(
+        artworks
+    )
+
 
     return render(
         request,

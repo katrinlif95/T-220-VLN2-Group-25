@@ -143,21 +143,26 @@
 
                     Please
 
-                    <a href="{% url 'login' %}">
-                        log in
-                    </a>
+                    <a href="{% url 'login' %}">log in</a>
 
                     or
 
-                    <a href="{% url 'register' %}">
-                        sign up
-                    </a>
+                    <a href="{% url 'register' %}">sign up</a>
 
                     to place a bid
 
                 </p>
 
             {% endif %}
+
+        {% else %}
+
+            <a
+                href="{% url 'artwork-index' %}?artist={{ artwork.artist_name|urlencode }}"
+                class="site-btn submit-bid-btn artist-filter-btn"
+            >
+                More by this artist
+            </a>
 
         {% endif %}
 
