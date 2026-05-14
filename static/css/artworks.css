@@ -55,14 +55,6 @@
     text-decoration: underline;
 }
 
-.artwork-price {
-    font-weight: 700;
-}
-
-.artwork-price span {
-    font-weight: 300;
-}
-
 .status-badge {
     display: block;
     margin-left: auto;
@@ -105,19 +97,15 @@
     margin: 0;
 }
 
-.starting-price p {
-    font-size: 20px;
-    line-height: 1.5;
-}
-
 .starting-price span,
 .current-price span {
     font-weight: 400;
 }
 
 .current-price {
-    font-weight: 700;
+    font-weight: 400;
     margin-top: 2px;
+    padding-top: 4px;
 }
 
 .starting-price strong,
