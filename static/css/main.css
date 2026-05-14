@@ -687,3 +687,61 @@ h1 {
         justify-content: flex-start;
     }
 }
+
+/* =================
+    PROFILE MESSAGES
+   ================= */
+
+.profile-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: fit-content;
+    max-width: 420px;
+
+    padding: 14px 18px;
+    margin-bottom: 32px;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.profile-message.success {
+    background-color: #eef8f0;
+    color: #276738;
+    border: 1px solid #c8e6cf;
+}
+
+.profile-message.error {
+    background-color: #fdecec;
+    color: #a12626;
+    border: 1px solid #efb0b0;
+}
+
+.profile-message.info {
+    background-color: #eef6fb;
+    color: var(--secondary-color);
+    border: 1px solid #c7dff0;
+}
+
+.profile-message-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Artwork detail page message positioning */
+.artwork-message-wrapper {
+    max-width: 1200px;
+    margin: 0 auto 16px auto;
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.artwork-message-wrapper .profile-message {
+    margin: 0;
+}

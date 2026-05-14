@@ -2,10 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
-
 from artwork.models import Artwork
 from artwork.services import artwork_is_sold, get_current_highest_bid_amount
-
 from .forms import BidForm
 from .models import Bid
 
@@ -66,6 +64,12 @@ def submit_bid(request, artwork_id):
 
                 existing_resubmittable_bid.save()
 
+                messages.success(
+                    request,
+                    "Bid resubmitted successfully."
+                )
+
+
 
             # Otherwise create a completely new bid
             else:
@@ -74,6 +78,12 @@ def submit_bid(request, artwork_id):
                 bid.status = Bid.STATUS_PENDING
 
                 bid.save()
+
+                messages.success(
+                    request,
+                    "Bid submitted successfully."
+                )
+
         else:
             # Re-render artwork detail page with
             # form errors visible in the bid modal
