@@ -69,26 +69,12 @@
         <div class="artwork-main-details">
 
             <p class="artwork-meta">
-                {{ artwork.artist_name }}
+                <span class="artist-name">{{ artwork.artist_name }}</span>
                 <span>•</span>
-                {{ artwork.medium }}
+                <span class="artwork-medium">{{ artwork.medium }}</span>
                 <span>•</span>
-                {{ artwork.style }}
+                <span class="artwork-style">{{ artwork.style }}</span>
             </p>
-        <p class="artist-name">{{ artwork.artist_name }}</p>
-
-        <p class="artwork-style">{{ artwork.style }}</p>
-        <p class="artwork-medium">{{ artwork.medium }}</p>
-
-        <div class="bid-info">
-            <p>Current highest bid:</p>
-
-            {% if artwork.highest_bid_amount %}
-                <strong>{{ artwork.highest_bid_amount|isk }} ISK</strong>
-            {% else %}
-                <strong>No bids yet</strong>
-            {% endif %}
-        </div>
 
             <div class="bid-info">
                 {% if is_sold %}
@@ -97,8 +83,8 @@
                     <p>Current highest bid:</p>
                 {% endif %}
 
-                {% if highest_bid_amount %}
-                    <strong>{{ highest_bid_amount|isk }} ISK</strong>
+                {% if artwork.highest_bid_amount %}
+                    <strong>{{ artwork.highest_bid_amount|isk }} ISK</strong>
                 {% else %}
                     <strong>No bids yet</strong>
                 {% endif %}
@@ -232,7 +218,7 @@
                 <a href="{% url 'gallery-detail' seller_id=artwork.seller.id %}">
                     Visit gallery →
                 </a>
-{% endif %}
+            {% endif %}
         </div>
 
     </div>
