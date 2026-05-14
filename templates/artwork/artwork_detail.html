@@ -16,6 +16,24 @@
         <span class="current-page">{{ artwork.title }}</span>
     </div>
 
+    <div class="artwork-message-wrapper">
+
+        {% for message in messages %}
+            <div class="profile-message {{ message.tags }}">
+
+                {% if "success" in message.tags %}
+                    <span class="material-symbols-outlined">
+                        check_circle
+                    </span>
+                {% endif %}
+
+                {{ message }}
+
+            </div>
+        {% endfor %}
+
+    </div>
+
 <section class="artwork-detail-layout">
     {% if is_sold %}
         <p class="status-badge sold">Sold</p>
@@ -61,20 +79,23 @@
 
     <div class="artwork-detail-info">
 
-        {% if not is_sold %}
-            <p class="status-badge available">Available</p>
-        {% endif %}
+        <div class="title-row">
 
-        <h1>{{ artwork.title }}</h1>
+            <h1>{{ artwork.title }}</h1>
+
+            {% if not is_sold %}
+                <p class="status-badge available">Available</p>
+            {% endif %}
+
+        </div>
+
         <div class="artwork-main-details">
 
-            <p class="artwork-meta">
-                <span class="artist-name">{{ artwork.artist_name }}</span>
-                <span>•</span>
-                <span class="artwork-medium">{{ artwork.medium }}</span>
-                <span>•</span>
-                <span class="artwork-style">{{ artwork.style }}</span>
-            </p>
+            <div class="artwork-meta">
+                <p class="artist-name">{{ artwork.artist_name }}</p>
+                <p class="artwork-medium">{{ artwork.medium }}</p>
+                <p class="artwork-style">{{ artwork.style }}</p>
+            </div>
 
             <div class="bid-info">
                 {% if is_sold %}
