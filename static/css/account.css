@@ -235,7 +235,7 @@
 .profile-form {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 36px;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -243,7 +243,7 @@
 .profile-form-row {
     display: grid;
     grid-template-columns: 1fr 44px;
-    gap: 12px;
+    gap: 4px;
     align-items: end;
     margin-bottom: -10px;
 }
@@ -254,7 +254,7 @@
     padding: 0 14px;
     border: 1px solid #d9d9d9;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 16px;
     background-color: white;
     color: #444;
     transition: border-color 0.2s ease;
@@ -274,7 +274,7 @@
 
 .profile-form-row label {
     grid-column: 1 / -1;
-    font-size: 13px;
+    font-size: 16px;
     color: #666;
     letter-spacing: 0.01em;
 }
@@ -301,7 +301,6 @@
     margin-top: 32px;
     padding: 14px 26px;
     font-size: 18px;
-    border: 1px solid #111;
 }
 
 /* ============

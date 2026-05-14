@@ -9,6 +9,22 @@
     display: grid;
     grid-template-columns: 1fr 360px;
     gap: 72px;
+    align-items: start;
+    min-height: 100vh;
+}
+
+.checkout-main {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.checkout-summary {
+    border-left: 1px solid #d9d9d9;
+    padding-left: 40px;
+    position: sticky;
+    top: 12px;
+    align-self: start;
+    height: fit-content;
 }
 
 /* ===========
@@ -18,7 +34,7 @@
 .checkout-header {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 48px 64px 0;
+    padding: 0;
 }
 
 .checkout-header h1 {
@@ -36,14 +52,6 @@
     font-size: 30px;
     font-weight: 500;
     margin-bottom: 36px;
-}
-
-/* ==================
-    CHECKOUT SUMMARY
-   ================== */
-.checkout-summary {
-    border-left: 1px solid #d9d9d9;
-    padding-left: 40px;
 }
 
 /* ===========
@@ -220,16 +228,6 @@
 
 .checkout-step .disabled {
     color: #c5c4c4;
-}
-
-/* ===========
-   STICKY SUMMARY
-   =========== */
-
-.checkout-summary {
-    position: sticky;
-    top: 120px;
-    align-self: start;
 }
 
 /* ====================
