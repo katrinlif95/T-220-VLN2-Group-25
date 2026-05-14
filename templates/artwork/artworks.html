@@ -56,14 +56,14 @@
                 <div class="artwork-price-info">
 
                     <p class="starting-price">
-                        <span>Starting bid:</span>
+                        <span>Starting price:</span>
                         <strong>{{ art.starting_price|isk }} ISK</strong>
                     </p>
 
-                    {% if art.current_bid %}
+                    {% if art.highest_bid_amount %}
                         <p class="current-price">
                             <span>Current bid:</span>
-                            <strong>{{ art.current_price|isk }} ISK</strong>
+                            <strong>{{ art.highest_bid_amount|isk }} ISK</strong>
                         </p>
                     {% endif %}
 

@@ -17,6 +17,9 @@
     </div>
 
 <section class="artwork-detail-layout">
+    {% if is_sold %}
+        <p class="status-badge sold">Sold</p>
+    {% endif %}
 
     <div class="artwork-detail-image">
 
@@ -28,7 +31,9 @@
                     class="image-arrow image-arrow-left"
                     onclick="previousImage()"
                 >
-                    ‹
+                    <span class="material-symbols-outlined">
+                        chevron_left
+                    </span>
                 </button>
             {% endif %}
 
@@ -44,7 +49,9 @@
                     class="image-arrow image-arrow-right"
                     onclick="nextImage()"
                 >
-                    ›
+                    <span class="material-symbols-outlined">
+                        chevron_right
+                    </span>
                 </button>
             {% endif %}
 
@@ -54,37 +61,45 @@
 
     <div class="artwork-detail-info">
 
-        {% if is_sold %}
-            <p class="status-badge sold">Sold</p>
-        {% else %}
+        {% if not is_sold %}
             <p class="status-badge available">Available</p>
         {% endif %}
 
         <h1>{{ artwork.title }}</h1>
-        <p class="artist-name">{{ artwork.artist_name }}</p>
+        <div class="artwork-main-details">
 
-        <p class="artwork-style">{{ artwork.style }}</p>
-        <p class="artwork-medium">{{ artwork.medium }}</p>
+            <p class="artwork-meta">
+                {{ artwork.artist_name }}
+                <span>•</span>
+                {{ artwork.medium }}
+                <span>•</span>
+                {{ artwork.style }}
+            </p>
 
-        <div class="bid-info">
-            <p>Current highest bid:</p>
+            <div class="bid-info">
+                {% if is_sold %}
+                    <p>Final bid:</p>
+                {% else %}
+                    <p>Current highest bid:</p>
+                {% endif %}
 
-            {% if highest_bid_amount %}
-                <strong>{{ highest_bid_amount|isk }} ISK</strong>
-            {% else %}
-                <strong>No bids yet</strong>
-            {% endif %}
-        </div>
-
-        <div class="date-detail">
-            <div>
-                <p>Starting bid:</p>
-                <strong>{{ artwork.starting_price|isk }} ISK</strong>
+                {% if highest_bid_amount %}
+                    <strong>{{ highest_bid_amount|isk }} ISK</strong>
+                {% else %}
+                    <strong>No bids yet</strong>
+                {% endif %}
             </div>
 
-            <div>
-                <p>Listed:</p>
-                <strong>{{ artwork.listed_at|date:"F Y" }}</strong>
+            <div class="date-detail">
+                <div>
+                    <p>Starting price:</p>
+                    <strong>{{ artwork.starting_price|isk }} ISK</strong>
+                </div>
+
+                <div>
+                    <p>Listed:</p>
+                    <strong>{{ artwork.listed_at|date:"F Y" }}</strong>
+                </div>
             </div>
         </div>
 
@@ -104,6 +119,24 @@
                     {% endif %}
 
                 </button>
+
+                {% if existing_resubmittable_bid %}
+                    <div class="user-bid-summary">
+                        <p>
+                            <span>Your bid:</span>
+                            <span class="user-bid-amount">
+                            {{ existing_resubmittable_bid.amount|isk }} ISK
+                            </span>
+                        </p>
+
+                        <p>
+                            <span>Status:</span>
+                            <span class="bid-status-badge {{ existing_resubmittable_bid.status }}">
+                                {{ existing_resubmittable_bid.get_status_display }}
+                            </span>
+                        </p>
+                    </div>
+                {% endif %}
 
             {% else %}
                 <p class="bid-login-message">
@@ -195,125 +228,6 @@
 </section>
 
 {% include "bid/submit_bid_modal.html" %}
-
-
-<!-- TODO færa css, notaði þetta til að testa -->
-<!-- Útlit á message "Please log in or sign up to place a bid þegar notandi er ekki innskráður -->
-<!-- Style for bid login message -->
-<style>
-.bid-login-message {
-    display: inline-block;
-    margin-top: 40px;
-
-    font-size: 17px;
-    font-weight: 700;
-
-    color: var(--main-color);
-}
-
-.bid-login-message a {
-    color: var(--main-color);
-
-    text-decoration: underline;
-
-    transition: 0.2s ease;
-}
-
-.bid-login-message a:hover {
-    color: var(--secondary-color);
-}
-</style>
-
-<!-- Útlit á pop up glugga þegar smellt á submit bid / resubmit bid -->
-<!-- Style for submit bid modal pop up -->
-<style>
-
-.hidden {
-    display: none;
-}
-
-.bid-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-}
-
-.bid-modal-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-}
-
-.bid-modal-content {
-    position: relative;
-    z-index: 10000;
-
-    width: 360px;
-    max-width: 90%;
-
-    margin: 120px auto;
-    padding: 28px 32px;
-
-    background: white;
-    border-radius: 10px;
-
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-}
-
-.bid-modal-close {
-    position: absolute;
-    top: 12px;
-    right: 14px;
-
-    border: none;
-    background: none;
-
-    font-size: 22px;
-    cursor: pointer;
-}
-
-.bid-modal-content h2 {
-    text-align: center;
-    margin-bottom: 24px;
-}
-
-.bid-form-row {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 18px;
-}
-
-.bid-form-row label {
-    margin-bottom: 6px;
-    font-weight: 600;
-}
-
-.bid-form-row input {
-    padding: 8px 10px;
-}
-
-.bid-form-row small {
-    margin-top: 6px;
-    font-size: 12px;
-    color: #666;
-}
-
-.submit-bid-modal-button {
-    width: 100%;
-    margin-top: 8px;
-    padding: 10px;
-
-    border: none;
-    border-radius: 4px;
-
-    background: #2596be;
-    color: white;
-
-    font-weight: 600;
-    cursor: pointer;
-}
-
-</style>
 
 <!-- Store artwork image data as JSON for JavaScript carousel functionality -->
 {{ images_data|json_script:"artwork-images" }}
