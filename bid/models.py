@@ -13,6 +13,7 @@ class Bid(models.Model):
     STATUS_REJECTED = "rejected"
     STATUS_CONTINGENT = "contingent"
     STATUS_CANCELLED = "cancelled"
+    STATUS_EXPIRED = "expired"
 
     # Available status choices
     STATUS_CHOICES = [
@@ -21,6 +22,7 @@ class Bid(models.Model):
         (STATUS_REJECTED, "Rejected"),
         (STATUS_CONTINGENT, "Contingent"),
         (STATUS_CANCELLED, "Cancelled"),
+        (STATUS_EXPIRED, "Expired"),
     ]
 
     # User who placed the bid

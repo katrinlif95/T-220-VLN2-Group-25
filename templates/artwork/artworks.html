@@ -28,7 +28,7 @@
             <article class="artwork-card">
 
                 <a href="{% url 'artwork-detail' art.id %}">
-                    {% with image=art.images.first %}
+                    {% with image=art.images.all.0 %}
                         {% if image %}
                             <img src="{{ image.image_url }}" alt="{{ image.alt_text }}">
                         {% else %}
@@ -60,7 +60,7 @@
                         <strong>{{ art.starting_price|isk }} ISK</strong>
                     </p>
 
-                    {% if art.highest_bid_amount %}
+                    {% if art.annotated_highest_bid_amount %}
                         <p class="current-price current-highest-bid">
 
                             {% if art.is_sold %}
@@ -69,7 +69,7 @@
                                 <span>Current highest bid:</span>
                             {% endif %}
 
-                            <strong>{{ art.highest_bid_amount|isk }} ISK</strong>
+                            <strong>{{ art.annotated_highest_bid_amount|isk }} ISK</strong>
                         </p>
                     {% endif %}
                 </div>

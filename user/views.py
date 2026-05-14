@@ -2,16 +2,30 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-
 from bid.models import Bid
+from bid.services import mark_bid_as_expired
+from django.db.models import Exists, OuterRef, Subquery
+from payment.models import Payment
 
-from artwork.services import get_current_highest_bid_amount
 
 from .forms import ProfileUpdateForm, ContactInfoProfileForm
 from .models import (
     ContactInfo,
     UserProfile,
 )
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+    else:
+        form = UserCreationForm()
+
+    return render(request, "user/register.html", {
+        'form': form
+    })
 
 # Main account/profile page
 # Displays general user profile information
@@ -84,19 +98,6 @@ def profile_detail(request):
         }
     )
 
-def register(request):
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("login")
-    else:
-        form = UserCreationForm()
-
-    return render(request, "user/register.html", {
-        'form': form
-    })
-
 # Page showing all bids belonging to the logged-in user
 @login_required
 def account_bids(request):
@@ -106,19 +107,54 @@ def account_bids(request):
     request.session.pop("finalize_contact_info", None)
     request.session.pop("finalize_payment_info", None)
 
-
-    # Get bids belonging to current logged-in user
-    bids = Bid.objects.filter(
-        user=request.user
+    # Subquery checking whether each bid
+    # already has a completed payment
+    completed_payment_exists = Payment.objects.filter(
+        bid=OuterRef("pk"),
+        status="completed",
     )
 
-    # Add extra display information to each bid
+    # Subquery getting the highest active bid
+    # amount for the same artwork as this bid
+    highest_bid_amount = Bid.objects.filter(
+        artwork=OuterRef("artwork_id"),
+        status__in=[
+            "pending",
+            "accepted",
+            "contingent",
+        ],
+    ).order_by(
+        "-amount"
+    ).values(
+        "amount"
+    )[:1]
+
+    # Get bids belonging to current logged-in user
+    # select_related loads artwork and seller in the same query
+    # prefetch_related loads artwork images in one extra query
+    # annotate adds is_finalized without one payment query per bid
+    bids = (
+        Bid.objects
+        .filter(user=request.user)
+        .select_related(
+            "artwork",
+            "artwork__seller",
+        )
+        .prefetch_related(
+            "artwork__images",
+        )
+        .annotate(
+            is_finalized=Exists(completed_payment_exists),
+            artwork_annotated_highest_bid_amount=Subquery(
+                highest_bid_amount
+            ),
+        )
+    )
+
+    # Update pending bids to expired
+    # if their expiration date has passed
     for bid in bids:
-        # Mark bids that already have
-        # a completed payment
-        bid.is_finalized = bid.payments.filter(
-            status="completed"
-        ).exists()
+        mark_bid_as_expired(bid)
 
     return render(
         request,

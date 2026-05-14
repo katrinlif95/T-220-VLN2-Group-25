@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Exists, OuterRef, Prefetch
+from bid.models import Bid
 from .models import Seller
-from artwork.models import Artwork
+from artwork.models import Artwork, ArtworkImage
 from artwork.services import add_artwork_display_status
 
 
@@ -28,13 +30,30 @@ def get_artist_by_id(request, seller_id):
         seller_type="artist"
     )
 
-    # Get all artworks listed by this artist
-    artworks = Artwork.objects.filter(
-        seller=artist
-    ).order_by("display_order")
+    # Subquery checking whether each artwork has
+    # an accepted or contingent bid
+    sold_bid_exists = Bid.objects.filter(
+        artwork=OuterRef("pk"),
+        status__in=["accepted", "contingent"],
+    )
 
-    # Add sold/available display status
-    artworks = add_artwork_display_status(artworks)
+    # Get all artworks listed by this artist
+    # Annotate sold status to avoid one query per artwork
+    # Prefetch images to avoid one image query per artwork
+    artworks = (
+        Artwork.objects
+        .filter(seller=artist)
+        .annotate(
+            is_sold=Exists(sold_bid_exists)
+        )
+        .prefetch_related(
+            Prefetch(
+                "images",
+                queryset=ArtworkImage.objects.order_by("order")
+            )
+        )
+        .order_by("display_order")
+    )
 
     # Send both seller and artworks to the template
     return render(request, "seller/artist_detail.html", {
@@ -67,13 +86,30 @@ def get_gallery_by_id(request, seller_id):
         seller_type="gallery"
     )
 
-    # Get all artworks listed by this gallery
-    artworks = Artwork.objects.filter(
-        seller=gallery
-    ).order_by("display_order")
+    # Subquery checking whether each artwork has
+    # an accepted or contingent bid
+    sold_bid_exists = Bid.objects.filter(
+        artwork=OuterRef("pk"),
+        status__in=["accepted", "contingent"],
+    )
 
-    # Add sold/available display status
-    artworks = add_artwork_display_status(artworks)
+    # Get all artworks listed by this gallery
+    # Annotate sold status to avoid one query per artwork
+    # Prefetch images to avoid one image query per artwork
+    artworks = (
+        Artwork.objects
+        .filter(seller=gallery)
+        .annotate(
+            is_sold=Exists(sold_bid_exists)
+        )
+        .prefetch_related(
+            Prefetch(
+                "images",
+                queryset=ArtworkImage.objects.order_by("order")
+            )
+        )
+        .order_by("display_order")
+    )
 
     # Send both seller and artworks to the template
     return render(request, "seller/gallery_detail.html", {
