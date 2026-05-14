@@ -8,9 +8,10 @@
 {% block title %}Contact information | ArtVault{% endblock %}
 
 {% block content %}
-<section class="account-page">
+{% include 'user/_account_navigation.html' with active_page="Contact information" active_tab="contact" %}
 
-    {% include 'user/_account_navigation.html' with active_page="Contact information" active_tab="contact" %}
+
+<section class="account-page">
 
     <!-- Contact information content -->
     <section class="contact-section">

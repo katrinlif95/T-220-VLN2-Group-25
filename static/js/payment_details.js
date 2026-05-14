@@ -18,17 +18,17 @@
 
         // Show credit card fields
         if (paymentMethod.value === "credit_card") {
-            creditCardFields.style.display = "block";
+            creditCardFields.style.display = "grid";
         }
 
         // Show bank transfer fields
         if (paymentMethod.value === "bank_transfer") {
-            bankTransferFields.style.display = "block";
+            bankTransferFields.style.display = "grid";
         }
 
         // Show wire transfer fields
         if (paymentMethod.value === "wire_transfer") {
-            wireTransferFields.style.display = "block";
+            wireTransferFields.style.display = "grid";
         }
     }
 

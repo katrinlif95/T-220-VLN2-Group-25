@@ -1,11 +1,11 @@
 /* USER DROPDOWN */
 
 const dropdown = document.querySelector(".user-dropdown");
-const arrow = document.querySelector(".dropdown-arrow-toggle");
+const trigger = document.querySelector(".user-trigger");
 
-if (dropdown && arrow) {
+if (dropdown && trigger) {
 
-    arrow.addEventListener("click", function (event) {
+    trigger.addEventListener("click", function (event) {
 
         event.preventDefault();
         event.stopPropagation();
