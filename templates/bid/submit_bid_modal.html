@@ -23,6 +23,7 @@
             action="{% url 'submit-bid' artwork.id %}"
             class="bid-form"
             id="submit-bid-form"
+            novalidate
             data-min-bid="{% if highest_bid_amount %}{{ highest_bid_amount }}{% else %}{{ artwork.starting_price }}{% endif %}"
             data-existing-amount="{% if existing_resubmittable_bid %}{{ existing_resubmittable_bid.amount|floatformat:0 }}{% endif %}"
             data-existing-expiration="{% if existing_resubmittable_bid %}{{ existing_resubmittable_bid.expires_at|date:'Y-m-d' }}{% endif %}"
@@ -108,7 +109,7 @@
 
             <button
                 type="submit"
-                class="submit-bid-modal-button"
+                class="site-btn btn-secondary submit-bid-modal-button"
             >
 
                 {% if existing_resubmittable_bid %}

@@ -28,7 +28,7 @@ class ArtworkImageInline(admin.TabularInline):
 # Custom admin configuration for Artwork model
 class ArtworkAdmin(admin.ModelAdmin):
 
-    # Updated list view (removed old single image preview)
+    # Artwork admin list view
     list_display = ("id", "title", "seller", "status", "listed_at", "display_order")
 
     # Add inline images here 👇

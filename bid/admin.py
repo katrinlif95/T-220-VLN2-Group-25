@@ -20,6 +20,7 @@ class BidAdmin(admin.ModelAdmin):
 
     # Sidebar filters
     list_filter = (
+        "artwork",
         "status",
         "created_at",
     )

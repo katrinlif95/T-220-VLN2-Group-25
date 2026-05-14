@@ -1,6 +1,5 @@
-# Business logic for payment/finalization flow
-
 from .models import Payment
+from bid.models import Bid
 
 
 def can_finalize_bid(bid):
@@ -38,3 +37,18 @@ def validate_finalize_flow_access(bid, user):
         "is_valid": True,
         "error": ""
     }
+
+def reject_other_pending_bids(bid):
+    """
+    Reject all other pending bids on the same artwork
+    after successful payment completion.
+    """
+
+    Bid.objects.filter(
+        artwork=bid.artwork,
+        status=Bid.STATUS_PENDING
+    ).exclude(
+        id=bid.id
+    ).update(
+        status=Bid.STATUS_REJECTED
+    )

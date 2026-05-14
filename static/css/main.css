@@ -255,7 +255,7 @@ h1 {
     cursor: pointer;
     display: inline-block;
     text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .site-btn:disabled {
@@ -291,12 +291,13 @@ h1 {
 
 .btn-outline-custom:hover {
     background-color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
     color: white;
 }
 
 .btn-outline-custom:active {
-    background-color: black;
-    border: none;
+    background-color: #1a6985;
+    border: 1px solid #1a6985;
 }
 
 .hero-btn {
@@ -531,9 +532,10 @@ h1 {
     text-decoration: underline;
 }
 
-.errorlist {
+.errorlist,
+.form-field-error {
     color: red;
-    font-size: 16px;
+    font-size: 14px;
     margin-top: 6px;
     padding-left: 0;
     list-style: none;

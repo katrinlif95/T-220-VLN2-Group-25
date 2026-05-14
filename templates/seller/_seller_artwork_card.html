@@ -1,0 +1,41 @@
+{% load static %}
+{% load artwork_extras %}
+
+<article class="artwork-card">
+
+    <a href="{% url 'artwork-detail' artwork.id %}">
+        {% with image=artwork.images.first %}
+            {% if image %}
+                <img src="{{ image.image_url }}" alt="{{ image.alt_text }}">
+            {% endif %}
+        {% endwith %}
+    </a>
+
+    <div class="artwork-card-content">
+
+        {% if artwork.is_sold %}
+            <p class="status-badge sold">Sold</p>
+        {% else %}
+            <p class="status-badge available">Available</p>
+        {% endif %}
+
+        <div class="artwork-title">
+            <a href="{% url 'artwork-detail' artwork.id %}">
+                <h2>{{ artwork.title }}</h2>
+            </a>
+        </div>
+
+        <div class="artwork-meta">
+            <p>{{ artwork.medium }} • {{ artwork.dimensions }}</p>
+        </div>
+
+        <div class="artwork-price-info">
+            <p class="starting-price">
+                <span>Starting price:</span>
+                <strong>{{ artwork.starting_price|isk }} ISK</strong>
+            </p>
+        </div>
+
+    </div>
+
+</article>
