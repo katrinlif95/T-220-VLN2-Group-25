@@ -74,42 +74,8 @@
                 <div class="artwork-grid">
 
                     {% for artwork in artworks %}
-                        <article class="artwork-card">
 
-                            <a href="{% url 'artwork-detail' artwork.id %}">
-                                {% with image=artwork.images.first %}
-                                    {% if image %}
-                                        <img src="{{ image.image_url }}" alt="{{ image.alt_text }}">
-                                    {% endif %}
-                                {% endwith %}
-                            </a>
-
-                            <div class="artwork-card-content">
-
-                                {% if artwork.is_sold %}
-                                    <p class="status-badge sold">Sold</p>
-                                {% else %}
-                                    <p class="status-badge available">Available</p>
-                                {% endif %}
-
-                                <div class="artwork-title">
-                                    <a href="{% url 'artwork-detail' artwork.id %}">
-                                        <h2>{{ artwork.title }}</h2>
-                                    </a>
-                                </div>
-
-                                <p>{{ artwork.medium }}</p>
-                                <p>{{ artwork.dimensions }}</p>
-
-                                <p class="starting-price">
-                                    <span>Starting price:</span>
-                                    <strong>{{ artwork.starting_price|isk }} ISK</strong>
-                                </p>
-
-
-                            </div>
-
-                        </article>
+                        {% include "seller/_seller_artwork_card.html" with artwork=artwork %}
 
                     {% empty %}
 
