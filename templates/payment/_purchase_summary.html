@@ -1,22 +1,47 @@
 {% load artwork_extras %}
 
-<aside class="purchase-summary">
+<section class="purchase-summary">
 
-    <h2>Purchase summary</h2>
+    <h2>Order summary</h2>
 
-    <p>
-        <strong>Artwork:</strong>
-        {{ bid.artwork.title }}
-    </p>
+    {% with first_image=bid.artwork.images.first %}
+        {% if first_image %}
+            <img
+                class="summary-image"
+                src="{{ first_image.image_url }}"
+                alt="{{ bid.artwork.title }}"
+            >
+        {% endif %}
+    {% endwith %}
 
-    <p>
-        <strong>Seller:</strong>
-        {{ bid.artwork.seller.display_name }}
-    </p>
+    <div class="summary-artwork-info">
 
-    <p>
-        <strong>Amount:</strong>
-        {{ bid.amount|isk }} ISK
-    </p>
+        <h3>{{ bid.artwork.title }}</h3>
 
-</aside>
+        <p>
+            by<br>{{ bid.artwork.seller.display_name }}
+            <br>
+            {{ bid.artwork.medium }}<br>
+            {{ bid.artwork.dimensions }}
+            <br>
+            {{ bid.artwork.year }}
+
+        </p>
+
+    </div>
+
+    <div class="summary-divider"></div>
+
+    <div class="summary-row">
+        <span>Your bid</span>
+        <span><strong>{{ bid.amount|isk }} ISK</strong></span>
+    </div>
+
+    <a
+    href="{% url 'artwork-detail' bid.artwork.id %}"
+    class="summary-artwork-link"
+>
+    View artwork
+</a>
+
+</section>

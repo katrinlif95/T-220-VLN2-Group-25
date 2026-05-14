@@ -1,31 +1,37 @@
 <nav class="checkout-steps">
 
-    {% if current_step == "contact" %}
-        <span class="active">Contact information</span>
-    {% else %}
-        <a href="{% url 'finalize-contact' bid.id %}">
-            Contact information
-        </a>
-    {% endif %}
+    <div class="checkout-step">
+        {% if current_step == "contact" %}
+            <span class="active">Contact information</span>
+        {% else %}
+            <a href="{% url 'finalize-contact' bid.id %}">
+                Contact information
+            </a>
+        {% endif %}
+    </div>
 
-    {% if current_step == "payment" %}
-        <span class="active">Payment details</span>
-    {% elif can_go_to_payment %}
-        <a href="{% url 'finalize-payment' bid.id %}">
-            Payment details
-        </a>
-    {% else %}
-        <span class="disabled">Payment details</span>
-    {% endif %}
+    <div class="checkout-step">
+        {% if current_step == "payment" %}
+            <span class="active">Payment details</span>
+        {% elif can_go_to_payment %}
+            <a href="{% url 'finalize-payment' bid.id %}">
+                Payment details
+            </a>
+        {% else %}
+            <span class="disabled">Payment details</span>
+        {% endif %}
+    </div>
 
-    {% if current_step == "review" %}
-        <span class="active">Review</span>
-    {% elif can_go_to_review %}
-        <a href="{% url 'finalize-review' bid.id %}">
-            Review
-        </a>
-    {% else %}
-        <span class="disabled">Review</span>
-    {% endif %}
+    <div class="checkout-step">
+        {% if current_step == "review" %}
+            <span class="active">Review</span>
+        {% elif can_go_to_review %}
+            <a href="{% url 'finalize-review' bid.id %}">
+                Review
+            </a>
+        {% else %}
+            <span class="disabled">Review</span>
+        {% endif %}
+    </div>
 
 </nav>

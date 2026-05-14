@@ -1,5 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
 {% load artwork_extras %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/payment.css' %}">
+{% endblock %}
 
 {% block title %}
 Finalize Bid
@@ -7,17 +12,19 @@ Finalize Bid
 
 {% block content %}
 
-<h1>Finalize bid</h1>
+<header class="checkout-header">
+    <h1>Finalize bid</h1>
 
-{% include "payment/_checkout_steps.html" %}
+    {% include "payment/_checkout_steps.html" %}
+</header>
 
-<main>
+<main class="checkout-page">
 
-    <section>
+    <section class="checkout-main">
 
-        <h2>Contact information</h2>
+        <h2 class="checkout-section-title">Contact information</h2>
 
-        <form method="post">
+        <form method="post" class="checkout-form">
 
             {% csrf_token %}
 
@@ -35,34 +42,37 @@ Finalize Bid
                 {{ form.street_address.errors }}
             </div>
 
-            <div>
-                <label for="city">
-                    City
-                </label>
+            <div class="checkout-form-row">
 
-                <input
-                    type="text"
-                    id="city"
-                    name="city"
-                    value="{{ form.city.value|default:'' }}"
-                >
-                {{ form.city.errors }}
+                <div>
+                    <label for="city">City</label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        value="{{ form.city.value|default:'' }}"
+                    >
+
+                    {{ form.city.errors }}
+                </div>
+
+                <div>
+                    <label for="postal_code">
+                        Postal code
+                    </label>
+
+                    <input
+                        type="text"
+                        id="postal_code"
+                        name="postal_code"
+                        value="{{ form.postal_code.value|default:'' }}"
+                    >
+
+                    {{ form.postal_code.errors }}
+                </div>
+
             </div>
-
-            <div>
-                <label for="postal_code">
-                    Postal code
-                </label>
-
-                <input
-                    type="text"
-                    id="postal_code"
-                    name="postal_code"
-                    value="{{ form.postal_code.value|default:'' }}"
-                >
-                {{ form.postal_code.errors }}
-            </div>
-
             <div>
                 <label for="country">
                     Country
@@ -135,16 +145,15 @@ Finalize Bid
 
         </form>
 
+        <a href="{% url 'account-bids' %}" class="cancel-link">
+            Cancel and return to my bids
+        </a>
+
     </section>
 
-    <a
-    href="{% url 'account-bids' %}"
-    class="cancel-link"
-    >
-    Cancel and return to my bids
-    </a>
-
-    {% include "payment/_purchase_summary.html" %}
+    <aside class="checkout-summary">
+        {% include "payment/_purchase_summary.html" %}
+    </aside>
 
 </main>
 
