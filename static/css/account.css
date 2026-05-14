@@ -86,52 +86,6 @@
     color: var(--main-color);
 }
 
-/* =================
-    PROFILE MESSAGES
-   ================= */
-/* TODO: Sameina .profile-messages í eina útgáfu */
-.profile-messages {
-    max-width: 420px;
-    margin-bottom: 32px;
-}
-
-/* Wrapper for profile page messages */
-.profile-messages {
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: 0;
-    margin-bottom: 32px;
-}
-
-.profile-message {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 18px;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 500;
-}
-
-.profile-message.success {
-    background-color: #eef8f0;
-    color: #276738;
-    border: 1px solid #c8e6cf;
-}
-
-.profile-message.error {
-    background-color: #fdecec;
-    color: #a12626;
-    border: 1px solid #efb0b0;
-}
-
-/* Info message styling */
-.profile-message.info {
-    background-color: #eef6fb;
-    color: var(--secondary-color);
-    border: 1px solid #c7dff0;
-}
-
 /* =====================
     PROFILE IMAGE SECTION
    ===================== */
