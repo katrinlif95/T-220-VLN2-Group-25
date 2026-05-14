@@ -23,8 +23,7 @@
 
             <div class="user-dropdown">
 
-                <a href="{% url 'account-profile' %}" class="user-trigger">
-
+                <a href="{% url 'account-profile' %}">
                     {% if user.profile.profile_image %}
                         <img
                             class="user-icon"
@@ -36,8 +35,10 @@
                             account_circle
                         </span>
                     {% endif %}
+                </a>
 
-                    <span class="username">
+                <button type="button" class="user-trigger">
+                    <span class="user-name">
                         {% if user.first_name %}
                             {{ user.first_name }}
                         {% else %}
@@ -45,10 +46,11 @@
                         {% endif %}
                     </span>
 
-                    <span class="material-symbols-outlined dropdown-arrow-toggle">
+                    <span class="material-symbols-outlined">
                         keyboard_arrow_down
                     </span>
-                </a>
+                </button>
+
 
 
                 <div class="user-dropdown-menu">

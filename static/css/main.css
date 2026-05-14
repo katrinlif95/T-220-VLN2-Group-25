@@ -127,6 +127,9 @@ h1 {
 
 .user-dropdown {
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .user-dropdown-menu {
@@ -134,7 +137,7 @@ h1 {
     position: absolute;
     top: 100%;
     right: 0;
-    width: 100%;
+    width: 140%;
     padding: 14px;
     background: white;
     border: 1px solid #ddd;
@@ -149,24 +152,43 @@ h1 {
     gap: 12px;
 }
 
+.user-dropdown a:hover .user-icon {
+    opacity: 0.75;
+}
+
 .user-trigger {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
     padding: 0;
     border: none;
     background: transparent;
     cursor: pointer;
 }
 
+.user-trigger:hover {
+    box-shadow: inset 0 -2px 0 #2596BE;
+}
+
+.user-dropdown-menu a:hover,
+.dropdown-logout-btn:hover {
+    background-color: #f3f7fa;
+}
+
 .dropdown-logout-btn {
     padding: 4px 6px;
     border: 1px solid #222;
     border-radius: 10px;
-    background: white;
+    background: black;
     font-size: 15px;
+    color: white;
     cursor: pointer;
+}
+
+.dropdown-logout-btn:hover {
+    background-color:  #2596BE;
+    color: white;
+
 }
 
 .dropdown-arrow {
