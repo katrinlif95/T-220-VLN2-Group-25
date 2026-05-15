@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/info_pages.css' %}">
+{% endblock %}
+
+{% block title %}Bidding Process | ArtVault{% endblock %}
+
+{% block content %}
+
+<section class="bidding-process-wrapper">
+
+    <p class="bidding-process-label">
+        Bidding guide
+    </p>
+
+    <h1>Bidding Process</h1>
+
+    <p>
+        The bidding process on ArtVault is designed to be clear, secure and easy
+        to follow. When you find an artwork you are interested in, you can place
+        a bid directly from the artwork page and monitor its status from your
+        account.
+    </p>
+
+    <p>
+        Once a bid has been submitted, it may remain pending until the seller
+        reviews it. If your bid is accepted, you will be guided through the
+        finalize bid process, where you can enter contact information, payment
+        details and review your order before confirming the purchase.
+    </p>
+
+    <p>
+        If a bid is rejected or cancelled, the artwork may remain available for
+        other collectors. ArtVault keeps the bidding flow organized so buyers can
+        clearly see the status of their offers throughout the process.
+    </p>
+
+</section>
+
+{% endblock %}

@@ -11,21 +11,17 @@ Finalize Bid
 
 {% block content %}
 
-<header class="checkout-header">
-
-    <h1>Finalize bid</h1>
-
-    {% include "payment/_checkout_steps.html" %}
-
-</header>
-
 <main class="checkout-page">
 
     <section class="checkout-main">
 
-        <h2 class="checkout-section-title">
-            Payment details
-        </h2>
+        <header class="checkout-header">
+
+            <h2><strong>Finalize bid</strong></h2>
+
+            {% include "payment/_checkout_steps.html" %}
+
+        </header>
 
         <form method="post" class="checkout-form">
 

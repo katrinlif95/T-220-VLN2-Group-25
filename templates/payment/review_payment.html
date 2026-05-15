@@ -11,23 +11,43 @@ Finalize Bid
 
 {% block content %}
 
-<header class="checkout-header">
-
-    <h1>Finalize bid</h1>
-
-    {% include "payment/_checkout_steps.html" %}
-
-</header>
-
 <main class="checkout-page">
 
     <section class="checkout-main">
 
-        <h2 class="checkout-section-title">
-            Review
-        </h2>
+        <header class="checkout-header">
+
+            <h2>Finalize bid</h2>
+
+            {% include "payment/_checkout_steps.html" %}
+        
+        </header>
 
         <section class="review-section">
+
+            <h3>Contact information</h3>
+
+            <div class="review-row">
+                <span>Name</span>
+            </div>
+
+            <div class="review-row">
+                <span>Address</span>
+                <strong>{{ contact.street_address }}</strong>
+            </div>
+
+
+            <div class="review-row">
+                <span>City</span>
+                <strong>{{ contact.city }}</strong>
+            </div>
+
+            <div class="review-row">
+                <span>Country</span>
+                <strong>{{ contact.country }}</strong>
+            </div>
+
+            <br>
 
             <h3>Payment details</h3>
 
@@ -45,7 +65,7 @@ Finalize Bid
 
                 <div class="review-row">
                     <span>Card number</span>
-                    <strong>{{ payment_info.card_number }}</strong>
+                    <strong>**** **** **** {{ payment_info.card_number | slice:"-4:" }}</strong>
                 </div>
 
                 <div class="review-row">
@@ -93,11 +113,29 @@ Finalize Bid
 
             {% csrf_token %}
 
+            <p class="review-note">
+                Please review all information carefully before confirming your payment.
+            </p>
+            
+            <div class="review-warning">
+                <h4>Before you confirm</h4>
+
+                <p>
+                    Once the payment has been confirmed, the artwork will be marked as sold
+                    and all other pending bids will automatically be declined.
+                </p>
+            </div>
+
             <button type="submit">
                 Confirm payment
             </button>
 
         </form>
+
+        <a
+            href="{% url 'account-bids' %}" class="cancel-link">
+            Cancel and return to my bids
+        </a>
 
     </section>
 

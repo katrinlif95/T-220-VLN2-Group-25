@@ -258,6 +258,14 @@ def artwork_detail(request, artwork_id):
             ]
         ).first()
 
+    previous_artwork = Artwork.objects.filter(
+        id__lt=artwork.id
+    ).order_by("-id").first()
+
+    next_artwork = Artwork.objects.filter(
+        id__gt=artwork.id
+    ).order_by("id").first()
+
     # Create empty bid form for submit bid modal
     bid_form = BidForm()
 
@@ -270,4 +278,6 @@ def artwork_detail(request, artwork_id):
         "highest_bid_amount": highest_bid_amount,
         "existing_resubmittable_bid": existing_resubmittable_bid,
         "bid_form": bid_form,
+        "previous_artwork": previous_artwork,
+        "next_artwork": next_artwork,
     })

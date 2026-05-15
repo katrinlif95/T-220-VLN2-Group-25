@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/info_pages.css' %}">
+{% endblock %}
+
+{% block title %}How to Buy Art | ArtVault{% endblock %}
+
+{% block content %}
+
+<section class="about-wrapper">
+
+    <p class="about-label">
+        Buying guide
+    </p>
+
+    <h1>How to Buy Art</h1>
+
+    <p>
+        Buying artwork through ArtVault is simple and secure. Browse available
+        artworks, place a bid, and follow the checkout process if your bid is
+        accepted. Before confirming your payment, you will have the opportunity
+        to review all order and payment details carefully.
+    </p>
+
+    <p>
+        Each artwork listing includes detailed information about the piece,
+        the seller, and the current bidding status to help you make informed
+        decisions throughout the process.
+    </p>
+
+</section>
+
+{% endblock %}

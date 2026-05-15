@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/info_pages.css' %}">
+{% endblock %}
+
+{% block title %}Website Terms | ArtVault{% endblock %}
+
+{% block content %}
+
+<section class="website-terms-wrapper">
+
+    <p class="website-terms-label">
+        Legal
+    </p>
+
+    <h1>Website Terms</h1>
+
+    <p>
+        By accessing and using ArtVault, you agree to comply with the terms and
+        conditions outlined on this platform. ArtVault provides a digital
+        marketplace for browsing, bidding on and selling artwork through a
+        secure online experience.
+    </p>
+
+    <p>
+        Users are responsible for ensuring that all information provided during
+        registration, bidding and payment processes is accurate and up to date.
+        Any misuse of the platform, fraudulent activity or violation of these
+        terms may result in restricted access or account suspension.
+    </p>
+
+    <p>
+        ArtVault reserves the right to update platform features, policies and
+        content when necessary in order to maintain security, reliability and a
+        high-quality user experience.
+    </p>
+
+</section>
+
+{% endblock %}

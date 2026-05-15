@@ -189,7 +189,7 @@
 .profile-form {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 36px;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -197,18 +197,18 @@
 .profile-form-row {
     display: grid;
     grid-template-columns: 1fr 44px;
-    gap: 12px;
+    gap: 4px;
     align-items: end;
     margin-bottom: -10px;
 }
 
 .profile-form input {
     width: 100%;
-    height: 44px;
+    height: 50px !important;
     padding: 0 14px;
     border: 1px solid #d9d9d9;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 16px;
     background-color: white;
     color: #444;
     transition: border-color 0.2s ease;
@@ -217,7 +217,7 @@
 .profile-form input:focus,
 .profile-form select:focus {
     outline: none;
-    border-color: #2596BE;
+    border-color: var(--secondary-color);
     box-shadow: 0 0 0 3px rgba(37, 150, 190, 0.12);
 }
 
@@ -228,7 +228,7 @@
 
 .profile-form-row label {
     grid-column: 1 / -1;
-    font-size: 13px;
+    font-size: 16px;
     color: #666;
     letter-spacing: 0.01em;
 }
@@ -255,7 +255,6 @@
     margin-top: 32px;
     padding: 14px 26px;
     font-size: 18px;
-    border: 1px solid #111;
 }
 
 /* ============
@@ -431,7 +430,7 @@
 .contact-form input:focus,
 .contact-form select:focus {
     outline: none;
-    border-color: #2596BE;
+    border-color: var(--secondary-color);
     box-shadow: 0 0 0 2px rgba(37, 150, 190, 0.08);
 }
 
@@ -440,6 +439,42 @@
     margin-top: 24px;
     padding: 14px 26px;
     font-size: 18px;
+}
+
+/* ============
+    RESPONSIVE
+   ============ */
+
+@media (max-width: 700px) {
+    .account-page {
+        max-width: 100%;
+        padding: 32px 20px 64px;
+    }
+
+    .account-tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .profile-image-row {
+        flex-direction: column;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .contact-form-split-row {
+        grid-template-columns: 1fr;
+    }
+
+    .bid-card {
+        grid-template-columns: 1fr;
+    }
+
+    .bid-artwork-image {
+        width: 100%;
+        height: auto;
+    }
 }
 
 

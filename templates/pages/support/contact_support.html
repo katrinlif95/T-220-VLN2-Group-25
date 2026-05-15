@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/info_pages.css' %}">
+{% endblock %}
+
+{% block title %}Contact Support | ArtVault{% endblock %}
+
+{% block content %}
+
+<section class="contact-support-wrapper">
+
+    <p class="contact-support-label">
+        Support
+    </p>
+
+    <h1>Contact Support</h1>
+
+    <p>
+        If you need assistance with your account, payments, bidding activity or
+        artwork listings, the ArtVault support team is here to help. We aim to
+        provide clear and reliable support to ensure a smooth experience across
+        the platform.
+    </p>
+
+    <p>
+        Before reaching out, we recommend reviewing the Help Center and guide
+        pages, where you can find answers to many common questions related to
+        buying, selling and the bidding process.
+    </p>
+
+    <p>
+        For further support, please contact us directly and include relevant
+        details regarding your request so we can assist you as efficiently as
+        possible.
+    </p>
+
+</section>
+
+{% endblock %}

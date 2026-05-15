@@ -167,7 +167,7 @@ h1 {
 }
 
 .user-trigger:hover {
-    box-shadow: inset 0 -2px 0 #2596BE;
+    box-shadow: inset 0 -2px 0 var(--secondary-color);
 }
 
 .user-dropdown-menu a:hover,
@@ -177,16 +177,16 @@ h1 {
 
 .dropdown-logout-btn {
     padding: 4px 6px;
-    border: 1px solid #222;
+    border: none;
     border-radius: 10px;
-    background: black;
+    background: var(--main-color);
     font-size: 15px;
     color: white;
     cursor: pointer;
 }
 
 .dropdown-logout-btn:hover {
-    background-color:  #2596BE;
+    background-color:  var(--secondary-color);
     color: white;
 
 }
@@ -493,6 +493,13 @@ h1 {
     margin: 0 auto;
 }
 
+.auth-form input:focus,
+.auth-form select:focus {
+    outline: none;
+    border-color: #2596BE;
+    box-shadow: 0 0 0 2px rgba(37, 150, 190, 0.08);
+}
+
 .auth-field input {
     padding: 14px 16px;
     border: 1px solid var(--neutral-color);
@@ -565,129 +572,6 @@ h1 {
     font-weight: 500;
 }
 
-/* ============
-    RESPONSIVE
-   ============ */
-/* AUTH RESPONSIVE */
-@media (max-width: 1150px) {
-    .auth-page {
-        grid-template-columns: 1fr;
-    }
-
-    .auth-image-section {
-        display: none;
-    }
-
-    .sign-in-btn {
-        white-space: nowrap;
-    }
-}
-
-@media (max-width: 1000px) {
-
-    .site-header {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        justify-items: center;
-    }
-
-    .main-navigation,
-    .header-actions {
-        justify-self: center;
-    }
-
-    .hero {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-content {
-        padding: 48px 32px;
-    }
-
-    .artwork-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .artwork-detail-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .artwork-extra-info {
-        grid-template-columns: 1fr;
-    }
-
-    .artwork-left-info {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-@media (max-width: 700px) {
-
-    .site-header {
-        padding: 20px;
-    }
-
-    .main-navigation {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 16px;
-    }
-
-    .header-actions {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .search {
-        width: 100%;
-    }
-
-    .search-input {
-        width: 100%;
-    }
-
-    .hero-content h1 {
-        font-size: 36px;
-    }
-
-    .artworks-page,
-    .artwork-detail-page {
-        padding: 20px;
-    }
-
-    .artwork-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .clear-filters {
-        width: 100%;
-
-        text-align: center;
-
-        margin-top: -4px;
-    }
-
-    .detail-meta {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .submit-bid-btn {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .site-footer {
-        flex-direction: column;
-        gap: 24px;
-    }
-
-    .footer-legal {
-        justify-content: flex-start;
-    }
-}
-
 /* =================
     PROFILE MESSAGES
    ================= */
@@ -744,4 +628,78 @@ h1 {
 
 .artwork-message-wrapper .profile-message {
     margin: 0;
+}
+
+/* ============
+    RESPONSIVE
+   ============ */
+
+@media (max-width: 1150px) {
+    .auth-page {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-image-section {
+        display: none;
+    }
+
+    .sign-in-btn {
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 1000px) {
+    .site-header {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        justify-items: center;
+    }
+
+    .main-navigation,
+    .header-actions {
+        justify-self: center;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content {
+        padding: 48px 32px;
+    }
+}
+
+@media (max-width: 700px) {
+    .site-header {
+        padding: 20px;
+    }
+
+    .main-navigation {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .header-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .search,
+    .search-input {
+        width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 36px;
+    }
+
+    .site-footer {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .footer-legal {
+        justify-content: flex-start;
+    }
 }
