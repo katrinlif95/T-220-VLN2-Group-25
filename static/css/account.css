@@ -441,4 +441,40 @@
     font-size: 18px;
 }
 
+/* ============
+    RESPONSIVE
+   ============ */
+
+@media (max-width: 700px) {
+    .account-page {
+        max-width: 100%;
+        padding: 32px 20px 64px;
+    }
+
+    .account-tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .profile-image-row {
+        flex-direction: column;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .contact-form-split-row {
+        grid-template-columns: 1fr;
+    }
+
+    .bid-card {
+        grid-template-columns: 1fr;
+    }
+
+    .bid-artwork-image {
+        width: 100%;
+        height: auto;
+    }
+}
+
 

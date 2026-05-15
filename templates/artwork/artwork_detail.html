@@ -34,222 +34,244 @@
 
     </div>
 
-<section class="artwork-detail-layout">
-    {% if is_sold %}
-        <p class="status-badge sold">Sold</p>
-    {% endif %}
-
-    <div class="artwork-detail-image">
-
-        {% if images %}
-
-            {% if images|length > 1 %}
-                <button
-                    type="button"
-                    class="image-arrow image-arrow-left"
-                    onclick="previousImage()"
-                >
-                    <span class="material-symbols-outlined">
-                        chevron_left
-                    </span>
-                </button>
-            {% endif %}
-
-            <img
-                id="main-artwork-image"
-                src="{{ main_image.image_url }}"
-                alt="{{ main_image.alt_text }}"
-            >
-
-            {% if images|length > 1 %}
-                <button
-                    type="button"
-                    class="image-arrow image-arrow-right"
-                    onclick="nextImage()"
-                >
-                    <span class="material-symbols-outlined">
-                        chevron_right
-                    </span>
-                </button>
-            {% endif %}
-
+    <section class="artwork-detail-layout">
+        {% if is_sold %}
+            <p class="status-badge sold">Sold</p>
         {% endif %}
 
-    </div>
+        <div class="artwork-detail-image">
 
-    <div class="artwork-detail-info">
+            {% if images %}
 
-        <div class="title-row">
+                {% if images|length > 1 %}
+                    <button
+                        type="button"
+                        class="image-arrow image-arrow-left"
+                        onclick="previousImage()"
+                    >
+                        <span class="material-symbols-outlined">
+                            chevron_left
+                        </span>
+                    </button>
+                {% endif %}
 
-            <h1>{{ artwork.title }}</h1>
+                <img
+                    id="main-artwork-image"
+                    src="{{ main_image.image_url }}"
+                    alt="{{ main_image.alt_text }}"
+                >
 
-            {% if not is_sold %}
-                <p class="status-badge available">Available</p>
+                {% if images|length > 1 %}
+                    <button
+                        type="button"
+                        class="image-arrow image-arrow-right"
+                        onclick="nextImage()"
+                    >
+                        <span class="material-symbols-outlined">
+                            chevron_right
+                        </span>
+                    </button>
+                {% endif %}
+
             {% endif %}
 
         </div>
 
-        <div class="artwork-main-details">
+        <div class="artwork-detail-info">
 
-            <div class="artwork-meta">
-                <p class="artist-name">{{ artwork.artist_name }}</p>
-                <p class="artwork-medium">{{ artwork.medium }}</p>
-                <p class="artwork-style">{{ artwork.style }}</p>
-            </div>
+            <div class="title-row">
 
-            <div class="bid-info">
-                {% if is_sold %}
-                    <p>Final bid:</p>
-                {% else %}
-                    <p>Current highest bid:</p>
+                <h1>{{ artwork.title }}</h1>
+
+                {% if not is_sold %}
+                    <p class="status-badge available">Available</p>
                 {% endif %}
 
-                {% if highest_bid_amount %}
-                    <strong>{{ highest_bid_amount|isk }} ISK</strong>
-                {% else %}
-                    <strong>No bids yet</strong>
-                {% endif %}
             </div>
 
-            <div class="date-detail">
-                <div>
-                    <p>Starting price:</p>
-                    <strong>{{ artwork.starting_price|isk }} ISK</strong>
+            <div class="artwork-main-details">
+
+                <div class="artwork-meta">
+                    <p class="artist-name">{{ artwork.artist_name }}</p>
+                    <p class="artwork-medium">{{ artwork.medium }}</p>
+                    <p class="artwork-style">{{ artwork.style }}</p>
                 </div>
 
-                <div>
-                    <p>Listed:</p>
-                    <strong>{{ artwork.listed_at|date:"F Y" }}</strong>
-                </div>
-            </div>
-        </div>
-
-        {% if not is_sold %}
-
-            {% if user.is_authenticated %}
-
-                <button
-                    type="button"
-                    id="open-bid-modal"
-                    class="site-btn btn-main submit-bid-btn"
-                >
-                    {% if existing_resubmittable_bid %}
-                        Resubmit bid
+                <div class="bid-info">
+                    {% if is_sold %}
+                        <p>Final bid:</p>
                     {% else %}
-                        Submit a bid
+                        <p>Current highest bid:</p>
                     {% endif %}
 
-                </button>
+                    {% if highest_bid_amount %}
+                        <strong>{{ highest_bid_amount|isk }} ISK</strong>
+                    {% else %}
+                        <strong>No bids yet</strong>
+                    {% endif %}
+                </div>
 
-                {% if existing_resubmittable_bid %}
-                    <div class="user-bid-summary">
-                        <p>
-                            <span>Your bid:</span>
-                            <span class="user-bid-amount">
-                            {{ existing_resubmittable_bid.amount|isk }} ISK
-                            </span>
-                        </p>
-
-                        <p>
-                            <span>Status:</span>
-                            <span class="bid-status-badge {{ existing_resubmittable_bid.status }}">
-                                {{ existing_resubmittable_bid.get_status_display }}
-                            </span>
-                        </p>
+                <div class="date-detail">
+                    <div>
+                        <p>Starting price:</p>
+                        <strong>{{ artwork.starting_price|isk }} ISK</strong>
                     </div>
+
+                    <div>
+                        <p>Listed:</p>
+                        <strong>{{ artwork.listed_at|date:"F Y" }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            {% if not is_sold %}
+
+                {% if user.is_authenticated %}
+
+                    <button
+                        type="button"
+                        id="open-bid-modal"
+                        class="site-btn btn-main submit-bid-btn"
+                    >
+                        {% if existing_resubmittable_bid %}
+                            Resubmit bid
+                        {% else %}
+                            Submit a bid
+                        {% endif %}
+
+                    </button>
+
+                    {% if existing_resubmittable_bid %}
+                        <div class="user-bid-summary">
+                            <p>
+                                <span>Your bid:</span>
+                                <span class="user-bid-amount">
+                                {{ existing_resubmittable_bid.amount|isk }} ISK
+                                </span>
+                            </p>
+
+                            <p>
+                                <span>Status:</span>
+                                <span class="bid-status-badge {{ existing_resubmittable_bid.status }}">
+                                    {{ existing_resubmittable_bid.get_status_display }}
+                                </span>
+                            </p>
+                        </div>
+                    {% endif %}
+
+                {% else %}
+                    <p class="bid-login-message">
+
+                        Please
+
+                        <a href="{% url 'login' %}">log in</a>
+
+                        or
+
+                        <a href="{% url 'register' %}">sign up</a>
+
+                        to place a bid
+
+                    </p>
+
                 {% endif %}
 
             {% else %}
-                <p class="bid-login-message">
 
-                    Please
+                <a
+                    href="{% url 'artwork-index' %}?artist={{ artwork.artist_name|urlencode }}"
+                    class="site-btn submit-bid-btn artist-filter-btn"
+                >
+                    More by this artist
+                </a>
 
-                    <a href="{% url 'login' %}">log in</a>
+            {% endif %}
 
-                    or
+        </div>
 
-                    <a href="{% url 'register' %}">sign up</a>
+    </section>
 
-                    to place a bid
+    <div class="artwork-navigation">
 
+    {% if previous_artwork %}
+        <a
+            href="{% url 'artwork-detail' previous_artwork.id %}"
+            class="artwork-nav-link"
+        >
+            ← Previous artwork
+        </a>
+    {% endif %}
+
+    {% if next_artwork %}
+        <a
+            href="{% url 'artwork-detail' next_artwork.id %}"
+            class="artwork-nav-link"
+        >
+            Next artwork →
+        </a>
+    {% endif %}
+
+</div>
+
+    <section class="artwork-extra-info">
+
+        <div class="artwork-left-info">
+
+            <div class="about-work">
+                <h2>About the work</h2>
+
+                <p>
+                    <strong>Size</strong>
+                    <span>{{ artwork.dimensions }}</span>
                 </p>
 
-            {% endif %}
+                <p>
+                    <strong>Year</strong>
+                    <span>{{ artwork.year }}</span>
+                </p>
 
-        {% else %}
+                <p>
+                    <strong>Edition</strong>
+                    <span>{{ artwork.edition }}</span>
+                </p>
 
-            <a
-                href="{% url 'artwork-index' %}?artist={{ artwork.artist_name|urlencode }}"
-                class="site-btn submit-bid-btn artist-filter-btn"
-            >
-                More by this artist
-            </a>
+            </div>
 
-        {% endif %}
-
-    </div>
-
-</section>
-
-<section class="artwork-extra-info">
-
-    <div class="artwork-left-info">
-
-        <div class="about-work">
-            <h2>About the work</h2>
-
-            <p>
-                <strong>Size</strong>
-                <span>{{ artwork.dimensions }}</span>
-            </p>
-
-            <p>
-                <strong>Year</strong>
-                <span>{{ artwork.year }}</span>
-            </p>
-
-            <p>
-                <strong>Edition</strong>
-                <span>{{ artwork.edition }}</span>
-            </p>
+            <div class="provenance">
+                <h2>Provenance</h2>
+                <p>{{ artwork.provenance }}</p>
+            </div>
 
         </div>
 
-        <div class="provenance">
-            <h2>Provenance</h2>
-            <p>{{ artwork.provenance }}</p>
+        <div class="seller-card">
+
+            <div class="seller-logo">
+                <img
+                src="{{ artwork.seller.logo_url }}"
+                alt="{{ artwork.seller.display_name }} logo"
+        >
+            </div>
+
+            <div>
+                <h2>{{ artwork.seller }}</h2>
+
+                <p>{{ artwork.seller.short_description }}</p>
+
+                {% if artwork.seller.seller_type == "artist" %}
+                    <a href="{% url 'artist-detail' seller_id=artwork.seller.id %}">
+                        Visit artist →
+                    </a>
+                {% else %}
+                    <a href="{% url 'gallery-detail' seller_id=artwork.seller.id %}">
+                        Visit gallery →
+                    </a>
+                {% endif %}
+            </div>
+
         </div>
 
-    </div>
-
-    <div class="seller-card">
-
-        <div class="seller-logo">
-            <img
-            src="{{ artwork.seller.logo_url }}"
-            alt="{{ artwork.seller.display_name }} logo"
-    >
-        </div>
-
-        <div>
-            <h2>{{ artwork.seller }}</h2>
-
-            <p>{{ artwork.seller.short_description }}</p>
-
-            {% if artwork.seller.seller_type == "artist" %}
-                <a href="{% url 'artist-detail' seller_id=artwork.seller.id %}">
-                    Visit artist →
-                </a>
-            {% else %}
-                <a href="{% url 'gallery-detail' seller_id=artwork.seller.id %}">
-                    Visit gallery →
-                </a>
-            {% endif %}
-        </div>
-
-    </div>
-
-</section>
+    </section>
 
 </section>
 
