@@ -31,6 +31,15 @@ class ArtworkAdmin(admin.ModelAdmin):
     # Artwork admin list view
     list_display = ("id", "title", "seller", "status", "listed_at", "display_order")
 
+    # Artwork admin list filters
+    list_filter = (
+        "status",
+        "seller",
+        "medium",
+        "style",
+        "highlighted",
+    )
+
     # Add inline images here 👇
     inlines = [ArtworkImageInline]
 
