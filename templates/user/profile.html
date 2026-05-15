@@ -13,51 +13,10 @@
 
 <section class="account-page">
 
+    {% include "user/_profile_messages.html" %}
+
     <!-- Profile content -->
     <section class="profile-section">
-
-    <!-- Profile page messages -->
-    <div class="profile-message-wrapper">
-
-        <!-- Success/error messages shown after profile update -->
-        {% for message in messages %}
-
-            {% if "finalize" not in message.tags %}
-
-                <div class="profile-message {{ message.tags }}">
-
-                    {% if "success" in message.tags %}
-                        <span class="material-symbols-outlined">
-                            check_circle
-                        </span>
-                    {% endif %}
-
-                    {% if "error" in message.tags %}
-                        <span class="material-symbols-outlined">
-                            error
-                        </span>
-                    {% endif %}
-
-                    {{ message }}
-
-                </div>
-
-            {% endif %}
-
-        {% endfor %}
-
-        <!-- Unsaved changes reminder message -->
-        <div
-            id="profile-preview-message"
-            class="profile-message info"
-            style="display: none;"
-        >
-            <span class="material-symbols-outlined">
-                info
-            </span>
-
-            Unsaved changes. Click "Update profile" to save.
-        </div>
 
     </div>
 
@@ -129,7 +88,7 @@
                     {{ form.first_name }}
 
                     {% for error in form.first_name.errors %}
-                        <p class="field-error">
+                        <p class="form-field-error">
                             {{ error }}
                         </p>
                     {% endfor %}
@@ -149,7 +108,7 @@
                     {{ form.last_name }}
 
                     {% for error in form.last_name.errors %}
-                        <p class="field-error">
+                        <p class="form-field-error">
                             {{ error }}
                         </p>
                     {% endfor %}

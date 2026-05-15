@@ -62,7 +62,7 @@ class ProfileUpdateForm(forms.Form):
             value
         ):
             raise forms.ValidationError(
-                f"• {field_name} can only contain letters, spaces, hyphens and apostrophes."
+                f"• {field_name} can only contain letters, spaces, - and '"
             )
 
         return value

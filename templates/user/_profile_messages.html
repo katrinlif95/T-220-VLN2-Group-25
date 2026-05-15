@@ -1,0 +1,91 @@
+<!-- Profile/account page messages -->
+<div class="profile-message-wrapper">
+
+    <!-- Django success/error/info messages -->
+    {% for message in messages %}
+
+        {% if "finalize" not in message.tags %}
+
+            <div class="profile-message {{ message.tags }}">
+
+                {% if "success" in message.tags %}
+                    <span class="material-symbols-outlined">
+                        check_circle
+                    </span>
+                {% endif %}
+
+                {% if "error" in message.tags %}
+                    <span class="material-symbols-outlined">
+                        error
+                    </span>
+                {% endif %}
+
+                {% if "warning" in message.tags %}
+                    <span class="material-symbols-outlined">
+                        warning
+                    </span>
+                {% endif %}
+
+                {{ message }}
+
+            </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+
+    <!-- Unsaved changes reminder message -->
+    <div
+        id="profile-preview-message"
+        class="profile-message info"
+        style="display: none;"
+    >
+        <span class="material-symbols-outlined">
+            info
+        </span>
+
+        Unsaved changes. Click "Update profile" to save.
+    </div>
+
+
+    <!-- Bid alert messages -->
+    {% if bid_alert_counts.unfinalized_count or bid_alert_counts.outbid_count %}
+
+        <div class="profile-message info bid-alert-message">
+
+            <span class="material-symbols-outlined bid-alert-icon">
+                notifications
+            </span>
+
+            <div class="bid-alert-content">
+
+                {% if bid_alert_counts.unfinalized_count %}
+                    <p class="bid-alert-row">
+
+                        <span class="bid-alert-dot bid-alert-dot-payment"></span>
+
+                        {{ bid_alert_counts.unfinalized_count }}
+                        unpaid bid{{ bid_alert_counts.unfinalized_count|pluralize }}
+
+                    </p>
+                {% endif %}
+
+                {% if bid_alert_counts.outbid_count %}
+                    <p class="bid-alert-row">
+
+                        <span class="bid-alert-dot bid-alert-dot-outbid"></span>
+
+                        {{ bid_alert_counts.outbid_count }}
+                        outbid bid{{ bid_alert_counts.outbid_count|pluralize }}
+
+                    </p>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>

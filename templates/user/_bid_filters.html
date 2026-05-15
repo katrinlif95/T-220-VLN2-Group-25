@@ -1,0 +1,53 @@
+<div class="bid-filters">
+
+    <a href="{% url 'account-bids' %}"
+       class="bid-filter-link {% if selected_filter == 'all' %}active{% endif %}">
+        All
+    </a>
+
+    <a href="{% url 'account-bids' %}?filter=pending"
+        class="bid-filter-link {% if selected_filter == 'pending' %}active{% endif %}">
+        Pending
+
+        {% if bid_alert_counts.pending_count %}
+            <span class="filter-count">
+                ({{ bid_alert_counts.pending_count }})
+            </span>
+        {% endif %}
+    </a>
+
+    <a href="{% url 'account-bids' %}?filter=outbid"
+       class="bid-filter-link {% if selected_filter == 'outbid' %}active{% endif %}">
+        Outbid
+        {% if bid_alert_counts.outbid_count %}
+            <span class="filter-count">({{ bid_alert_counts.outbid_count }})</span>
+        {% endif %}
+    </a>
+
+    <a href="{% url 'account-bids' %}?filter=unfinalized"
+       class="bid-filter-link {% if selected_filter == 'unfinalized' %}active{% endif %}">
+        Unpaid
+        {% if bid_alert_counts.unfinalized_count %}
+            <span class="filter-count">({{ bid_alert_counts.unfinalized_count }})</span>
+        {% endif %}
+    </a>
+
+    <a href="{% url 'account-bids' %}?filter=finalized"
+       class="bid-filter-link {% if selected_filter == 'finalized' %}active{% endif %}">
+        Finalized
+    </a>
+
+    <details class="bid-filter-more">
+        <summary class="bid-filter-link">
+            More
+        </summary>
+
+        <div class="bid-filter-dropdown">
+            <a href="{% url 'account-bids' %}?filter=accepted">Accepted</a>
+            <a href="{% url 'account-bids' %}?filter=contingent">Contingent</a>
+            <a href="{% url 'account-bids' %}?filter=rejected">Rejected</a>
+            <a href="{% url 'account-bids' %}?filter=expired">Expired</a>
+        </div>
+    </details>
+
+</div>

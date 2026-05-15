@@ -17,8 +17,10 @@
     <!-- Bids content -->
     <section class="bids-section">
 
+        {% include "user/_bid_filters.html" %}
+
         {% for bid in bids %}
-            <article class="bid-card">
+            <article class="bid-card {% if bid.status == 'pending' and bid.amount < bid.artwork_annotated_highest_bid_amount %}outbid-card{% endif %}">
                 {% with first_image=bid.artwork.images.all.0 %}
                     {% if first_image %}
                         <img
@@ -78,7 +80,7 @@
                 </div>
             </article>
         {% empty %}
-            <p>No bids found.</p>
+            <p class="no-bids-message">No bids found.</p>
         {% endfor %}
     </section>
 

@@ -75,7 +75,13 @@ def get_bid_alert_counts(user):
         amount__lt=Subquery(highest_bid_amount),
     ).count()
 
+    pending_count = Bid.objects.filter(
+        user=user,
+        status="pending",
+    ).count()
+
     return {
         "unfinalized_count": unfinalized_count,
         "outbid_count": outbid_count,
+        "pending_count": pending_count,
     }
