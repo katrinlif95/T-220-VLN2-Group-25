@@ -3,12 +3,10 @@ from django.shortcuts import render, get_object_or_404
 from decimal import Decimal, ROUND_FLOOR, ROUND_CEILING
 
 from artwork.models import Artwork, ArtworkImage
-from artwork.services import artwork_is_sold,get_current_highest_bid_amount
+from artwork.services import artwork_is_sold, get_current_highest_bid_amount
 
 from bid.forms import BidForm
 from bid.models import Bid
-
-import math
 
 def artwork_index(request):
     # Subquery checking whether each artwork has
@@ -243,6 +241,16 @@ def artwork_detail(request, artwork_id):
     # Get highest actual bid amount, if any
     highest_bid_amount = get_current_highest_bid_amount(artwork)
 
+    # Get previous and next artwork
+    # based on display order
+    previous_artwork = Artwork.objects.filter(
+        display_order__lt=artwork.display_order
+    ).order_by("-display_order").first()
+
+    next_artwork = Artwork.objects.filter(
+        display_order__gt=artwork.display_order
+    ).order_by("display_order").first()
+
     # Check whether logged-in user already has a bid
     # that can be resubmitted on this artwork
     existing_resubmittable_bid = None
@@ -257,14 +265,6 @@ def artwork_detail(request, artwork_id):
                 Bid.STATUS_EXPIRED,
             ]
         ).first()
-
-    previous_artwork = Artwork.objects.filter(
-        id__lt=artwork.id
-    ).order_by("-id").first()
-
-    next_artwork = Artwork.objects.filter(
-        id__gt=artwork.id
-    ).order_by("id").first()
 
     # Create empty bid form for submit bid modal
     bid_form = BidForm()
