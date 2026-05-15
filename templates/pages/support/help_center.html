@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/info_pages.css' %}">
+{% endblock %}
+
+{% block title %}Help Center | ArtVault{% endblock %}
+
+{% block content %}
+
+<section class="help-center-wrapper">
+
+    <p class="help-center-label">
+        Support
+    </p>
+
+    <h1>Help Center</h1>
+
+    <p>
+        The ArtVault Help Center is here to guide you through the most important
+        parts of using the platform. Whether you are browsing artworks, placing
+        bids, finalizing a purchase or managing your account, support
+        information is available to help you move through the process with
+        confidence.
+    </p>
+
+    <p>
+        If you need assistance, start by reviewing the relevant guide pages for
+        buying, selling and bidding. These sections explain how ArtVault works
+        and what to expect at each step.
+    </p>
+
+    <p>
+        For account-related questions, payment concerns or issues with a listing,
+        please contact the ArtVault support team for further assistance.
+    </p>
+
+</section>
+
+{% endblock %}

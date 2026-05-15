@@ -71,7 +71,7 @@
 }
 
 .status-badge.available {
-    background-color: #2596BE;
+    background-color: var(--secondary-color);
 }
 
 /* ===================
@@ -139,7 +139,7 @@
 .artwork-detail-info {
     position: relative;
     width: 420px;
-    padding-top: 26px;
+    padding-top: 40px;
     padding-left: 50px;
 }
 
@@ -480,7 +480,7 @@
 
 .artwork-detail-info .title-row .status-badge.available {
     position: static;
-    margin-top: -60px;
+    margin-top: -80px;
     transform: translateX(-50px);
 }
 

@@ -3,17 +3,17 @@
     <section class="footer-section">
         <!-- User guide links -->
         <h2>User guide</h2>
-        <a href="#">How to buy art</a>
-        <a href="#">How to sell artwork</a>
-        <a href="#">Bidding process</a>
+        <a href="{% url 'how-to-buy-art' %}">How to buy art</a>
+        <a href="{% url 'how-to-sell-artwork' %}">How to sell artwork</a>
+        <a href="{% url 'bidding-process' %}">Bidding process</a>
     </section>
 
     <section class="footer-section">
         <!-- Support links -->
         <h2>Support</h2>
-        <a href="#">Help center</a>
-        <a href="#">Contact support</a>
-        <a href="#">Report an issue</a>
+        <a href="{% url 'help-center' %}">Help center</a>
+        <a href="{% url 'contact-support' %}">Contact support</a>
+        <a href="{% url 'report-an-issue' %}">Report an issue</a>
     </section>
 
     <section class="footer-section">
@@ -43,8 +43,8 @@
 
     <div class="footer-legal">
         <!-- Legal links -->
-        <a href="#">Website terms </a>
+        <a href="{% url 'website-terms' %}">Website terms </a>
         <span>|</span>
-        <a href="#"> Privacy policy</a>
+        <a href="{% url 'privacy-policy' %}"> Privacy policy</a>
     </div>
 </footer>

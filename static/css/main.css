@@ -167,7 +167,7 @@ h1 {
 }
 
 .user-trigger:hover {
-    box-shadow: inset 0 -2px 0 #2596BE;
+    box-shadow: inset 0 -2px 0 var(--secondary-color);
 }
 
 .user-dropdown-menu a:hover,
@@ -177,16 +177,16 @@ h1 {
 
 .dropdown-logout-btn {
     padding: 4px 6px;
-    border: 1px solid #222;
+    border: none;
     border-radius: 10px;
-    background: black;
+    background: var(--main-color);
     font-size: 15px;
     color: white;
     cursor: pointer;
 }
 
 .dropdown-logout-btn:hover {
-    background-color:  #2596BE;
+    background-color:  var(--secondary-color);
     color: white;
 
 }

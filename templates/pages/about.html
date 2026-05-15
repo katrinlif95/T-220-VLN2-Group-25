@@ -1,48 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/info_pages.css' %}">
+{% endblock %}
 
 {% block title %}About ArtVault | ArtVault{% endblock %}
 
 {% block content %}
-
-<style>
-
-.about-wrapper {
-    max-width: 900px;
-
-    margin: 0 auto;
-
-    padding: 80px 40px;
-}
-
-.about-label {
-    margin-bottom: 12px;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    letter-spacing: 1px;
-    text-transform: uppercase;
-
-    color: #777;
-}
-
-.about-wrapper h1 {
-    margin-bottom: 32px;
-
-    font-size: 64px;
-    line-height: 1.1;
-}
-
-.about-wrapper p {
-    margin-bottom: 24px;
-
-    font-size: 18px;
-    line-height: 1.8;
-
-    color: #444;
-}
-
-</style>
 
 <section class="about-wrapper">
 

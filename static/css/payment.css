@@ -37,9 +37,10 @@
     padding: 0;
 }
 
-.checkout-header h1 {
-    font-size: 42px;
-    font-weight: 600;
+.checkout-header h2 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
     margin-bottom: 36px;
 }
 
@@ -71,7 +72,7 @@
 
 .checkout-main label {
     display: block;
-    font-size: 13px;
+    font-size: 16px;
     color: #666;
     letter-spacing: 0.01em;
 }
@@ -85,14 +86,14 @@
     border-radius: 6px;
     background-color: white;
     color: #444;
-    font-size: 14px;
+    font-size: 16px;
     font-family: var(--font-main);
 }
 
 .checkout-main input:focus,
 .checkout-main select:focus {
     outline: none;
-    border-color: #2596BE;
+    border-color: var(--secondary-color);
     box-shadow: 0 0 0 2px rgba(37, 150, 190, 0.08);
 }
 
@@ -103,9 +104,9 @@
     width: fit-content;
     margin-top: 16px;
     padding: 14px 32px;
-    border: 1px solid #111;
+    border: none;
     border-radius: 8px;
-    background-color: #111;
+    background-color: var(--main-color);
     color: white;
     font-size: 15px;
     font-weight: 550;
@@ -114,7 +115,7 @@
 }
 
 .checkout-main button[type="submit"]:hover {
-    background-color: #2596BE !important;
+    background-color: var(--secondary-color) !important;
     opacity: 1 !important;
 }
 
@@ -142,6 +143,7 @@
 }
 
 .summary-artwork-info p {
+    font-size: 16px;
     color: #777;
     margin-bottom: 24px;
 }
@@ -156,7 +158,7 @@
     display: flex;
     justify-content: space-between;
     gap: 24px;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .summary-artwork-link {
@@ -169,7 +171,7 @@
 }
 
 .summary-artwork-link:hover {
-    color: #2596BE;
+    color: var(--secondary-color);
 }
 
 /* ===============
@@ -313,6 +315,33 @@
     font-size: 15px;
 }
 
+.review-note {
+    margin-top: 32px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.review-warning {
+    margin-top: 24px;
+    padding: 24px;
+    border-radius: 12px;
+    background-color: #f8f8f8;
+    border: 1px solid #e3e3e3;
+}
+
+.review-warning h4 {
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.review-warning p {
+    margin: 0;
+    color: #555;
+    line-height: 1.7;
+}
+
 /* ===============
     SUCCESS MODAL
    =============== */
@@ -352,7 +381,7 @@
 }
 
 .cancel-link:hover {
-    color: #2596BE;
+    color: var(--secondary-color);
 }
 
 .cancel-link::before {

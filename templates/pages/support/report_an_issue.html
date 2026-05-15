@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/info_pages.css' %}">
+{% endblock %}
+
+{% block title %}Report an Issue | ArtVault{% endblock %}
+
+{% block content %}
+
+<section class="report-issue-wrapper">
+
+    <p class="report-issue-label">
+        Support
+    </p>
+
+    <h1>Report an Issue</h1>
+
+    <p>
+        If you experience technical issues while using ArtVault, we encourage
+        you to report them so our team can investigate and improve the platform.
+        This may include problems related to bidding, payments, account access,
+        artwork listings or general site functionality.
+    </p>
+
+    <p>
+        When reporting an issue, please include as much relevant information as
+        possible, such as the page where the problem occurred, any error
+        messages displayed and the actions that led to the issue. Detailed
+        reports help us resolve problems more efficiently.
+    </p>
+
+    <p>
+        For urgent concerns, please contact the ArtVault support team directly
+        at +354 519 4820.
+    </p>
+
+</section>
+
+{% endblock %}

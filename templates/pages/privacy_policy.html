@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/info_pages.css' %}">
+{% endblock %}
+
+{% block title %}Privacy Policy | ArtVault{% endblock %}
+
+{% block content %}
+
+<section class="privacy-policy-wrapper">
+
+    <p class="privacy-policy-label">
+        Legal
+    </p>
+
+    <h1>Privacy Policy</h1>
+
+    <p>
+        ArtVault is committed to protecting the privacy and personal information
+        of its users. Information collected through the platform is used solely
+        to support account management, bidding activity, payment processing and
+        overall platform functionality.
+    </p>
+
+    <p>
+        Personal information submitted by users is handled securely and is not
+        shared with third parties unless required for essential platform
+        operations or legal obligations. ArtVault takes appropriate measures to
+        maintain the confidentiality and security of user data.
+    </p>
+
+    <p>
+        By using ArtVault, users acknowledge and accept the collection and use
+        of information as described within this privacy policy.
+    </p>
+
+</section>
+
+{% endblock %}

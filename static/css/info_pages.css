@@ -1,0 +1,345 @@
+/* =============
+   About page
+================ */
+.about-wrapper {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+}
+
+.about-label {
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+}
+
+.about-wrapper h1 {
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.about-wrapper p {
+    margin-bottom: 22px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--main-color);
+}
+
+.about-wrapper p:last-child {
+    margin-top: 36px;
+    margin-bottom: 0;
+    padding-right: 20px;
+    text-align: center;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+/* ====================
+   How to buy art page
+======================= */
+
+.buy-art-wrapper {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+}
+
+.buy-art-label {
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+}
+
+.buy-art-wrapper h1 {
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.buy-art-wrapper p {
+    margin-bottom: 22px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--main-color);
+}
+
+.buy-art-wrapper p:last-child {
+    margin-bottom: 0;
+}
+
+/* =============
+   How to sell artwork page
+================ */
+
+.sell-art-wrapper {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+}
+
+.sell-art-label {
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+}
+
+.sell-art-wrapper h1 {
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.sell-art-wrapper p {
+    margin-bottom: 22px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--main-color);
+}
+
+.sell-art-wrapper p:last-child {
+    margin-bottom: 0;
+}
+
+/* =============
+   Bidding process page
+================ */
+
+.bidding-process-wrapper {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+}
+
+.bidding-process-label {
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+}
+
+.bidding-process-wrapper h1 {
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.bidding-process-wrapper p {
+    margin-bottom: 22px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--main-color);
+}
+
+.bidding-process-wrapper p:last-child {
+    margin-bottom: 0;
+}
+
+/* =============
+   Help center page
+================ */
+
+.help-center-wrapper {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+}
+
+.help-center-label {
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+}
+
+.help-center-wrapper h1 {
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.help-center-wrapper p {
+    margin-bottom: 22px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--main-color);
+}
+
+.help-center-wrapper p:last-child {
+    margin-bottom: 0;
+}
+
+/* =============
+   Contact support page
+================ */
+
+.contact-support-wrapper {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+}
+
+.contact-support-label {
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+}
+
+.contact-support-wrapper h1 {
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.contact-support-wrapper p {
+    margin-bottom: 22px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--main-color);
+}
+
+.contact-support-wrapper p:last-child {
+    margin-bottom: 0;
+}
+
+/* =============
+   Report issue page
+================ */
+
+.report-issue-wrapper {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+}
+
+.report-issue-label {
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+}
+
+.report-issue-wrapper h1 {
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.report-issue-wrapper p {
+    margin-bottom: 22px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--main-color);
+}
+
+.report-issue-wrapper p:last-child {
+    margin-bottom: 0;
+}
+
+/* =============
+   Website terms page
+================ */
+
+.website-terms-wrapper {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+}
+
+.website-terms-label {
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+}
+
+.website-terms-wrapper h1 {
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.website-terms-wrapper p {
+    margin-bottom: 22px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--main-color);
+}
+
+.website-terms-wrapper p:last-child {
+    margin-bottom: 0;
+}
+
+/* =============
+   Privacy policy page
+================ */
+
+.privacy-policy-wrapper {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 72px 24px 96px;
+}
+
+.privacy-policy-label {
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--main-color);
+}
+
+.privacy-policy-wrapper h1 {
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.privacy-policy-wrapper p {
+    margin-bottom: 22px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--main-color);
+}
+
+.privacy-policy-wrapper p:last-child {
+    margin-bottom: 0;
+}
