@@ -1,7 +1,7 @@
 from django.utils import timezone
-
 from .models import Bid
-
+from payment.models import Payment
+from django.db.models import Exists, OuterRef, Subquery
 
 # Check whether a bid has passed its expiration date
 def is_bid_expired(bid):
@@ -25,3 +25,57 @@ def mark_bid_as_expired(bid):
         bid.save(update_fields=["status"])
 
     return bid
+
+def get_bid_alert_counts(user):
+    """
+    Return bid counts shown on user profile/account pages.
+
+    Counts:
+    - unfinalized: accepted/contingent bids without completed payment
+    - outbid: pending bids where another bid is currently higher
+    """
+
+    completed_payment_exists = Payment.objects.filter(
+        bid=OuterRef("pk"),
+        status="completed",
+    )
+
+    highest_bid_amount = Bid.objects.filter(
+        artwork=OuterRef("artwork_id"),
+        status__in=[
+            "pending",
+            "accepted",
+            "contingent",
+        ],
+    ).order_by(
+        "-amount"
+    ).values(
+        "amount"
+    )[:1]
+
+    user_bids = Bid.objects.filter(
+        user=user,
+    ).annotate(
+        is_finalized=Exists(completed_payment_exists),
+        artwork_annotated_highest_bid_amount=Subquery(
+            highest_bid_amount
+        ),
+    )
+
+    unfinalized_count = user_bids.filter(
+        status__in=[
+            "accepted",
+            "contingent",
+        ],
+        is_finalized=False,
+    ).count()
+
+    outbid_count = user_bids.filter(
+        status="pending",
+        amount__lt=Subquery(highest_bid_amount),
+    ).count()
+
+    return {
+        "unfinalized_count": unfinalized_count,
+        "outbid_count": outbid_count,
+    }
