@@ -34,6 +34,28 @@
 
     </div>
 
+        <div class="artwork-navigation">
+
+    {% if previous_artwork %}
+        <a
+            href="{% url 'artwork-detail' previous_artwork.id %}"
+            class="artwork-nav-link"
+        >
+            ← Previous artwork
+        </a>
+    {% endif %}
+
+    {% if next_artwork %}
+        <a
+            href="{% url 'artwork-detail' next_artwork.id %}"
+            class="artwork-nav-link"
+        >
+            Next artwork →
+        </a>
+    {% endif %}
+
+    </div>
+
     <section class="artwork-detail-layout">
         {% if is_sold %}
             <p class="status-badge sold">Sold</p>
@@ -190,28 +212,6 @@
         </div>
 
     </section>
-
-    <div class="artwork-navigation">
-
-    {% if previous_artwork %}
-        <a
-            href="{% url 'artwork-detail' previous_artwork.id %}"
-            class="artwork-nav-link"
-        >
-            ← Previous artwork
-        </a>
-    {% endif %}
-
-    {% if next_artwork %}
-        <a
-            href="{% url 'artwork-detail' next_artwork.id %}"
-            class="artwork-nav-link"
-        >
-            Next artwork →
-        </a>
-    {% endif %}
-
-</div>
 
     <section class="artwork-extra-info">
 
