@@ -1,3 +1,5 @@
+from bid.services import mark_bid_as_expired
+
 def artwork_is_sold(artwork):
     """
     Return True if the artwork has an accepted
@@ -37,13 +39,25 @@ def get_highest_bid(artwork):
     Return the highest active bid placed
     on the artwork.
 
-    Rejected and cancelled bids are excluded.
+    Rejected, cancelled and expired bids
+    are excluded.
 
     Returns:
         Bid object if active bids exist
         None if no active bids exist
     """
 
+    # Only pending bids can expire
+    pending_bids = artwork.bids.filter(
+        status="pending"
+    )
+
+    # Update pending bids to expired
+    # if expiration date has passed
+    for bid in pending_bids:
+        mark_bid_as_expired(bid)
+
+    # Return highest active bid
     return artwork.bids.filter(
         status__in=[
             "pending",

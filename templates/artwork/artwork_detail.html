@@ -104,8 +104,8 @@
                     <p>Current highest bid:</p>
                 {% endif %}
 
-                {% if artwork.highest_bid_amount %}
-                    <strong>{{ artwork.highest_bid_amount|isk }} ISK</strong>
+                {% if highest_bid_amount %}
+                    <strong>{{ highest_bid_amount|isk }} ISK</strong>
                 {% else %}
                     <strong>No bids yet</strong>
                 {% endif %}
@@ -227,7 +227,7 @@
         <div class="seller-logo">
             <img
             src="{{ artwork.seller.logo_url }}"
-            alt="{{ artwork.seller.display_name }}"
+            alt="{{ artwork.seller.display_name }} logo"
     >
         </div>
 

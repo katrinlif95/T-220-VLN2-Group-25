@@ -6,7 +6,7 @@ from artwork.models import Artwork
 from artwork.services import artwork_is_sold, get_current_highest_bid_amount
 from .forms import BidForm
 from .models import Bid
-
+from bid.services import mark_bid_as_expired
 
 # Only logged-in users can submit bids
 @login_required
@@ -37,6 +37,7 @@ def submit_bid(request, artwork_id):
             status__in=[
                 Bid.STATUS_PENDING,
                 Bid.STATUS_REJECTED,
+                Bid.STATUS_EXPIRED,
             ]
         ).first()
 

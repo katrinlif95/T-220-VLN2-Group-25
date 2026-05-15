@@ -57,7 +57,11 @@ Finalize Bid
 
                 </select>
 
-                {{ form.payment_method.errors }}
+                {% if form.payment_method.errors %}
+                    <p id="payment-method-error" class="errorlist">
+                        {{ form.payment_method.errors.0 }}
+                    </p>
+                {% endif %}
 
             </div>
 
