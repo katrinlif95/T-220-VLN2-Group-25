@@ -10,14 +10,6 @@
     <a href="{% url 'home' %}" class="site-logo">ArtVault</a>
     <!-- Header actions -->
     <div class="header-actions">
-        <!-- Search bar -->
-        <form>
-            <div class="search">
-                <input class="search-input" type="search" placeholder="Search">
-                <span class="search-icon material-symbols-outlined">search</span>
-            </div>
-        </form>
-
         <!-- Shows user menu if user is signed in -->
         {% if user.is_authenticated %}
 
