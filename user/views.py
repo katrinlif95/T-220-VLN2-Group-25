@@ -3,10 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from bid.models import Bid
-from bid.services import mark_bid_as_expired
-from django.db.models import Exists, OuterRef, Subquery
+from django.db.models import Exists, OuterRef, Subquery, F
 from payment.models import Payment
 from bid.services import get_bid_alert_counts
+from django.utils import timezone
 
 from django.db.models import (
     Case,
@@ -44,6 +44,9 @@ def profile_detail(request):
     profile, created = UserProfile.objects.get_or_create(
         user=request.user
     )
+
+    # Get bid alert counts for profile messages
+    bid_alert_counts = get_bid_alert_counts(request.user)
 
     # Handle submitted profile update form
     if request.method == "POST":
@@ -120,15 +123,26 @@ def account_bids(request):
     request.session.pop("finalize_contact_info", None)
     request.session.pop("finalize_payment_info", None)
 
-    # Update pending bids to expired
-    # before fetching and sorting the final list
-    pending_bids = Bid.objects.filter(
-        user=request.user,
-        status="pending",
+    # Get selected filter from URL
+    selected_filter = request.GET.get("filter", "all")
+
+    # Get artwork ids where current user has placed bids
+    user_artwork_ids = Bid.objects.filter(
+        user=request.user
+    ).values_list(
+        "artwork_id",
+        flat=True
     )
 
-    for bid in pending_bids:
-        mark_bid_as_expired(bid)
+    # Expire all pending bids on those artworks
+    # if their expiration time has passed
+    Bid.objects.filter(
+        artwork_id__in=user_artwork_ids,
+        status="pending",
+        expires_at__lt=timezone.now(),
+    ).update(
+        status="expired"
+    )
 
     # Subquery checking whether each bid
     # already has a completed payment
@@ -153,9 +167,6 @@ def account_bids(request):
     )[:1]
 
     # Get bids belonging to current logged-in user
-    # select_related loads artwork and seller in the same query
-    # prefetch_related loads artwork images in one extra query
-    # annotate adds calculated values without extra queries per bid
     bids = (
         Bid.objects
         .filter(user=request.user)
@@ -212,10 +223,58 @@ def account_bids(request):
                 output_field=IntegerField(),
             ),
         )
-        .order_by(
-            "sort_order",
-            "-created_at",
+    )
+
+    # Apply selected filter
+    if selected_filter == "pending":
+        bids = bids.filter(
+            status="pending"
         )
+
+    elif selected_filter == "outbid":
+        bids = bids.filter(
+            status="pending",
+            amount__lt=F("artwork_annotated_highest_bid_amount"),
+        )
+
+    elif selected_filter == "contingent":
+        bids = bids.filter(
+            status="contingent"
+        )
+
+    elif selected_filter == "accepted":
+        bids = bids.filter(
+            status="accepted"
+        )
+
+    elif selected_filter == "finalized":
+        bids = bids.filter(
+            is_finalized=True
+        )
+
+    elif selected_filter == "rejected":
+        bids = bids.filter(
+            status="rejected"
+        )
+
+    elif selected_filter == "expired":
+        bids = bids.filter(
+            status="expired"
+        )
+
+    elif selected_filter == "unfinalized":
+        bids = bids.filter(
+            status__in=[
+                "accepted",
+                "contingent",
+            ],
+            is_finalized=False,
+        )
+
+    # Order bids after filters have been applied
+    bids = bids.order_by(
+        "sort_order",
+        "-created_at",
     )
 
     # Get bid alert counts shown on profile/account pages
@@ -229,6 +288,7 @@ def account_bids(request):
         {
             "bids": bids,
             "bid_alert_counts": bid_alert_counts,
+            "selected_filter": selected_filter,
         }
     )
 

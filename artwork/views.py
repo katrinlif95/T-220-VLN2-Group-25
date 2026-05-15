@@ -40,7 +40,8 @@ def artwork_index(request):
         .prefetch_related(
             Prefetch(
                 "images",
-                queryset=ArtworkImage.objects.order_by("order")
+                queryset=ArtworkImage.objects.order_by("order", "id"),
+                to_attr="ordered_images",
             )
         )
     )

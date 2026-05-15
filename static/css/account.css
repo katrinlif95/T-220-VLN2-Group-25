@@ -355,7 +355,11 @@
 .bid-status-btn.contingent {
     background-color: #84AEBF;
     color: white;
+}
 
+.bid-status-btn.expired {
+    background-color: dimgrey;
+    color: white;
 }
 
 .bid-actions {
@@ -377,6 +381,161 @@
 
 .bid-value {
     color: #838383;
+}
+
+.bid-alert-message {
+    align-items: flex-start;
+}
+
+.bid-alert-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.bid-alert-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.bid-alert-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.bid-alert-dot-payment {
+    background-color: #276738;
+}
+
+.bid-alert-dot-outbid {
+    background-color: #d59112;
+}
+
+.outbid-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.outbid-card::before {
+    content: "Outbid";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    padding: 4px 16px;
+
+      background-color: var(--main-color);
+    color: white;
+
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+
+    z-index: 2;
+}
+
+.outbid-card {
+    padding-top: 36px;
+}
+
+.no-bids-message {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* Bid filters*/
+.bid-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.bid-filter-link {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 0.55rem 1rem;
+
+    border: 1px solid #ddd;
+    border-radius: 999px;
+
+    background-color: #fff;
+
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+.bid-filter-link:hover {
+    border-color: var(--secondary-color);
+}
+
+.bid-filter-link.active {
+    background-color: #222;
+    border-color: #222;
+    color: #fff;
+}
+
+.filter-count {
+    margin-left: 0.25rem;
+    font-weight: 400;
+}
+
+.bid-filter-more {
+    position: relative;
+}
+
+.bid-filter-more summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.bid-filter-more summary::-webkit-details-marker {
+    display: none;
+}
+
+.bid-filter-dropdown {
+    position: absolute;
+    top: 115%;
+    right: 0;
+    z-index: 10;
+
+    min-width: 10rem;
+    padding: 0.4rem;
+
+    border: 1px solid #ddd;
+    border-radius: 0.9rem;
+    background-color: #fff;
+    box-shadow: 0 0.6rem 1.5rem rgba(0, 0, 0, 0.08);
+}
+
+.bid-filter-dropdown a {
+    display: block;
+    padding: 0.65rem 0.8rem;
+    border-radius: 0.6rem;
+
+    color: #222;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.bid-filter-dropdown a:hover {
+    background-color: #f3f3f3;
 }
 
 /* ====================
@@ -476,5 +635,4 @@
         height: auto;
     }
 }
-
 

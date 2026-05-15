@@ -360,4 +360,5 @@ def confirm_payment(request, bid_id):
         **get_checkout_navigation_context(request),
 
         "show_success_modal": True,
+        "user": request.user,
     })
