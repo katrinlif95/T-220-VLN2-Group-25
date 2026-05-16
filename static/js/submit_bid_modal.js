@@ -83,6 +83,11 @@ if (
             bidForm.dataset.minBid
         );
 
+        // Check whether minBid represents a current highest bid
+        // or just the artwork starting price.
+        const hasHighestBid =
+            bidForm.dataset.hasHighestBid === "true";
+
         // Get selected expiration date
         const expirationDate = new Date(
             expirationInput.value
@@ -102,8 +107,19 @@ if (
             isValid = false;
         }
 
-        // Validate that amount is not below minimum bid
-        else if (amount < minBid) {
+        // If artwork already has bids,
+        // new bid must be higher than current highest bid
+        else if (hasHighestBid && amount <= minBid) {
+
+            amountError.textContent =
+                "Please enter a higher bid amount.";
+
+            isValid = false;
+        }
+
+        // If artwork has no bids yet,
+        // new bid may be equal to the starting price.
+        else if (!hasHighestBid && amount < minBid) {
 
             amountError.textContent =
                 "Please enter a higher bid amount.";
@@ -148,7 +164,7 @@ if (
             && amount === existingAmount
             && expirationInput.value === existingExpiration
         ) {
-                    bidFormError.textContent =
+            bidFormError.textContent =
                 "Please update your bid before resubmitting.";
 
             isValid = false;

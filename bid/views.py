@@ -93,7 +93,6 @@ def submit_bid(request, artwork_id):
                 )
 
         else:
-            print(form.errors)  #TODO fjarlægja print
             # Re-render artwork detail page with
             # form errors visible in the bid modal
             images = artwork.images.order_by("order")
