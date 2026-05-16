@@ -65,7 +65,8 @@ class BidForm(forms.ModelForm):
         if self.artwork:
 
             highest_bid = Bid.objects.filter(
-                artwork=self.artwork
+                artwork=self.artwork,
+                status=Bid.STATUS_PENDING
             )
 
             # If user is resubmitting an existing bid,
