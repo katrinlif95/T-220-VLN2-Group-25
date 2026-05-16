@@ -1,12 +1,19 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import (
+    get_object_or_404,
+    redirect,
+    render,
+)
+
 from artwork.models import Artwork
-from artwork.services import artwork_is_sold, get_current_highest_bid_amount
+from artwork.services import (
+    artwork_is_sold,
+    get_current_highest_bid_amount,
+)
+
 from .forms import BidForm
 from .models import Bid
-from bid.services import mark_bid_as_expired
 
 # Only logged-in users can submit bids
 @login_required

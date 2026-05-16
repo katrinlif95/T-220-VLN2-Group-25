@@ -1,10 +1,20 @@
-from django.shortcuts import render, get_object_or_404
-from django.db.models import Exists, OuterRef, Prefetch
-from bid.models import Bid
-from .models import Seller
-from artwork.models import Artwork, ArtworkImage
-from artwork.services import add_artwork_display_status
+from django.db.models import (
+    Exists,
+    OuterRef,
+    Prefetch,
+)
+from django.shortcuts import (
+    get_object_or_404,
+    render,
+)
 
+from artwork.models import (
+    Artwork,
+    ArtworkImage,
+)
+from bid.models import Bid
+
+from .models import Seller
 
 def artist_index(request):
 

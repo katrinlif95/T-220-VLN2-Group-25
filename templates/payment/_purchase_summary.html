@@ -4,7 +4,7 @@
 
     <h2>Order summary</h2>
 
-    {% with first_image=bid.artwork.images.first %}
+    {% with first_image=bid.artwork.ordered_images.0 %}
         {% if first_image %}
             <img
                 class="summary-image"

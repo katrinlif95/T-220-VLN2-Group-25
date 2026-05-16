@@ -1,11 +1,24 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, redirect
-from bid.models import Bid
 from django.contrib import messages
-from .forms import  ContactInfoForm,PaymentDetailsForm
-from .services import validate_finalize_flow_access, reject_other_pending_bids
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import (
+    get_object_or_404,
+    redirect,
+    render,
+)
+
+from bid.models import Bid
 from user.models import ContactInfo
+
+from .forms import (
+    ContactInfoForm,
+    PaymentDetailsForm,
+)
 from .models import Payment
+from .services import (
+    get_finalize_bid_or_404,
+    reject_other_pending_bids,
+    validate_finalize_flow_access,
+)
 
 
 # Build context values used by the checkout step navigation
@@ -24,7 +37,7 @@ def contact_information(request, bid_id):
 
     # Get bid by id
     # Return 404 if bid does not exist
-    bid = get_object_or_404(Bid, id=bid_id)
+    bid = get_finalize_bid_or_404(bid_id)
 
     # Validate that the current user owns the bid
     # and that the bid can be finalized
@@ -122,7 +135,7 @@ def payment_details(request, bid_id):
 
     # Get bid by id
     # Return 404 if bid does not exist
-    bid = get_object_or_404(Bid, id=bid_id)
+    bid = get_finalize_bid_or_404(bid_id)
 
     # Validate that the current user owns the bid
     # and that the bid can be finalized
@@ -201,7 +214,7 @@ def review_payment(request, bid_id):
 
     # Get bid by id
     # Return 404 if bid does not exist
-    bid = get_object_or_404(Bid, id=bid_id)
+    bid = get_finalize_bid_or_404(bid_id)
 
     # Validate that the current user owns the bid
     # and that the bid can be finalized
@@ -278,7 +291,7 @@ def confirm_payment(request, bid_id):
 
     # Get bid by id
     # Return 404 if bid does not exist
-    bid = get_object_or_404(Bid, id=bid_id)
+    bid = get_finalize_bid_or_404(bid_id)
 
     # Validate that the current user owns the bid
     # and that the bid can be finalized

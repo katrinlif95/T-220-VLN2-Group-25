@@ -1,25 +1,33 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-from bid.models import Bid
-from django.db.models import Exists, OuterRef, Subquery, F
-from payment.models import Payment
-from bid.services import get_bid_alert_counts
-from django.utils import timezone
-
 from django.db.models import (
     Case,
-    When,
-    Value,
-    IntegerField,
     Exists,
+    F,
+    IntegerField,
     OuterRef,
+    Prefetch,
+    Subquery,
+    Value,
+    When,
 )
+from django.shortcuts import redirect, render
+from django.utils import timezone
 
+from artwork.models import ArtworkImage
+from bid.models import Bid
+from bid.services import get_bid_alert_counts
+from payment.models import Payment
 
-from .forms import ProfileUpdateForm, ContactInfoProfileForm
-from .models import ContactInfo, UserProfile
+from .forms import (
+    ContactInfoProfileForm,
+    ProfileUpdateForm,
+)
+from .models import (
+    ContactInfo,
+    UserProfile,
+)
 
 
 def register(request):
@@ -175,7 +183,11 @@ def account_bids(request):
             "artwork__seller",
         )
         .prefetch_related(
-            "artwork__images",
+            Prefetch(
+                "artwork__images",
+                queryset=ArtworkImage.objects.order_by("order"),
+                to_attr="ordered_images",
+            )
         )
         .annotate(
             is_finalized=Exists(completed_payment_exists),
@@ -262,7 +274,7 @@ def account_bids(request):
             status="expired"
         )
 
-    elif selected_filter == "unfinalized":
+    elif selected_filter == "unpaid":
         bids = bids.filter(
             status__in=[
                 "accepted",

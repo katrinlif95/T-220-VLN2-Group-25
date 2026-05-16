@@ -24,8 +24,8 @@
         {% endif %}
     </a>
 
-    <a href="{% url 'account-bids' %}?filter=unfinalized"
-       class="bid-filter-link {% if selected_filter == 'unfinalized' %}active{% endif %}">
+    <a href="{% url 'account-bids' %}?filter=unpaid"
+       class="bid-filter-link {% if selected_filter == 'unpaid' %}active{% endif %}">
         Unpaid
         {% if bid_alert_counts.unfinalized_count %}
             <span class="filter-count">({{ bid_alert_counts.unfinalized_count }})</span>
