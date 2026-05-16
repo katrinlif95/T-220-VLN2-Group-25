@@ -35,21 +35,34 @@
                 <!-- Profile image wrapper -->
                 <div class="profile-image-wrapper">
 
+                    <!-- Hidden file input -->
+                    <div class="profile-image-upload">
+                        {{ form.profile_image }}
+                    </div>
+
                     <!-- Clickable profile image -->
                     <label for="{{ form.profile_image.id_for_label }}">
 
                         {% if profile.profile_image %}
+
                             <img
                                 id="profile-image-preview"
                                 class="profile-image clickable-profile-image"
                                 src="{{ profile.profile_image.url }}"
                                 alt="Profile image for {{ user.first_name }}"
                             >
+
                         {% else %}
-                            <span id="profile-image-preview"
-                                 class="profile-image-placeholder clickable-profile-image">
-                                {{ user.first_name|first }}{{ user.last_name|first }}
+
+                            <span
+                                id="profile-image-preview"
+                                class="profile-image profile-image-placeholder clickable-profile-image"
+                            >
+                                {% if user.first_name or user.last_name %}
+                                    {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}
+                                {% endif %}
                             </span>
+
                         {% endif %}
 
                         <!-- Edit icon overlay -->

@@ -122,9 +122,29 @@
 }
 
 .profile-image-wrapper {
-        position: relative;
-        flex-shrink: 0;
-    }
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profile-image-wrapper label {
+    display: block;
+    position: relative;
+
+    width: 180px;
+    height: 180px;
+}
+
+.profile-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #f1eee9;
+    color: var(--main-color);
+
+    font-size: 52px;
+    font-weight: 400;
+}
 
 /* Make profile image clickable */
 .clickable-profile-image {
