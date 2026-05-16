@@ -43,7 +43,7 @@ python --version
 1. Download and extract the ZIP file
 2. Open the extracted project folder in VS Code or PyCharm
 3. Open a terminal inside the project folder
-4. Continue from Step 2 in the installation instructions
+4. Continue from “Create virtual environment” in the installation instructions
 
 ---
 
@@ -151,7 +151,14 @@ Once the server is running successfully, the ArtVault application should be acce
 
 ## Notes for grading
 
-### Seller Functionality
+### Demo accounts
+
+No predefined demo user accounts are included.  
+Users may create accounts directly through the application.
+
+---
+
+### Seller functionality
 
 Seller-side functionality for accepting bids was not implemented as a separate seller workflow.
 For testing purposes, bid statuses can be changed through the Django admin panel.
@@ -168,25 +175,47 @@ python manage.py createsuperuser
 3. Run the server and log in to the Django admin panel:
 
 ```text
-http://127.0.0.1:8000/admin
+http://127.0.0.1:8000/admin/
 ```
 
-4. In the admin panel, go to Bid → Bids.
-5. Select the bid that should be accepted.
-6. Change the bid Status from Pending to Accepted or Contingent.
-7. Click Save.
-8. Log back in as the normal user.
-9. The user can now continue to the finalize payment process.
+4. In the admin panel, go to **Bid → Bids**
+5. Select the bid that should be accepted
+6. Change the bid Status from Pending to Accepted or Contingent
+7. Click Save
+8. Log back in as the normal user
+9. The user can now continue to the finalize payment process
+
+---
+
+### Test expired bids
+
+To test the expired bid functionality without waiting for the original expiration date:
+
+1. Log in to the Django admin panel:
+
+```text
+http://127.0.0.1:8000/admin/
+```
+
+2. Go to **Bid → Bids**
+3. Select a bid
+4. Under **Expires at**, change the expiration date/time to a near-future time (for example 1–2 minutes ahead)
+5. Click Save
+6. Refresh the page after the expiration time has passed
+7. The bid status should automatically update to `Expired`.
 
 ---
 
 ## Additional features implemented
+
+The following additional features and improvements were implemented beyond the core project requirements:
 
 ### UI & user experience
 
 - Responsive design for different screen sizes and resolutions
 - Breadcrumb navigation across multiple pages
 - Hover effects and button animations
+- Descriptive alt text added to artwork and UI images for improved accessibility
 
 ---
 
