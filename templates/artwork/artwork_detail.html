@@ -38,7 +38,7 @@
 
     {% if previous_artwork %}
         <a
-            href="{% url 'artwork-detail' previous_artwork.id %}"
+            href="{% url 'artwork-detail' previous_artwork.id %}?{{ request.GET.urlencode }}"
             class="artwork-nav-link"
         >
             ← Previous artwork
@@ -47,7 +47,7 @@
 
     {% if next_artwork %}
         <a
-            href="{% url 'artwork-detail' next_artwork.id %}"
+            href="{% url 'artwork-detail' next_artwork.id %}?{{ request.GET.urlencode }}"
             class="artwork-nav-link"
         >
             Next artwork →
