@@ -667,6 +667,10 @@
     color: white;
 }
 
+.bid-status-badge.expired {
+    background-color: dimgrey;
+    color: white;
+}
 
 /* =============
    Artwork navigation

@@ -1,7 +1,13 @@
+from django.db.models import (
+    Exists,
+    OuterRef,
+    Subquery,
+)
 from django.utils import timezone
-from .models import Bid
+
 from payment.models import Payment
-from django.db.models import Exists, OuterRef, Subquery
+
+from .models import Bid
 
 # Check whether a bid has passed its expiration date
 def is_bid_expired(bid):

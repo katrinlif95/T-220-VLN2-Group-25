@@ -371,6 +371,19 @@
     margin-bottom: 24px;
 }
 
+.success-modal-link {
+    display: inline-block;
+    color: var(--main-color);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.success-modal-link:hover {
+    color: var(--secondary-color);
+}
+
+Þá ætti underline og hover að virka.
+
 .cancel-link {
     display: inline-block;
     margin-top: 24px;
@@ -387,6 +400,7 @@
 .cancel-link::before {
     content: "← ";
 }
+
 
 /* ============
     RESPONSIVE

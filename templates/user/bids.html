@@ -21,7 +21,7 @@
 
         {% for bid in bids %}
             <article class="bid-card {% if bid.status == 'pending' and bid.amount < bid.artwork_annotated_highest_bid_amount %}outbid-card{% endif %}">
-                {% with first_image=bid.artwork.images.all.0 %}
+                {% with first_image=bid.artwork.ordered_images.0 %}
                     {% if first_image %}
                         <img
                             class="bid-artwork-image"

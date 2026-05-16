@@ -1,10 +1,27 @@
-from django.db.models import Min, Max, Exists, OuterRef, Subquery, Prefetch
-from django.shortcuts import render, get_object_or_404
-from decimal import Decimal, ROUND_FLOOR, ROUND_CEILING
+from decimal import (
+    Decimal,
+    ROUND_CEILING,
+    ROUND_FLOOR,
+)
 
-from artwork.models import Artwork, ArtworkImage
-from artwork.services import artwork_is_sold, get_current_highest_bid_amount
+from django.db.models import (
+    Exists,
+    Max,
+    Min,
+    OuterRef,
+    Prefetch,
+    Subquery,
+)
+from django.shortcuts import get_object_or_404, render
 
+from artwork.models import (
+    Artwork,
+    ArtworkImage,
+)
+from artwork.services import (
+    artwork_is_sold,
+    get_current_highest_bid_amount,
+)
 from bid.forms import BidForm
 from bid.models import Bid
 
@@ -222,10 +239,10 @@ def artwork_detail(request, artwork_id):
     )
 
     # Get prefetched artwork images in display order
-    images = artwork.images.order_by("order")
+    images = artwork.images.all().order_by("order")
 
     # Set first image as the main displayed image
-    main_image = images[0] if images else None
+    main_image = images.first()
 
     # Prepare image data for JavaScript carousel functionality
     images_data = [
