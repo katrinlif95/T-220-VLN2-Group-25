@@ -14,6 +14,11 @@ const amountError = document.getElementById("amount-error");
 const expirationError = document.getElementById("expiration-error");
 const bidFormError = document.getElementById("bid-form-error");
 
+// Get actual submit button inside the modal
+const submitBidButton = document.getElementById(
+    "submit-bid-button"
+);
+
 
 // Only run modal functionality if all required elements exist
 if (openBidModalButton && closeBidModalButton && bidModal) {
@@ -77,14 +82,11 @@ if (
         const amount = Number(amountInput.value);
 
         // Get minimum valid bid amount
-        // This is highest bid if one exists,
-        // otherwise the artwork starting price
         const minBid = parseFloat(
             bidForm.dataset.minBid
         );
 
         // Check whether minBid represents a current highest bid
-        // or just the artwork starting price.
         const hasHighestBid =
             bidForm.dataset.hasHighestBid === "true";
 
@@ -98,6 +100,27 @@ if (
         today.setHours(0, 0, 0, 0);
 
 
+        // Get existing pending bid data, if user is resubmitting
+        const existingAmount = Number(
+            bidForm.dataset.existingAmount
+        );
+
+        const existingExpiration =
+            bidForm.dataset.existingExpiration;
+
+        const existingStatus =
+            bidForm.dataset.existingStatus;
+
+
+        // Check if user is resubmitting
+        // their own current highest bid
+        const isOwnHighestBidResubmission =
+            existingStatus === "pending"
+            && !Number.isNaN(existingAmount)
+            && amount === existingAmount
+            && amount === minBid;
+
+
         // Validate that amount is a positive number
         if (!amount || amount <= 0) {
 
@@ -108,8 +131,13 @@ if (
         }
 
         // If artwork already has bids,
-        // new bid must be higher than current highest bid
-        else if (hasHighestBid && amount <= minBid) {
+        // new bid must normally be higher
+        // than current highest bid.
+        else if (
+            hasHighestBid
+            && amount <= minBid
+            && !isOwnHighestBidResubmission
+        ) {
 
             amountError.textContent =
                 "Please enter a higher bid amount.";
@@ -141,18 +169,6 @@ if (
         }
 
 
-        // Get existing pending bid data, if user is resubmitting
-        const existingAmount = Number(
-            bidForm.dataset.existingAmount
-        );
-
-        const existingExpiration =
-            bidForm.dataset.existingExpiration;
-
-        const existingStatus =
-            bidForm.dataset.existingStatus;
-
-
         // Validate that pending resubmitted bid contains
         // at least one actual change.
         // Rejected bids may be resubmitted unchanged.
@@ -164,6 +180,7 @@ if (
             && amount === existingAmount
             && expirationInput.value === existingExpiration
         ) {
+
             bidFormError.textContent =
                 "Please update your bid before resubmitting.";
 
@@ -174,6 +191,34 @@ if (
         // Prevent form submission if validation fails
         if (!isValid) {
             event.preventDefault();
+            return;
+        }
+
+
+        // Stop here if browser validation fails
+        if (!bidForm.checkValidity()) {
+            return;
+        }
+
+
+        // Disable submit button and show loading state
+        if (submitBidButton) {
+
+            submitBidButton.disabled = true;
+
+            if (
+                submitBidButton.textContent.includes("Resubmit")
+            ) {
+
+                submitBidButton.textContent =
+                    "Resubmitting...";
+            }
+
+            else {
+
+                submitBidButton.textContent =
+                    "Submitting...";
+            }
         }
 
     });
