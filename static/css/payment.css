@@ -61,7 +61,7 @@
 .checkout-form {
     display: grid;
     gap: 24px;
-    max-width: 560px;
+    width: 100%;
 }
 
 .checkout-form-row {
@@ -117,6 +117,15 @@
 .checkout-main button[type="submit"]:hover {
     background-color: var(--secondary-color) !important;
     opacity: 1 !important;
+}
+
+.checkout-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid #d9d9d9;
 }
 
 /* ===========
@@ -270,7 +279,7 @@
 .review-section {
     display: grid;
     gap: 16px;
-    max-width: 560px;
+    width: 100%;
 }
 
 .review-section h3 {
@@ -382,7 +391,6 @@
     color: var(--secondary-color);
 }
 
-Þá ætti underline og hover að virka.
 
 .cancel-link {
     display: inline-block;
@@ -405,7 +413,6 @@
 /* ============
     RESPONSIVE
    ============ */
-
 @media (max-width: 1000px) {
     .checkout-page {
         grid-template-columns: 1fr;
@@ -420,6 +427,15 @@
         padding-left: 0;
         padding-top: 32px;
     }
+
+    .summary-image {
+        width: 100%;
+        max-width: 320px;
+        height: 220px;
+        max-height: 260px;
+        object-fit: cover;
+        display: block;
+    }
 }
 
 @media (max-width: 700px) {
@@ -433,8 +449,12 @@
     }
 
     .checkout-steps {
-        flex-direction: column;
-        gap: 24px;
+        align-items: center;
+    }
+
+    .checkout-step {
+        justify-content: center;
+        width: 100%;
     }
 }
 

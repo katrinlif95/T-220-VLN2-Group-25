@@ -356,6 +356,12 @@ h1 {
     color: black;
 }
 
+.footer-socials {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.8rem;
+}
+
 /* =================
     HOMEPAGE - HERO
    ================= */
