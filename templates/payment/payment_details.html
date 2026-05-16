@@ -217,18 +217,17 @@ Finalize Bid
 
             </div>
 
-            <button type="submit">
-                Continue
-            </button>
+              </div><div class="checkout-actions">
+                <a href="{% url 'account-bids' %}" class="cancel-link">
+                    Cancel and return to my bids
+                </a>
+
+                <button type="submit" class="continue-button">
+                    Continue
+                </button>
+            </div>
 
         </form>
-
-        <a
-            href="{% url 'account-bids' %}"
-            class="cancel-link"
-        >
-            Cancel and return to my bids
-        </a>
 
     </section>
 

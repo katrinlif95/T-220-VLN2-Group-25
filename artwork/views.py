@@ -261,13 +261,82 @@ def artwork_detail(request, artwork_id):
 
     # Get previous and next artwork
     # based on display order
-    previous_artwork = Artwork.objects.filter(
+    filtered_artworks = Artwork.objects.all()
+
+    selected_status = request.GET.get("status", "")
+    selected_medium = request.GET.get("medium", "")
+    selected_style = request.GET.get("style", "")
+    search_query = request.GET.get("search", "")
+    highlighted_only = request.GET.get("highlighted") == "true"
+    selected_artist = request.GET.get("artist", "")
+    selected_seller = request.GET.get("seller", "")
+
+    price_filter_active = (
+            "min_price" in request.GET
+            or "max_price" in request.GET
+    )
+
+    selected_min_price = request.GET.get("min_price")
+    selected_max_price = request.GET.get("max_price")
+
+    if selected_status:
+        filtered_artworks = filtered_artworks.filter(
+            status=selected_status
+        )
+
+    if selected_medium:
+        filtered_artworks = filtered_artworks.filter(
+            medium__iexact=selected_medium
+        )
+
+    if selected_style:
+        filtered_artworks = filtered_artworks.filter(
+            style__iexact=selected_style
+        )
+
+    if search_query:
+        filtered_artworks = filtered_artworks.filter(
+            title__icontains=search_query
+        )
+
+    if price_filter_active:
+        filtered_artworks = filtered_artworks.filter(
+            starting_price__gte=selected_min_price,
+            starting_price__lte=selected_max_price
+        )
+
+    if highlighted_only:
+        filtered_artworks = filtered_artworks.filter(
+            highlighted=True
+        )
+
+    if selected_artist:
+        filtered_artworks = filtered_artworks.filter(
+            artist_name__iexact=selected_artist
+        )
+
+    if selected_seller:
+        filtered_artworks = filtered_artworks.filter(
+            seller_id=selected_seller
+        )
+
+    previous_artwork = filtered_artworks.filter(
         display_order__lt=artwork.display_order
     ).order_by("-display_order").first()
 
-    next_artwork = Artwork.objects.filter(
+    if not previous_artwork:
+        previous_artwork = filtered_artworks.order_by(
+            "-display_order"
+        ).first()
+
+    next_artwork = filtered_artworks.filter(
         display_order__gt=artwork.display_order
     ).order_by("display_order").first()
+
+    if not next_artwork:
+        next_artwork = filtered_artworks.order_by(
+            "display_order"
+        ).first()
 
     # Check whether logged-in user already has a bid
     # that can be resubmitted on this artwork
