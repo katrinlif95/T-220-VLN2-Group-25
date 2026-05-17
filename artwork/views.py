@@ -271,11 +271,6 @@ def artwork_detail(request, artwork_id):
     selected_artist = request.GET.get("artist", "")
     selected_seller = request.GET.get("seller", "")
 
-    price_filter_active = (
-            "min_price" in request.GET
-            or "max_price" in request.GET
-    )
-
     selected_min_price = request.GET.get("min_price")
     selected_max_price = request.GET.get("max_price")
 
@@ -299,9 +294,13 @@ def artwork_detail(request, artwork_id):
             title__icontains=search_query
         )
 
-    if price_filter_active:
+    if selected_min_price:
         filtered_artworks = filtered_artworks.filter(
-            starting_price__gte=selected_min_price,
+            starting_price__gte=selected_min_price
+        )
+
+    if selected_max_price:
+        filtered_artworks = filtered_artworks.filter(
             starting_price__lte=selected_max_price
         )
 
